@@ -22,14 +22,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm i @emotion/styled
-      # - run: npm install @mui/material axios firebase-tools "react@18.1.0" react-native victory victory-chart @pmmmwh/react-refresh-webpack-plugin react-refresh --legacy-peer-deps
-      # - run: yarn add @mui/material
-      # - run: yarn add axios
-      # - run: yarn add firebase-tools
-      # - run: yarn add react
-      # - run: yarn add react-native
-      # - run: yarn add victory
-      # - run: yarn add victory-chart
       - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
