@@ -55,6 +55,7 @@ function applyRulesToTech(rules, allTech) {
 
   allTech.forEach(technology => {
     rules.forEach(rule => {
+      // eslint-disable-next-line 
       if (technology[rule.data_type.toLowerCase()] == undefined) {
         return;
       };
@@ -133,6 +134,7 @@ export default function ReviewThreats() {
   const recommendationsRef = useRef(null);
 
   useEffect(() => {
+    // eslint-disable-next-line 
     if (user.uid == undefined) {
       return;
     }
@@ -206,6 +208,7 @@ export default function ReviewThreats() {
 
       }
       );
+      // eslint-disable-next-line 
   }, [user])
 
 

@@ -119,6 +119,7 @@ export default function ReviewThreats() {
       }
       getUserMitigations();
     }
+    // eslint-disable-next-line 
   }, [user]);
 
   // When the data from Firebase is loaded, we need to identify the techniques that directly affect the user.
@@ -147,7 +148,7 @@ export default function ReviewThreats() {
           return userMitigationIDs.some(userMitigationID => userMitigationID === mitigationID)
         })
 
-          if (techniqueMitigated.length == 0 && common_platforms.length != 0) {
+          if (techniqueMitigated.length === 0 && common_platforms.length !== 0) {
             techniquesAffectingUser.push(technique)
 
           }

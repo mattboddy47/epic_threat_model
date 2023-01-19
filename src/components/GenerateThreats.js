@@ -2,11 +2,6 @@ import { React, useEffect, useState } from 'react'
 import GenerateThreatsForAssets from './GenerateThreatsForAssets';
 import GenerateOverallThreats from './GenerateOverallThreats';
 
-function AttackTechniquesButtonAction() {
-   
-
-}
-
 export default function GenerateThreats(props) {
     const userTechniques = props.userTechniques
     const assets = props.assets
@@ -24,6 +19,7 @@ export default function GenerateThreats(props) {
             newThreatModel.push(asset)
         });
         setAssetAndValidTechniques(newThreatModel)
+        // eslint-disable-next-line 
     }, []);
     
    

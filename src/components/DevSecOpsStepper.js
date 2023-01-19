@@ -5,13 +5,6 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import { useNavigate } from 'react-router-dom'
 
-const steps = [
-  'Select assets',
-  'Select Security Mitigations',
-  'Model Threats'
-];
-
-
 
 export default function ThreatModelStepper(props) {
   const currentStep = props.step

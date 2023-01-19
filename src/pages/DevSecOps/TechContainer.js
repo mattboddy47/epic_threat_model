@@ -14,7 +14,7 @@ import { db } from '../../firebase'
 import { useNavigate } from 'react-router-dom'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
-import { collection, getDocs, addDoc, deleteDoc, query, where, updateDoc, doc } from 'firebase/firestore'
+import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'firebase/firestore'
 import { LargeInfoCard } from '../../components/LargeInfoCard';
 import { toast } from 'react-toastify';
 
@@ -49,7 +49,7 @@ export default function DevSecOpsAssetContainer() {
 
             }
             );
-
+// eslint-disable-next-line 
     }, []);
 
 

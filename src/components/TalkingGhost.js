@@ -20,7 +20,7 @@ export default function TalkingGhost(props) {
         justifyContent="center"
         alignItems="center">
           <Grid item>
-      <img src={ghost_logo} height={100}/>
+      <img alt="Fred the friendly ghost" src={ghost_logo} height={100}/>
       </Grid>
       <Grid item>
       <Box sx={{

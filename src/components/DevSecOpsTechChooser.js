@@ -61,6 +61,7 @@ export const DevSecOpsTechChooser = (props) => {
 
     });
     // setAssetsJson(assetsJson)
+    // eslint-disable-next-line 
   }, []);
   if (!loading) {
     return (

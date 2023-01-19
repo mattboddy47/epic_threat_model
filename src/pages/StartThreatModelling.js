@@ -56,6 +56,7 @@ export default function StartThreatModelling() {
                         break;
                 }
             })
+           // eslint-disable-next-line  
     }, []);
 
     if (secOpsImage && devSecOpsImage) {

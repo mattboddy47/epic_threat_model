@@ -32,7 +32,7 @@ export default function GenerateOverallThreats(props) {
           });
 
         setValidMalwareCampaigns(newValidMalwareCampaigns)
-
+// eslint-disable-next-line 
           }, [])
 
         

@@ -55,7 +55,7 @@ const TopBar = () => {
         </Typography>
         </Grid>
         <Grid item>
-        <img src={ghost_logo} height={100}/>
+        <img alt="Fred the friendly ghost says hi" src={ghost_logo} height={100}/>
         </Grid>
         </Grid>
       </div>

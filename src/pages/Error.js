@@ -3,7 +3,6 @@ import '../index.css';
 import Box from '@mui/material/Box';
 import TalkingGhost from '../components/TalkingGhost';
 import { useLocation } from "react-router-dom";
-import { default_error_message } from '../Text/ErrorTexts';
 
 
 export default function Error() {

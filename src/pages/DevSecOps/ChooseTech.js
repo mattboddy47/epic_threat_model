@@ -9,7 +9,7 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
 import { useNavigate } from 'react-router-dom';
 import TalkingGhost from '../../components/TalkingGhost';
-import { collection, getDocs, query, where, writeBatch, doc } from 'firebase/firestore'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 import { UserAuth } from '../../context/AuthContext';
 import { db } from '../../firebase'
 
@@ -23,6 +23,7 @@ export default function DevSecOpsChooseAssets() {
   const [tech, setTech] = useState(null);
 
   useEffect(() => {
+    // eslint-disable-next-line 
     if (user.uid != undefined) {
     getDownloadURL(assetsJsonPath)
       .then((url) => {
@@ -70,6 +71,7 @@ export default function DevSecOpsChooseAssets() {
       }
       getAssets();
     }
+    // eslint-disable-next-line 
   }, [user])
 
   // Make sure that assetsJson is not null

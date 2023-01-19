@@ -1,4 +1,4 @@
-import { useState, React, useEffect } from 'react'
+import { useState, React } from 'react'
 import Typography from '@mui/material/Typography';
 import DoneIcon from '@mui/icons-material/Done';
 import Chip from '@mui/material/Chip';
@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { collection, getDocs, addDoc, deleteDoc, query, where, updateDoc, doc } from 'firebase/firestore'
+import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import { db } from '../firebase'
 import { UserAuth } from '../context/AuthContext';

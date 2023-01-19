@@ -4,7 +4,7 @@ import PageNavigationFAB from '../../components/PageNavigationFAB'
 import { SecurityMitigationsChooser } from '../../components/SecurityMitigationsChooser';
 import { db } from '../../firebase'
 import { UserAuth } from '../../context/AuthContext';
-import { collection, getDocs, query, where, writeBatch, doc, runTransaction  } from 'firebase/firestore'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -29,7 +29,7 @@ export default function CurrentSecurityMitigations() {
   }
 
   useEffect(() => {
-
+// eslint-disable-next-line 
     if (user.uid != undefined) {
 
       const getUserMitigations = async () => {
@@ -101,6 +101,7 @@ export default function CurrentSecurityMitigations() {
     getAssets();
 
     }
+    // eslint-disable-next-line 
   }, [user.uid]);
 
 

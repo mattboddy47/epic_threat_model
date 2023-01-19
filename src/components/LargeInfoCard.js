@@ -13,7 +13,7 @@ export const LargeInfoCard = ({ children, imageUrl, title, description }) => {
             justifyContent="center"
             alignItems="center">
             <Grid item >
-                <img src={imageUrl} height={300} width={300} alt="asset container type image"
+                <img src={imageUrl} height={300} width={300} alt="asset container type"
                     style={{ borderRadius: 50 }}
                 />
             </Grid>

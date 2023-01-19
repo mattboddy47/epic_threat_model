@@ -23,9 +23,13 @@ export default function TechReview(props) {
                     justifyContent="center"
                     alignItems="center">
                     {Object.keys(matchedRules).map((key) => {
+                        // eslint-disable-next-line 
                         const hasWhat = matchedRules[key].matched_technology_what != undefined;
+                        // eslint-disable-next-line 
                         const hasWho = matchedRules[key].matched_technology_who != undefined;
+                        // eslint-disable-next-line 
                         const hasHow = matchedRules[key].matched_technology_how != undefined;
+                        // eslint-disable-next-line 
                         const hasWhy = matchedRules[key].matched_technology_why != undefined;
 
                         return (

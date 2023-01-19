@@ -61,6 +61,7 @@ asset.asset_containers.forEach(asset_container => {
       
     });
     // setAssetsJson(assetsJson)
+    // eslint-disable-next-line 
   }, []);
   if (!loading){
     return (

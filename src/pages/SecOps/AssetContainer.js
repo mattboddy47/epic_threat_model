@@ -13,7 +13,7 @@ import { db } from '../../firebase'
 import { useNavigate } from 'react-router-dom'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
-import { collection, getDocs, addDoc, deleteDoc, query, where, updateDoc, doc } from 'firebase/firestore'
+import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'firebase/firestore'
 import { LargeInfoCard } from '../../components/LargeInfoCard';
 import { toast } from 'react-toastify';
 
@@ -48,7 +48,7 @@ export default function AssetContainer() {
 
             }
             );
-
+// eslint-disable-next-line 
     }, []);
 
     const handleChipClick = (key) => {
@@ -91,7 +91,7 @@ export default function AssetContainer() {
                 return asset.selected
             })
             // if no chips are selected, throw an error and do nothing
-            if (selectedAssets.length == 0) {
+            if (selectedAssets.length === 0) {
 toast.error("Please select the tech that you use.")
                 return
             }
