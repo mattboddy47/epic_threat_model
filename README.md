@@ -35,3 +35,6 @@ Once all of the relevant technology is added to the model, select `Review Threat
 Now you are presented with a set of reccomendations to help keep your data safe within your chosen Tech Stack. The image below shows the reccomendation of ensuring that a file storage API is behind a load balancer to scale to surges in traffic volume. It also provides a reccomendation to ensuring that denial of service attacks are dealt with through the use of a Web Application Firewall. 
 
 ![File Storage Reccomendation](https://github.com/mattboddy47/simple_threat_model/src/images/walkthrough/file_storage_reccomendation.JPG?raw=true)
+
+## What, Who, How and Why
+To gather relevant data that would otherwise be collected in a Data Flow Diagram, the Simple Threat Model asks 4 questions of technology that holds data, what, who, how and why. By having a structured answer to these, some information about the data and how it is accessed is then understood by us. This allows for an interpretation of how the data could be maliciously accessed, in a similar way to a DFD.
