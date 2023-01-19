@@ -1,7 +1,6 @@
 {
   "hosting": {
     "public": "build",
-    "predeploy":["yarn install --legacy-peer-deps", "yarn run build"],
     "ignore": [
       "firebase.json",
       "**/.*",
