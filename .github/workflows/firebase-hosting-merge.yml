@@ -21,7 +21,7 @@ jobs:
         with: 
           node-version: ${{ matrix.node-version }}
       - run: npm i --legacy-peer-deps
-      - run: npm install -g mui, axios, firebase-tools, react, react-native, victory, victory-chart
+      - run: npm install -g @mui/material, axios, firebase-tools, react, react-native, victory, victory-chart
       # - run: yarn install
       # - run: yarn run build
       - run: npm ci && npm run build
