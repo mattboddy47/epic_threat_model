@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# Simple Threat Model
+![Fred the Ghost](https://github.com/mattboddy47/simple_threat_model/src/images/ghost_logo.png?raw=true)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Intro
+The Simple Threat Model is designed for Developers and Security Engineers to quickly Threat Model their cloud applications as a part of Agile workflow. 
 
-## Available Scripts
+This tool tests whether its feasible to model the threats facing an organisation without the need to draw a data flow diagram. 
 
-In the project directory, you can run:
+## Access
+Anyone can sign up to the Simple Threat Model at https://simple-threat-model.web.app/.
 
-### `npm start`
+## How to use the tool
+Really, the Simple Threat Model should be so simple that anybody can use it, but it is understandable that some might be weary about signing up to yet another platform. Firstly, you can rest assured, the sign up is just in place as a method of differentiating user data (i.e. Bob is shown Bob's Threat Model, Alice is shown Alice's Threat Model). The tool is created to use on Firebase, if you would like to spin up your own version of the tool, then you should have everything you need to do so, I will release instructions on how exactly you can do that soon.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Step 1
+Once you are logged in to the Threat Modelling tool, you are presented with a choice, would you like to model your SecOps (i.e. your operational technology), or DevSecOps (i.e. your development environment). SecOps is not active today (it's what I initially created, and I can't bring myself to delete it just yet), so select DevSecOps to move onto step 2. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![Opening screen](https://github.com/mattboddy47/simple_threat_model/src/images/walkthrough/start_threat_modelling.JPG?raw=true)
 
-### `npm test`
+## Step 2
+This is where the action happens. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+In front of you is a list of technologies that you might be using in your epic, story, task, project or feature. Each technology type is clickable, select a technology you will use and you will be presented with a series of questions about that technology that will assist the model.
 
-### `npm run build`
+![Select tech stack](https://github.com/mattboddy47/simple_threat_model/src/images/walkthrough/select_tech_stack.JPG?raw=true)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The screenshot below shows a selected technology being filled with multiple choice answers helping the Threat Model to understand the data it holds. More about the What, Who, How and Why is discussed under the heading below. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![File storage](https://github.com/mattboddy47/simple_threat_model/src/images/walkthrough/file_storage.JPG?raw=true)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Once all of the relevant technology is added to the model, select `Review Threats` to navigate to the next page and final step. 
 
-### `npm run eject`
+## Step 3
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Now you are presented with a set of reccomendations to help keep your data safe within your chosen Tech Stack. The image below shows the reccomendation of ensuring that a file storage API is behind a load balancer to scale to surges in traffic volume. It also provides a reccomendation to ensuring that denial of service attacks are dealt with through the use of a Web Application Firewall. 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![File Storage Reccomendation](https://github.com/mattboddy47/simple_threat_model/src/images/walkthrough/file_storage_reccomendation.JPG?raw=true)
