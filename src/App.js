@@ -11,8 +11,8 @@ import Protected from './components/Protected';
 import { AuthContextProvider } from './context/AuthContext';
 import { Theme } from './components/Theme'
 import Error from './pages/Error'
-// eslint-disable-next-line
 import {
+  // eslint-disable-next-line
   BrowserRouter,
   Routes,
   Route,

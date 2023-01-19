@@ -53,7 +53,7 @@ const Signin = () => {
         <>
         <BoxOfStuff>
             <div class="centered">
-                <img alt="Construction image showing this web app is under construction" src={under_construction} height={50} width={400} style={{ borderRadius: 50 }} />
+                <img alt="Construction site to show that this web app is under construction" src={under_construction} height={50} width={400} style={{ borderRadius: 50 }} />
 
             </div>
 
