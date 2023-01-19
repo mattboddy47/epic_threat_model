@@ -21,7 +21,7 @@ jobs:
       #   with: 
       #     node-version: ${{ matrix.node-version }}
       - run: npm i ngx-text-diff --legacy-peer-deps
-      - run: npm install @mui/material axios firebase-tools react react-native victory victory-chart
+      - run: npm install @mui/material axios firebase-tools react react-native victory victory-chart --legacy-peer-deps
       # - run: yarn add @mui/material
       # - run: yarn add axios
       # - run: yarn add firebase-tools
