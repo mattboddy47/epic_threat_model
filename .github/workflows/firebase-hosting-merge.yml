@@ -10,18 +10,18 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
 
-    # strategy:
-    #   matrix:
-    #     node-version: [15.x]
+    strategy:
+      matrix:
+        node-version: [18.x]
 
     steps:
       - uses: actions/checkout@v2
-      # - name: Use Node.js version ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v2
-      #   with: 
-      #     node-version: ${{ matrix.node-version }}
-      - run: npm i ngx-text-diff --legacy-peer-deps
-      - run: npm install @mui/material axios firebase-tools react react-native victory victory-chart @pmmmwh/react-refresh-webpack-plugin react-refresh --legacy-peer-deps
+      - name: Use Node.js version ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with: 
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      # - run: npm install @mui/material axios firebase-tools "react@18.1.0" react-native victory victory-chart @pmmmwh/react-refresh-webpack-plugin react-refresh --legacy-peer-deps
       # - run: yarn add @mui/material
       # - run: yarn add axios
       # - run: yarn add firebase-tools

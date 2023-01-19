@@ -2,7 +2,6 @@
   "name": "simple-threat-modelling-tool",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/",
   "dependencies": {
     "@mui/icons-material": "^5.10.6",
     "@testing-library/jest-dom": "^5.16.5",
@@ -16,7 +15,6 @@
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.0.3",
     "react-google-button": "^0.7.2",
-    "react-native": "^0.70.2",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.1",
     "victory": "^36.6.8",
