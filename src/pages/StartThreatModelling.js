@@ -64,7 +64,7 @@ export default function StartThreatModelling() {
         return (
             <>
                 <Typography textAlign={'center'}  margin={2} gutterBottom component="div">
- Please select the pathway that you are wanting to threat model... </Typography>
+ Please select the pathway that you are wanting to model... </Typography>
                 <Grid container
                     direction="row"
                     spacing={2}
