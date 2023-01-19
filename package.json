@@ -27,7 +27,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "reset": "find . -type dir -name node_modules | xargs rm -rf && rm -rf yarn.lock"
+  },
+  "workspaces": {
+    "packages": ["packages/*"],
+    "nohoist": ["**/react", "**/react-dom"]
+
   },
   "eslintConfig": {
     "extends": [
