@@ -23,11 +23,11 @@ jobs:
       - run: npm i ngx-text-diff --legacy-peer-deps
       - run: npm install -g @mui/material
       - run: yarn add axios
-      - run: npm install firebase-tools
-      - run: npm install react
-      - run: npm install react-native
-      - run: npm install victory
-      - run: npm install victory-chart
+      - run: yarn add firebase-tools
+      - run: yarn add react
+      - run: yarn add react-native
+      - run: yarn add victory
+      - run: yarn add victory-chart
       # - run: yarn install
       # - run: yarn run build
       - run: npm ci && npm run build
