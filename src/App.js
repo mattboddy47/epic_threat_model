@@ -27,7 +27,6 @@ import DevSecOpsTech from './pages/DevSecOps/TechContainer';
 
 
 export default function App() {
-  // test 
   return (
     <AuthContextProvider>
       <Theme>
