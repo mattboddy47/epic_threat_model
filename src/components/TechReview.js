@@ -100,7 +100,12 @@ export default function TechReview(props) {
                                                     <Typography marginRight={1} variant="body2">Why:</Typography>
                                                     {Object.keys(matchedRules[key].matched_technology_why).map((whyKey) => {
                                                         return (
-                                                            <Chip color={matchedRules[key].data_type.toLowerCase() === "why" ? "primary_transparent_30" : "default"} label={matchedRules[key].matched_technology_why[whyKey]} size="small" />
+                                                            <Chip 
+                                                            color={
+                                                                matchedRules[key].data_type.toLowerCase() === "why" ? "primary_transparent_30" : "default"
+                                                            } 
+                                                            label={matchedRules[key].matched_technology_why[whyKey]} 
+                                                            size="small" />
 
                                                         )
                                                     })}
