@@ -100,7 +100,8 @@ export default function TechReview(props) {
                                                     <Typography marginRight={1} variant="body2">Why:</Typography>
                                                     {Object.keys(matchedRules[key].matched_technology_why).map((whyKey) => {
                                                         return (
-                                                            <Chip 
+                                                            // deepcode ignore ReactMissingArrayKeys: The suggested change by Snyk is to change nothing, Please suggest if 
+                                                            <Chip
                                                             color={
                                                                 matchedRules[key].data_type.toLowerCase() === "why" ? "primary_transparent_30" : "default"
                                                             } 
