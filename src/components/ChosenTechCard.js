@@ -6,8 +6,6 @@ import Typography from '@mui/material/Typography';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { collection, getDocs, deleteDoc, query, where, doc } from 'firebase/firestore'
 import { db } from '../firebase'
-import { useNavigate } from 'react-router-dom'
-import { CardActionArea } from '@mui/material';
 
 export default function ChosenTechCard(props) {
   const image = props.image;
@@ -15,7 +13,6 @@ export default function ChosenTechCard(props) {
   const description = props.description;
   const user = props.user
   const assetName = props.assetName;
-  const navigate = useNavigate();
   
 
   const removeAssetOnClick = () => {

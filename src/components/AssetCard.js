@@ -10,13 +10,8 @@ export default function AssetCard(props) {
     const title = props.title;
     const description = props.description;
     const asset_container = props.asset_container;
-    const selected = props.selected;
     const navigate = useNavigate();
     const next_page = props.next_page;
-    var buttonText = "NOT SELECTED"
-    if (selected){
-      buttonText = "SELECTED"
-    }
 
     return (
         <Card 

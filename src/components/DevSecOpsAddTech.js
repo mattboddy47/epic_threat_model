@@ -16,7 +16,6 @@ import { CardActionArea } from '@mui/material';
 
 export const DevSecOpsAddTech = (props) => {
   const [loading, setLoading] = useState(true)
-  const assetsJson = props.assetsJson;
   const user = props.user;
   const userTech = props.userTech;
   const userTechCount = Object.keys(userTech).length;
