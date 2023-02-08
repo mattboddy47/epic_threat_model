@@ -17,6 +17,8 @@ export const WhatWhoHowWhyChips = (props) => {
     const techCollectionRef = collection(db, "dev_sec_ops_tech")
     const { user } = UserAuth()
 
+   
+
     const [whatChips, setWhatChips] = useState([
         { "name": "Confidentiality", "selected": false },
         { "name": "Integrity", "selected": false },
@@ -33,6 +35,15 @@ export const WhatWhoHowWhyChips = (props) => {
     const [whyChips, setWhyChips] = useState([
         { "name": "Future use", "selected": false },
         { "name": "Critical to operation", "selected": false }]);
+
+        const getSelectedChips = (chips) => {
+            const selectedChips = chips.filter(function (singleChip) {
+                return singleChip.selected
+            })
+            return selectedChips.map(function(item) {
+                return item['name'];
+              });
+        }
 
     const handleWhatChipClick = (key) => {
         if (whatChips[key]) {
@@ -74,30 +85,12 @@ export const WhatWhoHowWhyChips = (props) => {
     const addAsset =
         async () => {
 // Filter to the selected chips
-            const selectedWhatChips = whatChips.filter(function (whatChip) {
-                return whatChip.selected
-            })
-            const whatArray = selectedWhatChips.map(function(item) {
-                return item['name'];
-              });
-            const selectedWhoChips = whoChips.filter(function (whoChip) {
-                return whoChip.selected
-            })
-            const whoArray = selectedWhoChips.map(function(item) {
-                return item['name'];
-              });
-            const selectedHowChips = howChips.filter(function (howChip) {
-                return howChip.selected
-            })
-            const howArray = selectedHowChips.map(function(item) {
-                return item['name'];
-              });
-            const selectedWhyChips = whyChips.filter(function (whyChip) {
-                return whyChip.selected
-            })
-            const whyArray = selectedWhyChips.map(function(item) {
-                return item['name'];
-              });
+
+            const whatArray = getSelectedChips(whatChips);
+            const whoArray = getSelectedChips(whoChips);
+            const howArray = getSelectedChips(howChips);
+            const whyArray = getSelectedChips(whyChips);
+
             // if no chips are selected, throw an error and do nothing
             // if (selectedWhatChips.length == 0) {
             //     setOpenSnackbar(true);
@@ -210,6 +203,9 @@ export const WhatWhoHowWhyChips = (props) => {
                     );
                 })}
             </Stack>
+
+
+
             <Stack spacing={2} direction="row" justifyContent="flex-end">
                         <Button href={'/choose-tech-dev-sec-ops'} color="primary" variant="text">Back</Button>
                         <Button disabled={!tech.selected} startIcon={<RemoveIcon />} color="primary" variant="text" onClick={removeAsset}>Remove From Model</Button>
