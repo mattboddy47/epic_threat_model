@@ -98,6 +98,7 @@ export const WhatWhoHowWhyChips = (props) => {
                 how: howArray,
                 why: whyArray,
                 description: tech.description,
+                asset: tech.name,
                 image:  tech.image,
                 storesData: tech.guards_sensitive_data
             }).then(

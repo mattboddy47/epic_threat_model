@@ -89,6 +89,7 @@ export default function DevSecOpsAssetContainer() {
             if (chips.length === 0) {
                 addDoc(techCollectionRef, {
                     name: techName,
+                    asset: techName,
                     description: tech_data.state.description,
                     image:  tech_data.state.image,
                     storesData: tech_data.state.guards_sensitive_data,

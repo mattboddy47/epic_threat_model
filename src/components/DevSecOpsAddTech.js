@@ -169,8 +169,10 @@ export const DevSecOpsAddTech = (props) => {
                 <ChosenTechCard
                   image={userTech[key].imageUrl}
                   name={userTech[key].name}
+                  assetName={userTech[key].asset}
                   description={userTech[key].description}
                   user={user}
+                  userTech ={userTech}
                 />
 
               </Grid>
