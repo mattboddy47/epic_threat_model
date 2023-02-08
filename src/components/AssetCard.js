@@ -1,11 +1,9 @@
 import Card from '@mui/material/Card';
-import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom'
-import DoneIcon from '@mui/icons-material/Done';
 
 export default function AssetCard(props) {
     const image = props.image;
@@ -47,7 +45,7 @@ export default function AssetCard(props) {
       <CardContent
       sx={{ 
         width: 350 , 
-        height: 150,
+        height: 130,
       }}>
         <Typography gutterBottom variant="h5" component="div">
             {title}
@@ -56,18 +54,6 @@ export default function AssetCard(props) {
             {description}
         </Typography>
       </CardContent>
-      <Button sx={{
-        marginLeft: 2,
-        marginBottom: 1
-      }} 
-      disabled={!selected} 
-      startIcon={selected ? <DoneIcon /> : ""}
-      variant={selected? "contained" : "outlined"} 
-      size='small'
-      color='secondary'
-      >
-      {buttonText}
-      </Button>
       </CardActionArea>
       </Card>
             )

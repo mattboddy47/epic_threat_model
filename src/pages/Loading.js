@@ -11,14 +11,11 @@ const Loading = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("TEST", user)
         if (user == null || user.uid == null){
-            console.log("1", user)
             navigate('/signin')
         }
         // eslint-disable-next-line 
         else if (user.uid != undefined && user.uid != null) {
-            console.log("2", user)
             navigate('/start-threat-modelling')
         }
     }, [user]) // eslint-disable-line react-hooks/exhaustive-deps

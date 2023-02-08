@@ -89,13 +89,8 @@ export const WhatWhoHowWhyChips = (props) => {
             const howArray = getSelectedChips(howChips);
             const whyArray = getSelectedChips(whyChips);
 
-            // if no chips are selected, throw an error and do nothing
-            // if (selectedWhatChips.length == 0) {
-            //     setOpenSnackbar(true);
-            //     return
-            // }
 // push the selected assets to firebase
-            await addDoc(techCollectionRef, {
+            addDoc(techCollectionRef, {
                 name: tech.name,
                 owner: user.uid,
                 what: whatArray,
@@ -103,9 +98,17 @@ export const WhatWhoHowWhyChips = (props) => {
                 how: howArray,
                 why: whyArray,
                 description: tech.description,
+                image:  tech.image,
                 storesData: tech.guards_sensitive_data
+            }).then(
+                response => {
+                    console.log(response)
+                    navigate('/choose-tech-dev-sec-ops')
+
+                }
+            ).catch(err =>{
+                console.log(err)
             })
-            navigate('/choose-tech-dev-sec-ops')
 
         }
     

@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 export default function TechContainerButtons(props) {
     const removeButtonDisabled = props.removeButtonDisabled;
     const addButtonDisabled = props.addButtonDisabled;
-    const addAssetOnClick = props.addAssetFunc;
+    const addAssetOnClick = props.addAssetOnClick;
     const removeAssetOnClick = props.removeAssetOnClick;
 
 

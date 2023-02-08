@@ -90,6 +90,7 @@ export default function DevSecOpsAssetContainer() {
                 addDoc(techCollectionRef, {
                     name: techName,
                     description: tech_data.state.description,
+                    image:  tech_data.state.image,
                     storesData: tech_data.state.guards_sensitive_data,
                     owner: user.uid
                 }).then(
@@ -110,6 +111,7 @@ export default function DevSecOpsAssetContainer() {
             selectedTech.forEach(async asset => {
                 await addDoc(techCollectionRef, {
                     name: techName,
+                    image:  tech_data.state.image,
                     asset: asset.name,
                     storesData: tech_data.state.guards_sensitive_data,
                     description: tech_data.state.description,

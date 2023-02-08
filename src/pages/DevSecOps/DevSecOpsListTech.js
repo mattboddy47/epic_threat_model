@@ -1,24 +1,67 @@
 import { React, useState, useEffect } from 'react'
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import AssetCard from "./AssetCard";
+import DevSecOpsStepper from "../../components/DevSecOpsStepper";
+import TalkingGhost from '../../components/TalkingGhost';
+import Box from '@mui/material/Box';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { out_of_cloud_hosting_credit } from '../Text/ErrorTexts';
 import { useNavigate } from 'react-router-dom';
+import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
+import Grid from '@mui/material/Grid';
+import AssetCard from "../../components/AssetCard";
 import CircularProgress from '@mui/material/CircularProgress';
+import { getAssets } from '../../Functions/Assets'
+import { getTechStack } from '../../Functions/TechStack'
+import { UserAuth } from '../../context/AuthContext';
 
 
-export const DevSecOpsTechChooser = (props) => {
-  const [loading, setLoading] = useState(true)
-  const assetsJson = props.assetsJson;
-  const userTech = props.userTech;
-  const assetsCount = Object.keys(assetsJson).length;
-  const assetChooserName = props.assetChooserName;
+export default function DevSecOpsListTech() {
+  const { user } = UserAuth();
   const storage = getStorage();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true)
+  const [userTech, setUserTech] = useState(null);
+  const [assetsJson, setAssetsJson] = useState(null)
 
+  
   useEffect(() => {
+
+    getAssets(user)
+    .then((assets) => {
+      setAssetsJson(assets.dev_sec_ops_asset_container)
+    })
+    .catch (
+      (error) => {
+        switch(error){
+          case ('user_error'):
+            break;
+          default:
+            navigate('/error')
+        }
+      }
+    )
+
+
+    getTechStack(user)
+    .then((techStack) => {
+      setUserTech(techStack)
+
+    }) 
+    .catch (
+      (error) => {
+        switch(error){
+          case ('user_error'):
+            break;
+          default:
+            navigate('/error')
+        }      
+      }
+    )
+
+      // eslint-disable-next-line 
+  }, [user]);
+
+  if (assetsJson && userTech){
     var loadingProgressCount = 0;
+    const assetsCount = Object.keys(assetsJson).length;
 
     assetsJson.forEach(asset => {
       const imageRef = ref(storage, 'images/' + asset.image);
@@ -60,13 +103,15 @@ export const DevSecOpsTechChooser = (props) => {
         );
 
     });
-    // setAssetsJson(assetsJson)
-    // eslint-disable-next-line 
-  }, []);
+  }
+
   if (!loading) {
     return (
       <>
-        <Typography sx={{ lineHeight: 3 }} textAlign={'center'} gutterBottom variant="h4" component="div">{assetChooserName}</Typography>
+      <DevSecOpsStepper step={0} />
+      <Box margin={4}>
+          <TalkingGhost speech={"Select any technology that you use from the list below, we will use this information to paint a picture of your threat model."} />
+        </Box>
 
         <Grid container
           direction="row"
@@ -95,7 +140,6 @@ export const DevSecOpsTechChooser = (props) => {
   }
   return (
     <>
-      <Typography sx={{ lineHeight: 3 }} textAlign={'center'} gutterBottom variant="h4" component="div">{assetChooserName}</Typography>
       <div class="centered">
 
         <CircularProgress />
