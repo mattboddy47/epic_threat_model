@@ -6,9 +6,6 @@ import { useLocation } from "react-router-dom";
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import DoneIcon from '@mui/icons-material/Done';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import { UserAuth } from '../../context/AuthContext';
 import { db } from '../../firebase'
 import { useNavigate } from 'react-router-dom'
@@ -17,6 +14,8 @@ import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
 import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'firebase/firestore'
 import { LargeInfoCard } from '../../components/LargeInfoCard';
 import { toast } from 'react-toastify';
+import Typography from '@mui/material/Typography';
+import TechContainerButtons from '../../components/TechContainerButtons';
 
 
 
@@ -49,7 +48,7 @@ export default function DevSecOpsAssetContainer() {
 
             }
             );
-// eslint-disable-next-line 
+        // eslint-disable-next-line 
     }, []);
 
 
@@ -98,7 +97,7 @@ export default function DevSecOpsAssetContainer() {
                 )
                 return;
             }
-// Filter to the selected chips
+            // Filter to the selected chips
             const selectedTech = chips.filter(function (tech) {
                 return tech.selected
             })
@@ -107,7 +106,7 @@ export default function DevSecOpsAssetContainer() {
                 toast.error("Please select the tech that you use.")
                 return
             }
-// push the selected assets to firebase
+            // push the selected assets to firebase
             selectedTech.forEach(async asset => {
                 await addDoc(techCollectionRef, {
                     name: techName,
@@ -121,18 +120,36 @@ export default function DevSecOpsAssetContainer() {
 
         }
 
-        if (tech_data.state.guards_sensitive_data){
-            return (
-                <div>
+    if (tech_data.state.selected) {
+        return (
+            <>
                 <ThreatModelStepper step={0} />
-                <LargeInfoCard imageUrl={imageUrl} title={techName} description={"For the best Threat Model accuracy, please provide as much information from the options below before adding the " + 
-                techName.toLowerCase()  + 
-                " to your model."}>
-                  <WhatWhoHowWhyChips tech={tech_data.state} />
+                <LargeInfoCard imageUrl={imageUrl} title={techName}>
+                    <Typography marginBottom={1}>
+                        To change information about the {tech_data.state.name}, please remove it from your model and re-add.
+                    </Typography>
+                    <TechContainerButtons removeButtonDisabled={false}
+                        addButtonDisabled={true}
+                        addAssetOnClick= {addAsset}
+                        removeAssetOnClick={removeAsset} />
+                    
+                </LargeInfoCard>
+            </>
+        )
+    }
+
+    if (tech_data.state.guards_sensitive_data) {
+        return (
+            <div>
+                <ThreatModelStepper step={0} />
+                <LargeInfoCard imageUrl={imageUrl} title={techName} description={"For the best Threat Model accuracy, please provide as much information from the options below before adding the " +
+                    techName.toLowerCase() +
+                    " to your model."}>
+                    <WhatWhoHowWhyChips tech={tech_data.state} />
                 </LargeInfoCard>
             </div>
-            )
-        }
+        )
+    }
 
     return (
         <div>
@@ -152,11 +169,10 @@ export default function DevSecOpsAssetContainer() {
                     })}
 
                 </Stack>
-                <Stack spacing={2} direction="row" justifyContent="flex-end">
-                    <Button href={'/choose-tech-dev-sec-ops'} color="primary" variant="text">Back</Button>
-                    <Button disabled={!tech_data.state.selected} startIcon={<RemoveIcon />} color="primary" variant="text" onClick={removeAsset}>Remove From Model</Button>
-                    <Button disabled={tech_data.state.selected} startIcon={<AddIcon />} variant="contained" onClick={addAsset} >Add To Model</Button>
-                </Stack>
+                <TechContainerButtons removeButtonDisabled={true}
+                        addButtonDisabled={false}
+                        addAssetOnClick= {addAsset}
+                        removeAssetOnClick={removeAsset} />
             </LargeInfoCard>
         </div>
     )

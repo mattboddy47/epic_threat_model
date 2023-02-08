@@ -3,9 +3,7 @@ import Typography from '@mui/material/Typography';
 import DoneIcon from '@mui/icons-material/Done';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import TechContainerButtons from './TechContainerButtons';
 import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import { db } from '../firebase'
@@ -205,12 +203,10 @@ export const WhatWhoHowWhyChips = (props) => {
             </Stack>
 
 
-
-            <Stack spacing={2} direction="row" justifyContent="flex-end">
-                        <Button href={'/choose-tech-dev-sec-ops'} color="primary" variant="text">Back</Button>
-                        <Button disabled={!tech.selected} startIcon={<RemoveIcon />} color="primary" variant="text" onClick={removeAsset}>Remove From Model</Button>
-                        <Button disabled={tech.selected} startIcon={<AddIcon />} variant="contained" onClick={addAsset} >Add To Model</Button>
-                    </Stack>
+            <TechContainerButtons removeButtonDisabled={true}
+                        addButtonDisabled={false}
+                        addAssetOnClick= {addAsset}
+                        removeAssetOnClick={removeAsset} />
 
         </>
     )
