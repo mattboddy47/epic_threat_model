@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
+import { deepPurple } from '@mui/material/colors';
 
 
 function stringToColor(string) {
@@ -25,9 +26,10 @@ function stringToColor(string) {
 function stringAvatar(name) {
   return {
     sx: {
-      bgcolor: stringToColor(name),
+      bgcolor: deepPurple[500],
     },
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    // children: name
+    children: `${name.split(' ')[0][0]}`,
   };
 }
 

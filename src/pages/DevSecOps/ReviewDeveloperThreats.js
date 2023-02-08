@@ -16,6 +16,7 @@ import axios from 'axios';
 const or_condition = "or"
 const and_condition = "and"
 
+// This function takes in either a is_condition or an is_not condition and then returns whether that is met.
 function check_condition(is_is_not_condition, rule_is_is_not, technology, data_type, is_condition) {
   if (rule_is_is_not === "") {
     console.log(is_condition + " rule blank")
