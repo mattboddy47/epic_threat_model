@@ -3,7 +3,7 @@ import { UserAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom'
 import { BoxOfStuff } from '../components/BoxOfStuff';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import Button from '@m ui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import '../index.css';
 import under_construction from '../images/under_construction.png'

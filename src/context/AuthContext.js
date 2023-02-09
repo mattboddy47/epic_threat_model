@@ -1,6 +1,7 @@
 import { React, useContext, createContext, useState, useEffect } from "react";
 import { GoogleAuthProvider, 
     signInWithPopup,
+    signInWithRedirect,
     signOut,
     onAuthStateChanged,
     GithubAuthProvider,
@@ -31,7 +32,8 @@ export const AuthContextProvider = ({children}) => {
 
     const githubSignIn = () => {
         const provider = new GithubAuthProvider();
-        signInWithPopup(auth, provider).catch(
+        signInWithRedirect(auth, provider)
+        .catch(
             error => {
                 switch (error.message){
                     case "Firebase: Error (auth/account-exists-with-different-credential).":
