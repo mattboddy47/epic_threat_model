@@ -1,7 +1,6 @@
 import { React, useContext, createContext, useState, useEffect } from "react";
 import { GoogleAuthProvider, 
     signInWithPopup,
-    signInWithRedirect,
     signOut,
     onAuthStateChanged,
     GithubAuthProvider,
@@ -32,7 +31,7 @@ export const AuthContextProvider = ({children}) => {
 
     const githubSignIn = () => {
         const provider = new GithubAuthProvider();
-        signInWithRedirect(auth, provider)
+        signInWithPopup(auth, provider)
         .catch(
             error => {
                 switch (error.message){
