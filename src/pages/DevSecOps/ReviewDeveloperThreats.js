@@ -73,7 +73,7 @@ function applyRulesToTech(rules, allTech) {
       if (is_condition_met && is_not_condition_met && tech_stack_contains_required_assets) {
         const new_rule = Object.create(rule);
 
-        new_rule.matched_technology_name = technology.name;
+        new_rule.matched_technology_name = technology.asset;
         new_rule.matched_technology_id = technology.id;
         new_rule.matched_technology_description = technology.description;
         new_rule.matched_technology_what = technology.what;

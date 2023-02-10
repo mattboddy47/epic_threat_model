@@ -8,14 +8,15 @@ import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'fireb
 import { useNavigate } from 'react-router-dom'
 import { db } from '../firebase'
 import { UserAuth } from '../context/AuthContext';
+import { getAssetName } from '../Functions/Assets';
 
 export const WhatWhoHowWhyChips = (props) => {
     const tech = props.tech;
     const navigate = useNavigate();
-    const techCollectionRef = collection(db, "dev_sec_ops_tech")
-    const { user } = UserAuth()
+    const techCollectionRef = collection(db, "dev_sec_ops_tech");
+    const { user } = UserAuth();
+    const assetName = getAssetName(tech.name, tech.existingTechCount);
 
-   
 
     const [whatChips, setWhatChips] = useState([
         { "name": "Confidentiality", "selected": false },
@@ -34,14 +35,14 @@ export const WhatWhoHowWhyChips = (props) => {
         { "name": "Future use", "selected": false },
         { "name": "Critical to operation", "selected": false }]);
 
-        const getSelectedChips = (chips) => {
-            const selectedChips = chips.filter(function (singleChip) {
-                return singleChip.selected
-            })
-            return selectedChips.map(function(item) {
-                return item['name'];
-              });
-        }
+    const getSelectedChips = (chips) => {
+        const selectedChips = chips.filter(function (singleChip) {
+            return singleChip.selected
+        })
+        return selectedChips.map(function (item) {
+            return item['name'];
+        });
+    }
 
     const handleWhatChipClick = (key) => {
         if (whatChips[key]) {
@@ -82,14 +83,14 @@ export const WhatWhoHowWhyChips = (props) => {
 
     const addAsset =
         async () => {
-// Filter to the selected chips
+            // Filter to the selected chips
 
             const whatArray = getSelectedChips(whatChips);
             const whoArray = getSelectedChips(whoChips);
             const howArray = getSelectedChips(howChips);
             const whyArray = getSelectedChips(whyChips);
 
-// push the selected assets to firebase
+            // push the selected assets to firebase
             addDoc(techCollectionRef, {
                 name: tech.name,
                 owner: user.uid,
@@ -98,8 +99,8 @@ export const WhatWhoHowWhyChips = (props) => {
                 how: howArray,
                 why: whyArray,
                 description: tech.description,
-                asset: tech.name,
-                image:  tech.image,
+                asset: assetName,
+                image: tech.image,
                 storesData: tech.guards_sensitive_data
             }).then(
                 response => {
@@ -107,12 +108,12 @@ export const WhatWhoHowWhyChips = (props) => {
                     navigate('/choose-tech-dev-sec-ops')
 
                 }
-            ).catch(err =>{
+            ).catch(err => {
                 console.log(err)
             })
 
         }
-    
+
     const removeAsset = async () => {
         getDocs(query(
             collection(db, "dev_sec_ops_tech"),
@@ -139,7 +140,7 @@ export const WhatWhoHowWhyChips = (props) => {
     return (
 
         <>
-          
+
             <Typography marginBottom={1}>
                 <strong> What? </strong> - What is the type of data that this tech holds? Specify if a breach of the confidentiality, integrity or availability of that data would be problematic.
             </Typography>
@@ -150,7 +151,7 @@ export const WhatWhoHowWhyChips = (props) => {
                             label={whatChips[key].name}
                             icon={whatChips[key].selected ? <DoneIcon /> : ""}
                             variant={whatChips[key].selected ? "filled" : "outlined"}
-                            disabled={tech.selected}
+                            // disabled={tech.selected}
                             color="secondary"
                             onClick={() => handleWhatChipClick(key)} />
                     );
@@ -168,7 +169,7 @@ export const WhatWhoHowWhyChips = (props) => {
                             icon={whoChips[key].selected ? <DoneIcon /> : ""}
                             variant={whoChips[key].selected ? "filled" : "outlined"}
                             color="secondary"
-                            disabled={tech.selected}
+                            // disabled={tech.selected}
                             onClick={() => handleWhoChipClick(key)} />
                     );
                 })}
@@ -184,7 +185,7 @@ export const WhatWhoHowWhyChips = (props) => {
                             icon={howChips[key].selected ? <DoneIcon /> : ""}
                             variant={howChips[key].selected ? "filled" : "outlined"}
                             color="secondary"
-                            disabled={tech.selected}
+                            // disabled={tech.selected}
                             onClick={() => handleHowChipClick(key)} />
                     );
                 })}
@@ -200,7 +201,7 @@ export const WhatWhoHowWhyChips = (props) => {
                             icon={whyChips[key].selected ? <DoneIcon /> : ""}
                             variant={whyChips[key].selected ? "filled" : "outlined"}
                             color="secondary"
-                            disabled={tech.selected}
+                            // disabled={tech.selected}
                             onClick={() => handleWhyChipClick(key)} />
                     );
                 })}
@@ -208,9 +209,9 @@ export const WhatWhoHowWhyChips = (props) => {
 
 
             <TechContainerButtons removeButtonDisabled={true}
-                        addButtonDisabled={false}
-                        addAssetOnClick= {addAsset}
-                        removeAssetOnClick={removeAsset} />
+                addButtonDisabled={false}
+                addAssetOnClick={addAsset}
+                removeAssetOnClick={removeAsset} />
 
         </>
     )

@@ -8,10 +8,9 @@ import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
 import Grid from '@mui/material/Grid';
 import AssetCard from "../../components/AssetCard";
 import CircularProgress from '@mui/material/CircularProgress';
-import { getAssets } from '../../Functions/Assets'
+import { getAssets, defineAssetSelected, countExistingTech } from '../../Functions/Assets'
 import { getTechStack } from '../../Functions/TechStack'
 import { UserAuth } from '../../context/AuthContext';
-
 
 export default function DevSecOpsListTech() {
   const { user } = UserAuth();
@@ -21,60 +20,62 @@ export default function DevSecOpsListTech() {
   const [userTech, setUserTech] = useState(null);
   const [assetsJson, setAssetsJson] = useState(null)
 
-  
+
   useEffect(() => {
 
     getAssets(user)
-    .then((assets) => {
-      setAssetsJson(assets.dev_sec_ops_asset_container)
-    })
-    .catch (
-      (error) => {
-        switch(error){
-          case ('user_error'):
-            break;
-          default:
-            navigate('/error')
+      .then((assets) => {
+        setAssetsJson(assets.dev_sec_ops_asset_container)
+      })
+      .catch(
+        (error) => {
+          switch (error) {
+            case ('user_error'):
+              break;
+            default:
+              navigate('/error')
+          }
         }
-      }
-    )
+      )
 
 
     getTechStack(user)
-    .then((techStack) => {
-      setUserTech(techStack)
+      .then((techStack) => {
+        setUserTech(techStack)
 
-    }) 
-    .catch (
-      (error) => {
-        switch(error){
-          case ('user_error'):
-            break;
-          default:
-            navigate('/error')
-        }      
-      }
-    )
+      })
+      .catch(
+        (error) => {
+          switch (error) {
+            case ('user_error'):
+              break;
+            default:
+              navigate('/error')
+          }
+        }
+      )
 
-      // eslint-disable-next-line 
+    // eslint-disable-next-line 
   }, [user]);
 
-  if (assetsJson && userTech){
+  if (assetsJson && userTech) {
     var loadingProgressCount = 0;
     const assetsCount = Object.keys(assetsJson).length;
 
     assetsJson.forEach(asset => {
       const imageRef = ref(storage, 'images/' + asset.image);
 
-      // define if the asset is selected or not 
-      const selected = userTech.some(tech => tech.name === asset.name)
+      // Count the amount of technology of this asset type already in the threat model
+      // This is used to assign a number to any new assets created, i.e. "Database table 2" if table 1 already exists
+      countExistingTech(asset, userTech)
 
-      if (selected) {
-        asset.selected = selected;
-      }
-      asset.asset_containers.forEach(asset_container => {
-        asset_container.selected = userTech.some(userAsset => userAsset.name === asset_container.name);
-      })
+      // define if the asset is selected or not 
+      defineAssetSelected(asset, userTech)
+      
+
+      // asset.asset_containers.forEach(asset_container => {
+      //   asset_container.selected = userTech.some(userAsset => userAsset.name === asset_container.name);
+      // })
 
       // Download the image URL from Firebase
       getDownloadURL(imageRef)
@@ -108,8 +109,8 @@ export default function DevSecOpsListTech() {
   if (!loading) {
     return (
       <>
-      <DevSecOpsStepper step={0} />
-      <Box margin={4}>
+        <DevSecOpsStepper step={0} />
+        <Box margin={4}>
           <TalkingGhost speech={"Select any technology that you use from the list below, we will use this information to paint a picture of your threat model."} />
         </Box>
 

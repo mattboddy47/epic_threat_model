@@ -14,20 +14,19 @@ import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
 import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'firebase/firestore'
 import { LargeInfoCard } from '../../components/LargeInfoCard';
 import { toast } from 'react-toastify';
-import Typography from '@mui/material/Typography';
 import TechContainerButtons from '../../components/TechContainerButtons';
-
-
+import { getAssetName } from '../../Functions/Assets'
 
 export default function DevSecOpsAssetContainer() {
+// We recieve a single asset from the assets json file stored within tech_data.state 
     const tech_data = useLocation()
-    const [chips, setChips] = useState(tech_data.state.asset_containers);
-    const techName = tech_data.state.name
+    const navigate = useNavigate();
     const techCollectionRef = collection(db, "dev_sec_ops_tech")
     const [imageUrl, setImageUrl] = useState(null);
     const { user } = UserAuth()
-    const navigate = useNavigate();
     const storage = getStorage();
+    const [chips, setChips] = useState(tech_data.state.asset_containers);
+    const techName = tech_data.state.name
 
     useEffect(() => {
         const imageRef = ref(storage, 'images/' + tech_data.state.image);
@@ -123,29 +122,12 @@ export default function DevSecOpsAssetContainer() {
 
         }
 
-    if (tech_data.state.selected) {
-        return (
-            <>
-                <ThreatModelStepper step={0} />
-                <LargeInfoCard imageUrl={imageUrl} title={techName}>
-                    <Typography marginBottom={1}>
-                        To change information about the {tech_data.state.name}, please remove it from your model and re-add.
-                    </Typography>
-                    <TechContainerButtons removeButtonDisabled={false}
-                        addButtonDisabled={true}
-                        addAssetOnClick= {addAsset}
-                        removeAssetOnClick={removeAsset} />
-                    
-                </LargeInfoCard>
-            </>
-        )
-    }
-
     if (tech_data.state.guards_sensitive_data) {
+        const assetName = getAssetName(techName, tech_data.state.existingTechCount);
         return (
             <div>
                 <ThreatModelStepper step={0} />
-                <LargeInfoCard imageUrl={imageUrl} title={techName} description={"For the best Threat Model accuracy, please provide as much information from the options below before adding the " +
+                <LargeInfoCard imageUrl={imageUrl} title={assetName} description={"For the best Threat Model accuracy, please provide as much information from the options below before adding the " +
                     techName.toLowerCase() +
                     " to your model."}>
                     <WhatWhoHowWhyChips tech={tech_data.state} />
@@ -172,8 +154,8 @@ export default function DevSecOpsAssetContainer() {
                     })}
 
                 </Stack>
-                <TechContainerButtons removeButtonDisabled={true}
-                        addButtonDisabled={false}
+                <TechContainerButtons removeButtonDisabled={!tech_data.state.selected}
+                        addButtonDisabled={tech_data.state.selected}
                         addAssetOnClick= {addAsset}
                         removeAssetOnClick={removeAsset} />
             </LargeInfoCard>
