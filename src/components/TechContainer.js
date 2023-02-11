@@ -12,6 +12,7 @@ import { addTechToDB, removeTechFromDB } from '../Functions/TechStack'
 import Stack from '@mui/material/Stack';
 import DoneIcon from '@mui/icons-material/Done';
 import TechContainerButtons from './TechContainerButtons';
+import DialogContent from '@mui/material/DialogContent';
 
 
 export function TechContainer(props) {
@@ -37,7 +38,12 @@ export function TechContainer(props) {
     if (assetContainer.guards_sensitive_data) {
         const assetName = getAssetName(techName, assetContainer.existingTechCount);
         return (
-            <Dialog onClose={handleClose} open={open}>
+            <Dialog
+                fullWidth={true}
+                maxWidth={'lg'}
+                scroll={'body'}
+                onClose={handleClose}
+                open={open}>
                 <DialogTitle>{title}</DialogTitle>
                 <LargeInfoCard imageUrl={imageUrl} title={assetName} description={"For the best Threat Model accuracy, please provide as much information from the options below before adding the " +
                     techName.toLowerCase() +
@@ -51,41 +57,50 @@ export function TechContainer(props) {
     }
 
     return (
-        <Dialog onClose={handleClose} open={open}>
+        <Dialog
+            onClose={handleClose}
+            fullWidth={true}
+            maxWidth={'lg'}
+            scroll={'body'}
+            open={open}>
             <DialogTitle>{title}</DialogTitle>
-            <LargeInfoCard imageUrl={imageUrl} title={techName} description={"Please add " + techName.toLowerCase() + " to your model if it is a part of your tech stack."}>
-                <Stack direction="row" spacing={1} marginBottom={1}>
-                    {Object.keys(chips).map((key) => {
-                        return (
-                            <Chip
-                                label={chips[key].name}
-                                icon={chips[key].selected ? <DoneIcon /> : ""}
-                                disabled={assetContainer.selected}
-                                variant={chips[key].selected ? "filled" : "outlined"}
-                                color="secondary"
-                                onClick={() => handleChipClick(key)} />
-                        );
-                    })}
+            <DialogContent>
 
-                </Stack>
-                <TechContainerButtons removeButtonDisabled={!assetContainer.selected}
-                    addButtonDisabled={assetContainer.selected}
-                    addAssetOnClick={
-                        () => {addTechToDB(
-                            chips,
-                            techName,
-                            assetContainer.description,
-                            assetContainer.image,
-                            assetContainer.guards_sensitive_data,
-                            user,
-                            onClose,
-                            toast
-                            )}
-                    }
-                    onClose={onClose}
-                    removeAssetOnClick={() => {removeTechFromDB(chips, techName, onClose)}} />
-            </LargeInfoCard>
+                <LargeInfoCard imageUrl={imageUrl} title={techName} description={"Please add " + techName.toLowerCase() + " to your model if it is a part of your tech stack."}>
+                    <Stack direction="row" spacing={1} marginBottom={1}>
+                        {Object.keys(chips).map((key) => {
+                            return (
+                                <Chip
+                                    label={chips[key].name}
+                                    icon={chips[key].selected ? <DoneIcon /> : ""}
+                                    disabled={assetContainer.selected}
+                                    variant={chips[key].selected ? "filled" : "outlined"}
+                                    color="secondary"
+                                    onClick={() => handleChipClick(key)} />
+                            );
+                        })}
 
+                    </Stack>
+                    <TechContainerButtons removeButtonDisabled={!assetContainer.selected}
+                        addButtonDisabled={assetContainer.selected}
+                        addAssetOnClick={
+                            () => {
+                                addTechToDB(
+                                    chips,
+                                    techName,
+                                    assetContainer.description,
+                                    assetContainer.image,
+                                    assetContainer.guards_sensitive_data,
+                                    user,
+                                    onClose,
+                                    toast
+                                )
+                            }
+                        }
+                        onClose={onClose}
+                        removeAssetOnClick={() => { removeTechFromDB(chips, techName, onClose) }} />
+                </LargeInfoCard>
+            </DialogContent>
         </Dialog>
     );
 }
