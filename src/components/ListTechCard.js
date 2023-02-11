@@ -27,6 +27,7 @@ export default function ListTechCard(props) {
   const [open, setOpen] = React.useState(false);
   const newTechnologyUrl = props.newTechnologyUrl;
   const userTech= props.userTech;
+  const user = props.user;
   const assetsJson=props.assetsJson;
 
   const handleClickOpen = () => {
@@ -135,6 +136,7 @@ export default function ListTechCard(props) {
         </List> */}
 
         <DevSecOpsListTech 
+        user={user}
         userTech={userTech}
         assetsJson={assetsJson}
         />

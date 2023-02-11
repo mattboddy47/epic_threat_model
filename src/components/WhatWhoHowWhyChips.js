@@ -12,6 +12,7 @@ import { getAssetName } from '../Functions/Assets';
 
 export const WhatWhoHowWhyChips = (props) => {
     const tech = props.tech;
+    const onClose = props.onClose;
     const navigate = useNavigate();
     const techCollectionRef = collection(db, "dev_sec_ops_tech");
     const { user } = UserAuth();
@@ -105,8 +106,7 @@ export const WhatWhoHowWhyChips = (props) => {
             }).then(
                 response => {
                     console.log(response)
-                    navigate('/choose-tech-dev-sec-ops')
-
+                    onClose()
                 }
             ).catch(err => {
                 console.log(err)
@@ -125,10 +125,10 @@ export const WhatWhoHowWhyChips = (props) => {
                 tech.forEach(asset => {
                     const assetDoc = doc(db, "dev_sec_ops_tech", asset.id)
                     deleteDoc(assetDoc).finally(
-                        navigate('/choose-tech-dev-sec-ops')
-                    )
+                        onClose()                    )
                 })
             } catch (error) {
+                onClose()
                 navigate('/error')
             }
 
@@ -211,6 +211,7 @@ export const WhatWhoHowWhyChips = (props) => {
             <TechContainerButtons removeButtonDisabled={true}
                 addButtonDisabled={false}
                 addAssetOnClick={addAsset}
+                onClose={onClose}
                 removeAssetOnClick={removeAsset} />
 
         </>

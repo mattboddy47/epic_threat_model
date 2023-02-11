@@ -19,7 +19,6 @@ import ReviewDeveloperThreats from './pages/DevSecOps/ReviewDeveloperThreats';
 import StartThreatModelling from './pages/StartThreatModelling';
 import DevSecOpsChooseTech from './pages/DevSecOps/ChooseTech';
 import DevSecOpsListTech from './pages/DevSecOps/DevSecOpsListTech';
-import DevSecOpsTech from './pages/DevSecOps/TechContainer';
 
 
 export default function App() {
@@ -30,7 +29,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Loading />} />
           <Route path="/start-threat-modelling" element={<Protected><StartThreatModelling /></Protected>} />
-          <Route path="/dev-sec-ops-tech" element={<Protected><DevSecOpsTech /></Protected>} />
           <Route path="/dev-sec-ops-list-tech" element={<Protected><DevSecOpsListTech /></Protected>} />
           <Route path="/choose-tech-dev-sec-ops" element={<Protected><DevSecOpsChooseTech /></Protected>} />
           <Route path="/review-developer-threats" element={<Protected><ReviewDeveloperThreats /></Protected>} />

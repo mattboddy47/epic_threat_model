@@ -93,6 +93,7 @@ export const DevSecOpsAddTech = (props) => {
       newTechnologyUrl={newTechnologyUrl} 
       userTech={userTech}
       assetsJson={assetsJson}
+      user={user}
       />
         {
           userTechCount !== 0 && <Typography sx={{ lineHeight: 3 }} textAlign={'center'} gutterBottom variant="h4" component="div">{"Current Tech Stack"}</Typography>

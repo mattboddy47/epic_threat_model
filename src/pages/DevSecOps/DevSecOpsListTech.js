@@ -13,6 +13,7 @@ export default function DevSecOpsListTech(props) {
   const userTech = props.userTech;
   const assetsJson = props.assetsJson
   const [loading, setLoading] = useState(true);
+  const user = props.user
 
 
   useEffect(() => {
@@ -82,8 +83,9 @@ export default function DevSecOpsListTech(props) {
                   image={assetsJson[key].imageUrl}
                   title={assetsJson[key].name}
                   description={assetsJson[key].description}
-                  asset_container={assetsJson[key]}
+                  assetContainer={assetsJson[key]}
                   selected={assetsJson[key].selected}
+                  user={user}
                   next_page={'/dev-sec-ops-tech'}
                 />
 
