@@ -10,6 +10,7 @@ import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'fireb
 import { LargeInfoCard } from '../components/LargeInfoCard';
 import { db } from '../firebase'
 import { getAssetName } from '../Functions/Assets'
+import { addTechToDB, removeTechFromDB } from '../Functions/TechStack'
 import Stack from '@mui/material/Stack';
 import DoneIcon from '@mui/icons-material/Done';
 import TechContainerButtons from './TechContainerButtons';
@@ -20,7 +21,6 @@ export function TechContainer(props) {
     const [chips, setChips] = useState(assetContainer.asset_containers);
     const techName = assetContainer.name
     const title = "Define Technology"
-    const techCollectionRef = collection(db, "dev_sec_ops_tech")
 
     const handleClose = () => {
         onClose(assetContainer);
@@ -35,67 +35,6 @@ export function TechContainer(props) {
             setChips(newChips);
         }
     }
-
-    const removeAsset = async () => {
-        getDocs(query(
-            collection(db, "dev_sec_ops_tech"),
-            where("owner", "==", user.uid),
-            where("name", "==", techName)
-        )).then(data => {
-            const tech = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-            try {
-                tech.forEach(asset => {
-                    const assetDoc = doc(db, "dev_sec_ops_tech", asset.id)
-                    deleteDoc(assetDoc).finally(
-                        onClose()
-                    )
-                })
-            } catch (error) {
-                onClose();
-            }
-
-        })
-
-    }
-
-    const addAsset =
-        async () => {
-            if (chips.length === 0) {
-                addDoc(techCollectionRef, {
-                    name: techName,
-                    asset: techName,
-                    description: assetContainer.description,
-                    image: assetContainer.image,
-                    storesData: assetContainer.guards_sensitive_data,
-                    owner: user.uid
-                }).then(
-                    onClose()
-                )
-                return;
-            }
-            // Filter to the selected chips
-            const selectedTech = chips.filter(function (tech) {
-                return tech.selected
-            })
-            // if no chips are selected, throw an error and do nothing
-            if (selectedTech.length === 0) {
-                toast.error("Please select the tech that you use.")
-                return
-            }
-            // push the selected assets to firebase
-            selectedTech.forEach(async asset => {
-                await addDoc(techCollectionRef, {
-                    name: techName,
-                    image: assetContainer.image,
-                    asset: asset.name,
-                    storesData: assetContainer.guards_sensitive_data,
-                    description: assetContainer.description,
-                    owner: user.uid
-                })
-            });
-            onClose()
-
-        }
 
     if (assetContainer.guards_sensitive_data) {
         const assetName = getAssetName(techName, assetContainer.existingTechCount);
@@ -133,9 +72,20 @@ export function TechContainer(props) {
                 </Stack>
                 <TechContainerButtons removeButtonDisabled={!assetContainer.selected}
                     addButtonDisabled={assetContainer.selected}
-                    addAssetOnClick={addAsset}
+                    addAssetOnClick={
+                        () => {addTechToDB(
+                            chips,
+                            techName,
+                            assetContainer.description,
+                            assetContainer.image,
+                            assetContainer.guards_sensitive_data,
+                            user,
+                            onClose,
+                            toast
+                            )}
+                    }
                     onClose={onClose}
-                    removeAssetOnClick={removeAsset} />
+                    removeAssetOnClick={() => {removeTechFromDB(chips, techName, onClose)}} />
             </LargeInfoCard>
 
         </Dialog>
