@@ -51,7 +51,7 @@ export function check_tech_stack_contains_assets(asset_to_find, tech) {
         return true;
     }
 
-    return tech.every(t => asset_to_find.some(tech => tech === t.name))
+    return tech.some(t => asset_to_find.some(tech => tech === t.name))
 
 }
 
