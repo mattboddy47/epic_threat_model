@@ -6,23 +6,19 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { out_of_cloud_hosting_credit } from '../Text/ErrorTexts';
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
-import AddIcon from '@mui/icons-material/Add';
-import Card from '@mui/material/Card';
-import Button from '@mui/material/Button';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import { CardActionArea } from '@mui/material';
+import ListTechCard from './ListTechCard';
 
 
 export const DevSecOpsAddTech = (props) => {
   const [loading, setLoading] = useState(true)
+  const [newTechnologyUrl, setNewTechnologyUrl] = useState()
   const user = props.user;
+  const assetsJson = props.assetsJson;
   const userTech = props.userTech;
   const userTechCount = Object.keys(userTech).length;
   const storage = getStorage();
   const navigate = useNavigate();
 
-  const [newTechnologyUrl, setNewTechnologyUrl] = useState()
 
   useEffect(() => {
 
@@ -93,65 +89,11 @@ export const DevSecOpsAddTech = (props) => {
   if (!loading) {
     return (
       <>
-
-        <Grid container
-          direction="row"
-          spacing={2}
-          justifyContent="center"
-          alignItems="center">
-
-          <Grid item >
-
-            <Card
-              sx={{
-                boxShadow: 1,
-                borderRadius: 7,
-                marginBottom: 5
-              }}>
-              <CardActionArea
-                onClick={() => {
-                  navigate('/dev-sec-ops-list-tech')
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  image={newTechnologyUrl}
-                  alt="Add technology to your stack"
-                  sx={{
-                    boxShadow: 1,
-                    borderRadius: 7,
-                    width: 350,
-                    height: 300,
-                  }}
-                />
-                <CardContent
-                  sx={{
-                    width: 350,
-                    height: 150,
-                  }}>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {"Add Tech"}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {"Add technology to your threat model from your planned tech stack"}
-                  </Typography>
-                </CardContent>
-                <Button sx={{
-                  marginLeft: 2,
-                  marginBottom: 1
-                }}
-                  startIcon={<AddIcon />}
-                  variant={"contained"}
-                  size='small'
-                  color='primary'
-                >
-                  {"Select New Tech"}
-                </Button>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        </Grid>
-        
+      <ListTechCard 
+      newTechnologyUrl={newTechnologyUrl} 
+      userTech={userTech}
+      assetsJson={assetsJson}
+      />
         {
           userTechCount !== 0 && <Typography sx={{ lineHeight: 3 }} textAlign={'center'} gutterBottom variant="h4" component="div">{"Current Tech Stack"}</Typography>
         }
