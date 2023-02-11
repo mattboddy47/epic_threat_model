@@ -6,9 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import { WhatWhoHowWhyChips } from "../components/WhatWhoHowWhyChips"
 import Chip from '@mui/material/Chip';
 import { toast } from 'react-toastify';
-import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'firebase/firestore'
 import { LargeInfoCard } from '../components/LargeInfoCard';
-import { db } from '../firebase'
 import { getAssetName } from '../Functions/Assets'
 import { addTechToDB, removeTechFromDB } from '../Functions/TechStack'
 import Stack from '@mui/material/Stack';
