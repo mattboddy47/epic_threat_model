@@ -88,7 +88,7 @@ toast.info("SecOps Threat Modelling is coming soon")
                                 <CardMedia
                                     component="img"
                                     image={secOpsImage}
-                                    alt="CMS"
+                                    alt="Security Operations Centre"
                                     sx={{
                                         boxShadow: 1,
                                         borderRadius: 7,
@@ -129,7 +129,7 @@ toast.info("SecOps Threat Modelling is coming soon")
                                 <CardMedia
                                     component="img"
                                     image={devSecOpsImage}
-                                    alt="CMS"
+                                    alt="Developer performing security tasks"
                                     sx={{
                                         boxShadow: 1,
                                         borderRadius: 7,

@@ -22,6 +22,7 @@ export const DevSecOpsAddTech = (props) => {
 
 
   useEffect(() => {
+    setLoading(true);
 
     const loadNewTechURL = () => {
       const imageRef = ref(storage, 'images/technology.png');
@@ -84,7 +85,7 @@ export const DevSecOpsAddTech = (props) => {
 
     });
     // eslint-disable-next-line 
-  }, []);
+  }, [userTech]);
 
 
   if (!loading) {
@@ -116,7 +117,8 @@ export const DevSecOpsAddTech = (props) => {
                   assetName={userTech[key].asset}
                   description={userTech[key].description}
                   user={user}
-                  userTech ={userTech}
+                  allTech ={userTech}
+                  setTech={setUserTech}
                 />
 
               </Grid>

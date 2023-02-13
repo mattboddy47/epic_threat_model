@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import TechContainerButtons from './TechContainerButtons';
 import { UserAuth } from '../context/AuthContext';
 import { getAssetName } from '../Functions/Assets';
-import { addSensitiveDataTechToDB, removeTechFromDB } from '../Functions/TechStack'
+import { addSensitiveDataTechToDB, removeAllTechFromDB } from '../Functions/TechStack'
 
 export const WhatWhoHowWhyChips = (props) => {
     const tech = props.tech;
@@ -159,7 +159,7 @@ export const WhatWhoHowWhyChips = (props) => {
                     allTech
                     )}}
                 onClose={onClose}
-                removeAssetOnClick={() => {removeTechFromDB(
+                removeAssetOnClick={() => {removeAllTechFromDB(
                     user, 
                     tech.name, 
                     onClose,

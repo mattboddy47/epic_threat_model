@@ -54,7 +54,7 @@ export default function AssetCard(props) {
       <CardMedia
         component="img"
         image={image}
-        alt="CMS"
+        alt={tech.name}
         sx={{
           boxShadow: 1,
           borderRadius: 7,

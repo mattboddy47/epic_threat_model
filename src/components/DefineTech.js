@@ -8,7 +8,7 @@ import Chip from '@mui/material/Chip';
 import { toast } from 'react-toastify';
 import { LargeInfoCard } from './LargeInfoCard';
 import { getAssetName } from '../Functions/Assets'
-import { addTechToDB, removeTechFromDB } from '../Functions/TechStack'
+import { addTechToDB, removeAllTechFromDB } from '../Functions/TechStack'
 import Stack from '@mui/material/Stack';
 import DoneIcon from '@mui/icons-material/Done';
 import TechContainerButtons from './TechContainerButtons';
@@ -98,7 +98,7 @@ export function DefineTech(props) {
                             }
                         }
                         onClose={onClose}
-                        removeAssetOnClick={() => { removeTechFromDB(user, techName, onClose, userTech, setUserTech) }} />
+                        removeAssetOnClick={() => { removeAllTechFromDB(user, techName, onClose, userTech, setUserTech) }} />
                 </LargeInfoCard>
             </DialogContent>
         </Dialog>

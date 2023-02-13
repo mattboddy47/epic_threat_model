@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { collection, getDocs, deleteDoc, query, where, doc } from 'firebase/firestore'
 import { db } from '../firebase'
+import { removeTechFromDB } from '../Functions/TechStack';
 
 export default function ChosenTechCard(props) {
   const image = props.image;
@@ -13,31 +14,10 @@ export default function ChosenTechCard(props) {
   const description = props.description;
   const user = props.user
   const assetName = props.assetName;
+  const allTech = props.allTech;
+  const setTech = props.setTech;
   
 
-  const removeAssetOnClick = () => {
-    getDocs(query(
-      collection(db, "dev_sec_ops_tech"),
-      where("owner", "==", user.uid),
-      where("asset", "==", assetName),
-      where("name", "==", techName)
-    )).then(data => {
-      const tech = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-     
-      const runDel = async res => {
-          const assetDoc = doc(db, "dev_sec_ops_tech", tech[0].id)
-          await deleteDoc(assetDoc)
-          .catch(() =>{
-            console.log(1)
-          })
-
-          window.location.reload()
-          }
-          runDel()
-
-    })
-
-  }
 
   return (
     <Card
@@ -49,7 +29,7 @@ export default function ChosenTechCard(props) {
       <CardMedia
         component="img"
         image={image}
-        alt="CMS"
+        alt={techName}
         sx={{
           boxShadow: 1,
           borderRadius: 7,
@@ -77,7 +57,11 @@ export default function ChosenTechCard(props) {
       }}
         startIcon={<RemoveIcon />}
         variant="text"
-        onClick={removeAssetOnClick}
+        onClick={
+          () => {
+            removeTechFromDB(user, assetName, techName, allTech, setTech)
+          }
+        }
         size='small'
         color='primary'
       >

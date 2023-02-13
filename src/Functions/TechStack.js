@@ -2,7 +2,34 @@ import { db } from '../firebase'
 import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'firebase/firestore'
 
 
-export function removeTechFromDB(user, techName, onClose, allTech, setTech) {
+export function removeTechFromDB(user, assetName, techName, allTech, setTech) {
+    getDocs(query(
+      collection(db, "dev_sec_ops_tech"),
+      where("owner", "==", user.uid),
+      where("asset", "==", assetName),
+      where("name", "==", techName)
+    )).then(data => {
+      const tech = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+     
+      const runDel = async res => {
+          const assetDoc = doc(db, "dev_sec_ops_tech", tech[0].id)
+          await deleteDoc(assetDoc)
+          .catch(() =>{
+            console.log(1)
+          })
+
+        //   window.location.reload()
+          }
+          runDel()
+          .then(                    
+            removeTechFromStack(allTech, setTech, assetName)
+          )
+
+    })
+
+  }
+
+export function removeAllTechFromDB(user, techName, onClose, allTech, setTech) {
     getDocs(query(
         collection(db, "dev_sec_ops_tech"),
         where("owner", "==", user.uid),
@@ -14,7 +41,7 @@ export function removeTechFromDB(user, techName, onClose, allTech, setTech) {
                 const assetDoc = doc(db, "dev_sec_ops_tech", asset.id)
                 deleteDoc(assetDoc)
                 .finally( () => {
-                    removeTechFromStack(allTech, setTech, techName);
+                    removeAllTechFromStack(allTech, setTech, techName);
                     onClose(true)
                 }
                 )
@@ -27,9 +54,15 @@ export function removeTechFromDB(user, techName, onClose, allTech, setTech) {
 
 }
 
-function removeTechFromStack(techStack, setTech, techName) {
-    // const newTechStack = JSON.parse(JSON.stringify(techStack));
-    // newTechStack.pop
+function removeTechFromStack(techStack, setTech, assetName) {
+    const newTechStack = techStack.filter(tech => 
+        tech.asset !== assetName
+    )
+    setTech(newTechStack);
+    return newTechStack;
+}
+
+function removeAllTechFromStack(techStack, setTech, techName) {
     const newTechStack = techStack.filter(tech => 
         tech.name !== techName
     )
