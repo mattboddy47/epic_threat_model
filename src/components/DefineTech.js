@@ -16,9 +16,9 @@ import DialogContent from '@mui/material/DialogContent';
 
 
 export function DefineTech(props) {
-    const { onClose, assetContainer, open, imageUrl, user } = props;
-    const [chips, setChips] = useState(assetContainer.asset_containers);
-    const techName = assetContainer.name
+    const { onClose, tech, open, imageUrl, user } = props;
+    const [chips, setChips] = useState(tech.asset_containers);
+    const techName = tech.name
     const title = "Define Technology"
     const userTech = props.userTech;
     const setUserTech = props.setUserTech;
@@ -33,8 +33,8 @@ export function DefineTech(props) {
         }
     }
 
-    if (assetContainer.guards_sensitive_data) {
-        const assetName = getAssetName(techName, assetContainer.existingTechCount);
+    if (tech.guards_sensitive_data) {
+        const assetName = getAssetName(techName, tech.existingTechCount);
         return (
             <Dialog
                 fullWidth={true}
@@ -48,7 +48,7 @@ export function DefineTech(props) {
                     " to your model."}>
                     <WhatWhoHowWhyChips
                         onClose={onClose}
-                        tech={assetContainer}
+                        tech={tech}
                         allTech={userTech}
                         setTech={setUserTech} />
                 </LargeInfoCard>
@@ -73,7 +73,7 @@ export function DefineTech(props) {
                                 <Chip
                                     label={chips[key].name}
                                     icon={chips[key].selected ? <DoneIcon /> : ""}
-                                    disabled={assetContainer.selected}
+                                    disabled={tech.selected}
                                     variant={chips[key].selected ? "filled" : "outlined"}
                                     color="secondary"
                                     onClick={() => handleChipClick(key)} />
@@ -81,13 +81,14 @@ export function DefineTech(props) {
                         })}
 
                     </Stack>
-                    <TechContainerButtons removeButtonDisabled={!assetContainer.selected}
-                        addButtonDisabled={assetContainer.selected}
+                    <TechContainerButtons 
+                    removeButtonDisabled={!tech.selected}
+                        addButtonDisabled={tech.selected}
                         addAssetOnClick={
                             () => {
                                 addTechToDB(
                                     chips,
-                                    assetContainer,
+                                    tech,
                                     user,
                                     onClose,
                                     toast,

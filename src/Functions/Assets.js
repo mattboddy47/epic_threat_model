@@ -4,15 +4,12 @@ import axios from 'axios';
 // define if the asset is selected or not based on whether it exists in the tech stack
 export function defineAssetSelected(asset, userTech) {
     const selected = userTech.some(tech => tech.name === asset.name)
-
-    if (selected) {
-        asset.selected = selected;
-    }
+    asset.selected = selected;
 
     return selected;
 }
 
-export function countExistingTech(asset, userTech){
+export function countExistingTech(asset, userTech) {
     const existingTech = userTech.filter(tech => tech.name === asset.name);
     console.log(existingTech)
     const existingTechCount = Object.keys(existingTech).length;
@@ -20,7 +17,7 @@ export function countExistingTech(asset, userTech){
     return existingTechCount;
 }
 
-export function getAssetName(techName, existingTechCount){
+export function getAssetName(techName, existingTechCount) {
     const newTechCount = existingTechCount + 1;
     return techName + " " + newTechCount;
 }

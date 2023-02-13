@@ -85,9 +85,9 @@ export default function AddTech(props) {
                   image={assetsJson[key].imageUrl}
                   title={assetsJson[key].name}
                   description={assetsJson[key].description}
-                  assetContainer={assetsJson[key]}
+                  tech={assetsJson[key]}
                   setUserTech={setUserTech}
-                  userTech={userTech}
+                  allTech={userTech}
                   selected={assetsJson[key].selected}
                   user={user}
                   next_page={'/dev-sec-ops-tech'}

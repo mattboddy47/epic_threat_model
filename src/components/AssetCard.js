@@ -10,8 +10,8 @@ export default function AssetCard(props) {
     const image = props.image;
     const title = props.title;
     const description = props.description;
-    const assetContainer = props.assetContainer;
-    const userTech = props.userTech;
+    const tech = props.tech;
+    const allTech = props.allTech;
     const setUserTech = props.setUserTech;
     const user = props.user;
     const [open, setOpen] = React.useState(false);
@@ -31,9 +31,9 @@ export default function AssetCard(props) {
     return (
       <>
       <DefineTech
-        assetContainer={assetContainer}
+        tech={tech}
         open={open}
-        userTech={userTech}
+        userTech={allTech}
         setUserTech={setUserTech}
         onClose={handleClose}
         imageUrl={image}
