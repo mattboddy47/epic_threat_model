@@ -3,10 +3,10 @@ import { useState } from 'react'
 import PropTypes from 'prop-types';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-import { WhatWhoHowWhyChips } from "../components/WhatWhoHowWhyChips"
+import { WhatWhoHowWhyChips } from "./WhatWhoHowWhyChips"
 import Chip from '@mui/material/Chip';
 import { toast } from 'react-toastify';
-import { LargeInfoCard } from '../components/LargeInfoCard';
+import { LargeInfoCard } from './LargeInfoCard';
 import { getAssetName } from '../Functions/Assets'
 import { addTechToDB, removeTechFromDB } from '../Functions/TechStack'
 import Stack from '@mui/material/Stack';
@@ -15,15 +15,13 @@ import TechContainerButtons from './TechContainerButtons';
 import DialogContent from '@mui/material/DialogContent';
 
 
-export function TechContainer(props) {
+export function DefineTech(props) {
     const { onClose, assetContainer, open, imageUrl, user } = props;
     const [chips, setChips] = useState(assetContainer.asset_containers);
     const techName = assetContainer.name
     const title = "Define Technology"
-
-    const handleClose = () => {
-        onClose(assetContainer);
-    };
+    const userTech = props.userTech;
+    const setUserTech = props.setUserTech;
 
     const handleChipClick = (key) => {
         if (chips[key]) {
@@ -42,7 +40,7 @@ export function TechContainer(props) {
                 fullWidth={true}
                 maxWidth={'lg'}
                 scroll={'body'}
-                onClose={handleClose}
+                onClose={onClose}
                 open={open}>
                 <DialogTitle>{title}</DialogTitle>
                 <LargeInfoCard imageUrl={imageUrl} title={assetName} description={"For the best Threat Model accuracy, please provide as much information from the options below before adding the " +
@@ -50,7 +48,9 @@ export function TechContainer(props) {
                     " to your model."}>
                     <WhatWhoHowWhyChips
                         onClose={onClose}
-                        tech={assetContainer} />
+                        tech={assetContainer}
+                        allTech={userTech}
+                        setTech={setUserTech} />
                 </LargeInfoCard>
             </Dialog>
         )
@@ -58,7 +58,7 @@ export function TechContainer(props) {
 
     return (
         <Dialog
-            onClose={handleClose}
+            onClose={onClose}
             fullWidth={true}
             maxWidth={'lg'}
             scroll={'body'}
@@ -88,24 +88,27 @@ export function TechContainer(props) {
                                 addTechToDB(
                                     chips,
                                     techName,
+                                    techName,
                                     assetContainer.description,
                                     assetContainer.image,
                                     assetContainer.guards_sensitive_data,
                                     user,
                                     onClose,
-                                    toast
+                                    toast,
+                                    userTech,
+                                    setUserTech
                                 )
                             }
                         }
                         onClose={onClose}
-                        removeAssetOnClick={() => { removeTechFromDB(chips, techName, onClose) }} />
+                        removeAssetOnClick={() => { removeTechFromDB(user, techName, onClose, userTech, setUserTech) }} />
                 </LargeInfoCard>
             </DialogContent>
         </Dialog>
     );
 }
 
-TechContainer.propTypes = {
+DefineTech.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
     assetContainer: PropTypes.string.isRequired,

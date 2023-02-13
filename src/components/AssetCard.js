@@ -4,31 +4,41 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { TechContainer } from './TechContainer';
+import { DefineTech } from './DefineTech';
 
 export default function AssetCard(props) {
     const image = props.image;
     const title = props.title;
     const description = props.description;
     const assetContainer = props.assetContainer;
+    const userTech = props.userTech;
+    const setUserTech = props.setUserTech;
     const user = props.user;
     const [open, setOpen] = React.useState(false);
+    const handleCloseAddTech = props.handleCloseAddTech;
+
     const handleClickOpen = () => {
       setOpen(true);
     };
   
-    const handleClose = (value) => {
+    const handleClose = (closeAll) => {
       setOpen(false);
+      if (closeAll){
+        handleCloseAddTech()
+      }
     };
   
     return (
       <>
-      <TechContainer
+      <DefineTech
         assetContainer={assetContainer}
         open={open}
+        userTech={userTech}
+        setUserTech={setUserTech}
         onClose={handleClose}
         imageUrl={image}
         user={user}
+        handleCloseAddTech={handleCloseAddTech}
       />
         <Card
         sx={{ 
@@ -39,9 +49,6 @@ export default function AssetCard(props) {
         <CardActionArea  
         onClick={
           handleClickOpen
-      //     event => {             
-      //     navigate(next_page,{ state: asset_container})
-      // }
     }
         >
       <CardMedia

@@ -6,7 +6,7 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { out_of_cloud_hosting_credit } from '../Text/ErrorTexts';
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
-import ListTechCard from './ListTechCard';
+import CurrentTechStack from './CurrentTechStack';
 
 
 export const DevSecOpsAddTech = (props) => {
@@ -15,6 +15,7 @@ export const DevSecOpsAddTech = (props) => {
   const user = props.user;
   const assetsJson = props.assetsJson;
   const userTech = props.userTech;
+  const setUserTech = props.setUserTech;
   const userTechCount = Object.keys(userTech).length;
   const storage = getStorage();
   const navigate = useNavigate();
@@ -89,9 +90,10 @@ export const DevSecOpsAddTech = (props) => {
   if (!loading) {
     return (
       <>
-      <ListTechCard 
+      <CurrentTechStack 
       newTechnologyUrl={newTechnologyUrl} 
       userTech={userTech}
+      setUserTech={setUserTech}
       assetsJson={assetsJson}
       user={user}
       />

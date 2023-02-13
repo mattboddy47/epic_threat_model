@@ -1,19 +1,21 @@
 import { React, useState, useEffect } from 'react'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
-import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
+import { out_of_cloud_hosting_credit } from '../Text/ErrorTexts';
 import Grid from '@mui/material/Grid';
-import AssetCard from "../../components/AssetCard";
+import AssetCard from "./AssetCard";
 import CircularProgress from '@mui/material/CircularProgress';
-import { defineAssetSelected, countExistingTech } from '../../Functions/Assets'
+import { defineAssetSelected, countExistingTech } from '../Functions/Assets'
 
-export default function DevSecOpsListTech(props) {
+export default function AddTech(props) {
   const storage = getStorage();
   const navigate = useNavigate();
   const userTech = props.userTech;
-  const assetsJson = props.assetsJson
+  const setUserTech = props.setUserTech;
+  const assetsJson = props.assetsJson;
   const [loading, setLoading] = useState(true);
   const user = props.user
+  const handleCloseAddTech = props.handleCloseAddTech;
 
 
   useEffect(() => {
@@ -84,9 +86,12 @@ export default function DevSecOpsListTech(props) {
                   title={assetsJson[key].name}
                   description={assetsJson[key].description}
                   assetContainer={assetsJson[key]}
+                  setUserTech={setUserTech}
+                  userTech={userTech}
                   selected={assetsJson[key].selected}
                   user={user}
                   next_page={'/dev-sec-ops-tech'}
+                  handleCloseAddTech={handleCloseAddTech}
                 />
 
               </Grid>

@@ -21,7 +21,7 @@ export default function DevSecOpsChooseAssets() {
 
     getAssets(user)
       .then((assets) => {
-        setAssetsJson(assets)
+        setAssetsJson(assets.dev_sec_ops_asset_container)
       })
       .catch(
         (error) => {
@@ -63,7 +63,12 @@ export default function DevSecOpsChooseAssets() {
           <TalkingGhost speech={"Your selected technology is listed below, add to your tech stack to ensure that we have the most complete picture possible."} />
         </Box>
 
-        <DevSecOpsAddTech user={user} assetsJson={assetsJson.dev_sec_ops_asset_container} userTech={tech}  />
+        <DevSecOpsAddTech 
+        user={user} 
+        userTech={tech}
+        assetsJson={assetsJson}
+        setUserTech={setTech} 
+        />
         <PageNavigationFAB buttonText='Review Threats' nextPageURL='/review-developer-threats' />
       </div>
     )

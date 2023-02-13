@@ -11,7 +11,7 @@ export default function TechContainerButtons(props) {
 
     return(
       <Stack spacing={2} direction="row" justifyContent="flex-end">
-      <Button onClick={onClose} color="primary" variant="text">Back</Button>
+      <Button onClick={()=> onClose(false)} color="primary" variant="text">Back</Button>
       <Button disabled={removeButtonDisabled} startIcon={<RemoveIcon />} color="primary" variant="text" onClick={removeAssetOnClick}>Remove From Model</Button>
       <Button disabled={addButtonDisabled} startIcon={<AddIcon />} variant="contained" onClick={addAssetOnClick} >Add To Model</Button>
   </Stack>

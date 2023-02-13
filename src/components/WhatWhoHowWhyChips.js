@@ -4,19 +4,17 @@ import DoneIcon from '@mui/icons-material/Done';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import TechContainerButtons from './TechContainerButtons';
-import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'firebase/firestore'
-import { useNavigate } from 'react-router-dom'
-import { db } from '../firebase'
 import { UserAuth } from '../context/AuthContext';
 import { getAssetName } from '../Functions/Assets';
+import { addSensitiveDataTechToDB, removeTechFromDB } from '../Functions/TechStack'
 
 export const WhatWhoHowWhyChips = (props) => {
     const tech = props.tech;
+    const allTech = props.allTech;
     const onClose = props.onClose;
-    const navigate = useNavigate();
-    const techCollectionRef = collection(db, "dev_sec_ops_tech");
     const { user } = UserAuth();
     const assetName = getAssetName(tech.name, tech.existingTechCount);
+    const setTech = props.setTech;
 
 
     const [whatChips, setWhatChips] = useState([
@@ -36,14 +34,7 @@ export const WhatWhoHowWhyChips = (props) => {
         { "name": "Future use", "selected": false },
         { "name": "Critical to operation", "selected": false }]);
 
-    const getSelectedChips = (chips) => {
-        const selectedChips = chips.filter(function (singleChip) {
-            return singleChip.selected
-        })
-        return selectedChips.map(function (item) {
-            return item['name'];
-        });
-    }
+
 
     const handleWhatChipClick = (key) => {
         if (whatChips[key]) {
@@ -80,61 +71,6 @@ export const WhatWhoHowWhyChips = (props) => {
         return newChips
     }
 
-
-
-    const addAsset =
-        async () => {
-            // Filter to the selected chips
-
-            const whatArray = getSelectedChips(whatChips);
-            const whoArray = getSelectedChips(whoChips);
-            const howArray = getSelectedChips(howChips);
-            const whyArray = getSelectedChips(whyChips);
-
-            // push the selected assets to firebase
-            addDoc(techCollectionRef, {
-                name: tech.name,
-                owner: user.uid,
-                what: whatArray,
-                who: whoArray,
-                how: howArray,
-                why: whyArray,
-                description: tech.description,
-                asset: assetName,
-                image: tech.image,
-                storesData: tech.guards_sensitive_data
-            }).then(
-                response => {
-                    console.log(response)
-                    onClose()
-                }
-            ).catch(err => {
-                console.log(err)
-            })
-
-        }
-
-    const removeAsset = async () => {
-        getDocs(query(
-            collection(db, "dev_sec_ops_tech"),
-            where("owner", "==", user.uid),
-            where("name", "==", tech.name)
-        )).then(data => {
-            const tech = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-            try {
-                tech.forEach(asset => {
-                    const assetDoc = doc(db, "dev_sec_ops_tech", asset.id)
-                    deleteDoc(assetDoc).finally(
-                        onClose()                    )
-                })
-            } catch (error) {
-                onClose()
-                navigate('/error')
-            }
-
-        })
-
-    }
 
 
     return (
@@ -210,9 +146,26 @@ export const WhatWhoHowWhyChips = (props) => {
 
             <TechContainerButtons removeButtonDisabled={true}
                 addButtonDisabled={false}
-                addAssetOnClick={addAsset}
+                addAssetOnClick={() =>{ addSensitiveDataTechToDB(
+                    whatChips, 
+                    whoChips, 
+                    howChips, 
+                    whyChips, 
+                    tech, 
+                    user, 
+                    assetName, 
+                    onClose,
+                    setTech,
+                    allTech
+                    )}}
                 onClose={onClose}
-                removeAssetOnClick={removeAsset} />
+                removeAssetOnClick={() => {removeTechFromDB(
+                    user, 
+                    tech.name, 
+                    onClose,
+                    allTech,
+                    setTech
+                )}} />
 
         </>
     )
