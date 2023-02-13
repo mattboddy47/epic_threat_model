@@ -1,4 +1,5 @@
-import { React, useState, useEffect } from 'react'
+import * as React from 'react';
+import { useState, useEffect } from 'react'
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ChosenTechCard from "./ChosenTechCard";
@@ -6,7 +7,21 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { out_of_cloud_hosting_credit } from '../Text/ErrorTexts';
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
-import CurrentTechStack from './CurrentTechStack';
+import AddTechCard from './AddTechCard';
+import Dialog from '@mui/material/Dialog';
+import AddTech from './AddTech';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Slide from '@mui/material/Slide';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 
 export const DevSecOpsAddTech = (props) => {
@@ -19,7 +34,15 @@ export const DevSecOpsAddTech = (props) => {
   const userTechCount = Object.keys(userTech).length;
   const storage = getStorage();
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -91,22 +114,28 @@ export const DevSecOpsAddTech = (props) => {
   if (!loading) {
     return (
       <>
-      <CurrentTechStack 
-      newTechnologyUrl={newTechnologyUrl} 
-      userTech={userTech}
-      setUserTech={setUserTech}
-      assetsJson={assetsJson}
-      user={user}
-      />
-        {
-          userTechCount !== 0 && <Typography sx={{ lineHeight: 3 }} textAlign={'center'} gutterBottom variant="h4" component="div">{"Current Tech Stack"}</Typography>
-        }
+    <Stack  
+      direction="row"
+  justifyContent="center"
+  alignItems="center"
+  spacing={2}>
+        <Typography sx={{ lineHeight: 3 }} textAlign={'center'} gutterBottom variant="h4" component="div">{"Current Tech Stack"}</Typography>
+        <Button 
+         startIcon={<AddIcon />}
+        onClick={()=> handleClickOpen()} 
+        color="primary" 
+        variant="contained">
+          Add Tech
+          </Button>
 
+        </Stack>
         <Grid container
           direction="row"
           spacing={2}
           justifyContent="center"
           alignItems="center">
+
+    {userTechCount === 0 && <AddTechCard newTechnologyUrl={newTechnologyUrl} handleClickOpen={handleClickOpen} />}
 
           {Object.keys(userTech).map((key) => {
             return (
@@ -125,6 +154,39 @@ export const DevSecOpsAddTech = (props) => {
             );
           })}
         </Grid>
+
+        
+      <Dialog
+        fullScreen
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+      >
+        <AppBar sx={{ position: 'relative' }}>
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              Add Tech to Stack
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
+        <AddTech 
+        user={user}
+        userTech={userTech}
+        setUserTech={setUserTech}
+        assetsJson={assetsJson}
+        handleCloseAddTech= {handleClose}
+        />
+      </Dialog>
+
       </>
     )
   }
