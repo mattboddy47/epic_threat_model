@@ -1,29 +1,16 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react'
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ChosenTechCard from "./ChosenTechCard";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { out_of_cloud_hosting_credit } from '../Text/ErrorTexts';
+import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
 import { useNavigate } from 'react-router-dom';
+import { TitleWithButton } from "../TitleWithButton";
+import { FullScreenDialog } from "../FullScreenDialog";
 import CircularProgress from '@mui/material/CircularProgress';
 import AddTechCard from './AddTechCard';
-import Dialog from '@mui/material/Dialog';
 import AddTech from './AddTech';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import Slide from '@mui/material/Slide';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import Divider from '@mui/material/Divider';
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 
 export const DevSecOpsAddTech = (props) => {
@@ -117,33 +104,11 @@ export const DevSecOpsAddTech = (props) => {
     return (
       <>
 
-        <Box 
-        m={4}
-        sx={{
-          flexGrow: 1
-        }}>
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            marginBottom={2}
-            spacing={2}>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h5" component="div">
-              Current Tech Stack
-            </Typography>
-            <Button
-              startIcon={<AddIcon />}
-              onClick={() => handleClickOpen()}
-              color="primary"
-              variant="contained">
-              Add Tech
-            </Button>
-          </Stack>
-          <Divider />
-
-        </Box>
-
-
+        <TitleWithButton
+          title={"Current Tech Stack"}
+          buttonLabel={"Add Tech"}
+          onClick={handleClickOpen}
+        />
         <Grid container
           direction="row"
           spacing={2}
@@ -170,28 +135,11 @@ export const DevSecOpsAddTech = (props) => {
           })}
         </Grid>
 
-
-        <Dialog
-          fullScreen
-          open={open}
-          onClose={handleClose}
-          TransitionComponent={Transition}
+        <FullScreenDialog
+          title = {"Add Tech to Stack"}
+          handleClose = {handleClose}
+          open = {open}
         >
-          <AppBar sx={{ position: 'relative' }}>
-            <Toolbar>
-              <IconButton
-                edge="start"
-                color="inherit"
-                onClick={handleClose}
-                aria-label="close"
-              >
-                <CloseIcon />
-              </IconButton>
-              <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                Add Tech to Stack
-              </Typography>
-            </Toolbar>
-          </AppBar>
 
           <AddTech
             user={user}
@@ -200,7 +148,7 @@ export const DevSecOpsAddTech = (props) => {
             assetsJson={assetsJson}
             handleCloseAddTech={handleClose}
           />
-        </Dialog>
+        </FullScreenDialog>
 
       </>
     )

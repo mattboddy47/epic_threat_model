@@ -6,6 +6,8 @@ import PageNavigationFAB from '../../components/PageNavigationFAB'
 import { getAssets } from '../../Functions/Assets'
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
+import { TitleWithButton } from "../../components/TitleWithButton";
+import { FullScreenDialog } from "../../components/FullScreenDialog";
 
 
 export default function ChooseSecurity() {
@@ -14,10 +16,20 @@ export default function ChooseSecurity() {
     const [assetsJson, setAssetsJson] = useState(null)
     const [securityTech, setSecurityTech] = useState(null);
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
 
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+  
     useEffect(() => {
         getAssets(user)
         .then((assets) => {
+            console.log(assets)
           setAssetsJson(assets.security_assets)
         })
         .catch(
@@ -41,9 +53,22 @@ export default function ChooseSecurity() {
     return (
       <div>
         <DevSecOpsStepper step={1} />
+        <TitleWithButton
+          title={"Current Security Stack"}
+          buttonLabel={"Add Security Tech"}
+          onClick={handleClickOpen}
+        />
+
+<FullScreenDialog
+          title = {"Add Security Tech"}
+          handleClose = {handleClose}
+          open = {open}
+        >
         <Typography m="75px" align="center" sx={{ ml: 2, flex: 1 }} variant="h5" component="div">
         Coming soon, construction in progress.
             </Typography>
+
+</FullScreenDialog>
         <PageNavigationFAB buttonText='Review Threats' nextPageURL='/review-developer-threats' />
       </div>
     )

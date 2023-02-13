@@ -3,10 +3,10 @@ import Typography from '@mui/material/Typography';
 import DoneIcon from '@mui/icons-material/Done';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import TechContainerButtons from './TechContainerButtons';
-import { UserAuth } from '../context/AuthContext';
-import { getAssetName } from '../Functions/Assets';
-import { addSensitiveDataTechToDB, removeAllTechFromDB } from '../Functions/TechStack'
+import TechContainerButtons from '../TechContainerButtons';
+import { UserAuth } from '../../context/AuthContext';
+import { getAssetName } from '../../Functions/Assets';
+import { addSensitiveDataTechToDB, removeAllTechFromDB } from '../../Functions/TechStack'
 
 export const WhatWhoHowWhyChips = (props) => {
     const tech = props.tech;

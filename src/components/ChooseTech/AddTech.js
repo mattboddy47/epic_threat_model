@@ -1,11 +1,11 @@
 import { React, useState, useEffect } from 'react'
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
-import { out_of_cloud_hosting_credit } from '../Text/ErrorTexts';
+import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
 import Grid from '@mui/material/Grid';
 import AssetCard from "./AssetCard";
 import CircularProgress from '@mui/material/CircularProgress';
-import { defineAssetSelected, countExistingTech } from '../Functions/Assets'
+import { defineAssetSelected, countExistingTech } from '../../Functions/Assets'
 
 export default function AddTech(props) {
   const storage = getStorage();

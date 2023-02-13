@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import PageNavigationFAB from '../../components/PageNavigationFAB'
 import { getAssets } from '../../Functions/Assets'
 import { getTechStack } from '../../Functions/TechStack'
-import { DevSecOpsAddTech } from '../../components/DevSecOpsAddTech';
+import { DevSecOpsAddTech } from '../../components/ChooseTech/DevSecOpsAddTech';
 import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../../context/AuthContext';
 

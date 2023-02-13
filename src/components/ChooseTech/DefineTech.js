@@ -6,12 +6,12 @@ import Dialog from '@mui/material/Dialog';
 import { WhatWhoHowWhyChips } from "./WhatWhoHowWhyChips"
 import Chip from '@mui/material/Chip';
 import { toast } from 'react-toastify';
-import { LargeInfoCard } from './LargeInfoCard';
-import { getAssetName } from '../Functions/Assets'
-import { addTechToDB, removeAllTechFromDB } from '../Functions/TechStack'
+import { LargeInfoCard } from '../LargeInfoCard';
+import { getAssetName } from '../../Functions/Assets'
+import { addTechToDB, removeAllTechFromDB } from '../../Functions/TechStack'
 import Stack from '@mui/material/Stack';
 import DoneIcon from '@mui/icons-material/Done';
-import TechContainerButtons from './TechContainerButtons';
+import TechContainerButtons from '../TechContainerButtons';
 import DialogContent from '@mui/material/DialogContent';
 
 
