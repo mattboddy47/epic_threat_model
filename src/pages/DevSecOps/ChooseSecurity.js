@@ -37,7 +37,7 @@ export default function ChooseSecurity() {
     },[user]);
 
   // Make sure that assetsJson is not null
-  if (securityTech) {
+  if (securityTech && assetsJson) {
     return (
       <div>
         <DevSecOpsStepper step={1} />

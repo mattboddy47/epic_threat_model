@@ -75,7 +75,7 @@ function addTechToStack(techStack, setTechStack, tech, assetName, user) {
         asset: assetName,
         description: tech.description,
         image: tech.image,
-        storesData: tech.guards_sensitive_data,
+        storesData: tech.holds_sensitive_data,
         owner: user.uid
     })
     setTechStack(newTechStack);
@@ -102,7 +102,7 @@ export function addSensitiveDataTechToDB(whatChips, whoChips, howChips, whyChips
         description: tech.description,
         asset: assetName,
         image: tech.image,
-        storesData: tech.guards_sensitive_data
+        storesData: tech.holds_sensitive_data
     }).then(
         response => {
             // console.log(response)
@@ -134,7 +134,7 @@ export function addTechToDB(chips, tech, user, onClose, toast, techStack, setTec
             asset: tech.name,
             description: tech.description,
             image: tech.image,
-            storesData: tech.guards_sensitive_data,
+            storesData: tech.holds_sensitive_data,
             owner: user.uid
         })
             .then(
@@ -161,7 +161,7 @@ export function addTechToDB(chips, tech, user, onClose, toast, techStack, setTec
             name: tech.name,
             image: tech.image,
             asset: asset.name,
-            storesData: tech.guards_sensitive_data,
+            storesData: tech.holds_sensitive_data,
             description: tech.description,
             owner: user.uid
         }).then(

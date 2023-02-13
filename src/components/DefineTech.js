@@ -33,7 +33,7 @@ export function DefineTech(props) {
         }
     }
 
-    if (tech.guards_sensitive_data) {
+    if (tech.holds_sensitive_data) {
         const assetName = getAssetName(techName, tech.existingTechCount);
         return (
             <Dialog
