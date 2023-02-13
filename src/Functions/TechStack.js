@@ -51,7 +51,6 @@ function addTechToStack(techStack, setTechStack, tech, assetName, user) {
     return newTechStack;
 }
 
-// TODO - This is nasty! It needs to be refactored to have fewer inputs
 export function addSensitiveDataTechToDB(whatChips, whoChips, howChips, whyChips, tech, user, assetName, onClose, setTech, allTech) {
     const techCollectionRef = collection(db, "dev_sec_ops_tech")
 
@@ -95,7 +94,6 @@ function getSelectedChips(chips) {
 }
 
 
-// TODO - This is nasty! It needs to be refactored to have fewer inputs
 export function addTechToDB(chips, tech, user, onClose, toast, techStack, setTechStack) {
     const techCollectionRef = collection(db, "dev_sec_ops_tech")
     // if there are no chips, then this is a tech such as authentication or WAF where it has no extra parameters. 
