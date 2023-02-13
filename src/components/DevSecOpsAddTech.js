@@ -11,6 +11,7 @@ import AddTechCard from './AddTechCard';
 import Dialog from '@mui/material/Dialog';
 import AddTech from './AddTech';
 import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -18,6 +19,7 @@ import Slide from '@mui/material/Slide';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
+import Divider from '@mui/material/Divider';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -114,28 +116,43 @@ export const DevSecOpsAddTech = (props) => {
   if (!loading) {
     return (
       <>
-    <Stack  
-      direction="row"
-  justifyContent="center"
-  alignItems="center"
-  spacing={2}>
-        <Typography sx={{ lineHeight: 3 }} textAlign={'center'} gutterBottom variant="h4" component="div">{"Current Tech Stack"}</Typography>
-        <Button 
-         startIcon={<AddIcon />}
-        onClick={()=> handleClickOpen()} 
-        color="primary" 
-        variant="contained">
-          Add Tech
-          </Button>
 
-        </Stack>
+        <Box sx={{
+          marginLeft: '150px',
+          marginRight: '150px',
+          marginBottom: '45px',
+          flexGrow: 1
+        }}>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            marginBottom={2}
+            spacing={2}>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h5" component="div">
+              Current Tech Stack
+            </Typography>
+            <Button
+              startIcon={<AddIcon />}
+              onClick={() => handleClickOpen()}
+              color="primary"
+              variant="contained">
+              Add Tech
+            </Button>
+          </Stack>
+          <Divider />
+
+        </Box>
+        {/* <Typography sx={{ lineHeight: 3 }} textAlign={'center'} gutterBottom variant="h4" component="div">{"Current Tech Stack"}</Typography> */}
+
+
         <Grid container
           direction="row"
           spacing={2}
           justifyContent="center"
           alignItems="center">
 
-    {userTechCount === 0 && <AddTechCard newTechnologyUrl={newTechnologyUrl} handleClickOpen={handleClickOpen} />}
+          {userTechCount === 0 && <AddTechCard newTechnologyUrl={newTechnologyUrl} handleClickOpen={handleClickOpen} />}
 
           {Object.keys(userTech).map((key) => {
             return (
@@ -146,7 +163,7 @@ export const DevSecOpsAddTech = (props) => {
                   assetName={userTech[key].asset}
                   description={userTech[key].description}
                   user={user}
-                  allTech ={userTech}
+                  allTech={userTech}
                   setTech={setUserTech}
                 />
 
@@ -155,37 +172,37 @@ export const DevSecOpsAddTech = (props) => {
           })}
         </Grid>
 
-        
-      <Dialog
-        fullScreen
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={Transition}
-      >
-        <AppBar sx={{ position: 'relative' }}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Add Tech to Stack
-            </Typography>
-          </Toolbar>
-        </AppBar>
 
-        <AddTech 
-        user={user}
-        userTech={userTech}
-        setUserTech={setUserTech}
-        assetsJson={assetsJson}
-        handleCloseAddTech= {handleClose}
-        />
-      </Dialog>
+        <Dialog
+          fullScreen
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={Transition}
+        >
+          <AppBar sx={{ position: 'relative' }}>
+            <Toolbar>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
+              >
+                <CloseIcon />
+              </IconButton>
+              <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                Add Tech to Stack
+              </Typography>
+            </Toolbar>
+          </AppBar>
+
+          <AddTech
+            user={user}
+            userTech={userTech}
+            setUserTech={setUserTech}
+            assetsJson={assetsJson}
+            handleCloseAddTech={handleClose}
+          />
+        </Dialog>
 
       </>
     )
