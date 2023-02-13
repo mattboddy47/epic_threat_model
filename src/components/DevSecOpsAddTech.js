@@ -117,10 +117,9 @@ export const DevSecOpsAddTech = (props) => {
     return (
       <>
 
-        <Box sx={{
-          marginLeft: '150px',
-          marginRight: '150px',
-          marginBottom: '45px',
+        <Box 
+        m={4}
+        sx={{
           flexGrow: 1
         }}>
           <Stack
