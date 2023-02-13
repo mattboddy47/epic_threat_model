@@ -87,11 +87,7 @@ export function DefineTech(props) {
                             () => {
                                 addTechToDB(
                                     chips,
-                                    techName,
-                                    techName,
-                                    assetContainer.description,
-                                    assetContainer.image,
-                                    assetContainer.guards_sensitive_data,
+                                    assetContainer,
                                     user,
                                     onClose,
                                     toast,

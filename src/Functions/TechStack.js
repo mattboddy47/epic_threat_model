@@ -37,14 +37,14 @@ function removeTechFromStack(techStack, setTech, techName) {
     return newTechStack;
 }
 
-function addTechToStack(techStack, setTechStack, techName, assetName, techDescription, imageUrl, guardsSensitiveData, user) {
+function addTechToStack(techStack, setTechStack, tech, assetName, user) {
     const newTechStack = JSON.parse(JSON.stringify(techStack));
     newTechStack.push({
-        name: techName,
+        name: tech.name,
         asset: assetName,
-        description: techDescription,
-        image: imageUrl,
-        storesData: guardsSensitiveData,
+        description: tech.description,
+        image: tech.image,
+        storesData: tech.guards_sensitive_data,
         owner: user.uid
     })
     setTechStack(newTechStack);
@@ -76,7 +76,7 @@ export function addSensitiveDataTechToDB(whatChips, whoChips, howChips, whyChips
     }).then(
         response => {
             // console.log(response)
-            addTechToStack(allTech, setTech, tech.name, assetName, tech.description, tech.image, tech.guards_sensitive_data, user) 
+            addTechToStack(allTech, setTech, tech, assetName, user) 
             onClose(true)
         }
     ).catch(err => {
@@ -96,20 +96,20 @@ function getSelectedChips(chips) {
 
 
 // TODO - This is nasty! It needs to be refactored to have fewer inputs
-export function addTechToDB(chips, techName, assetName, techDescription, imageUrl, guardsSensitiveData, user, onClose, toast, techStack, setTechStack) {
+export function addTechToDB(chips, tech, user, onClose, toast, techStack, setTechStack) {
     const techCollectionRef = collection(db, "dev_sec_ops_tech")
-    // if there are no chips, then this is a tech such as authentication or WAF where it has no extra parameters. If some ch
+    // if there are no chips, then this is a tech such as authentication or WAF where it has no extra parameters. 
     if (chips.length === 0) {
         addDoc(techCollectionRef, {
-            name: techName,
-            asset: techName,
-            description: techDescription,
-            image: imageUrl,
-            storesData: guardsSensitiveData,
+            name: tech.name,
+            asset: tech.name,
+            description: tech.description,
+            image: tech.image,
+            storesData: tech.guards_sensitive_data,
             owner: user.uid
         })
             .then(
-                addTechToStack(techStack, setTechStack, techName, assetName, techDescription, imageUrl, guardsSensitiveData, user)
+                addTechToStack(techStack, setTechStack, tech, tech.name, user)
             )
             .then(
                 onClose(true)
@@ -129,14 +129,14 @@ export function addTechToDB(chips, techName, assetName, techDescription, imageUr
     let newTechStack = JSON.parse(JSON.stringify(techStack));
     selectedTech.forEach(asset => {
         addDoc(techCollectionRef, {
-            name: techName,
-            image: imageUrl,
+            name: tech.name,
+            image: tech.image,
             asset: asset.name,
-            storesData: guardsSensitiveData,
-            description: techDescription,
+            storesData: tech.guards_sensitive_data,
+            description: tech.description,
             owner: user.uid
         }).then(
-            newTechStack = addTechToStack(newTechStack, setTechStack, techName, asset.name, techDescription, imageUrl, guardsSensitiveData, user)
+            newTechStack = addTechToStack(newTechStack, setTechStack, tech, asset.name, user)
         )
     });
     onClose(true)
