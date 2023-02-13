@@ -17,8 +17,6 @@ export function removeTechFromDB(user, assetName, techName, allTech, setTech) {
           .catch(() =>{
             console.log(1)
           })
-
-        //   window.location.reload()
           }
           runDel()
           .then(                    
