@@ -29,11 +29,19 @@ export default function ThreatModelStepper(props) {
           }
         }}>
         <Step
-          onClick={() => navigate("/choose-tech-dev-sec-ops")}
-          key="Select tech stack"
+          onClick={() => navigate("/choose-tech")}
+          key="Select Tech Stack"
         >
           <StepLabel>Select tech stack</StepLabel>
         </Step>
+
+        <Step
+          onClick={() => navigate("/choose-security")}
+          key="Select Security Stack"
+        >
+          <StepLabel>Select Security Stack</StepLabel>
+        </Step>
+
         <Step
           onClick={() => navigate("/review-developer-threats")}
           key="Review Threats"

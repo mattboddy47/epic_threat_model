@@ -122,7 +122,7 @@ export default function ReviewThreats() {
   if (matchedRules && matchedCWEs) {
     return (
       <div>
-        <DevSecOpsStepper step={1} />
+        <DevSecOpsStepper step={2} />
         <ThreatsSummary
           matchedRules={matchedRules}
           matchedCWEs={matchedCWEs}

@@ -123,7 +123,7 @@ toast.info("SecOps Threat Modelling is coming soon")
                             }}>
                             <CardActionArea
                                 onClick={event => {
-                                    navigate('/choose-tech-dev-sec-ops')
+                                    navigate('/choose-tech')
                                 }}
                             >
                                 <CardMedia

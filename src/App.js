@@ -17,8 +17,8 @@ import {
 } from "react-router-dom";
 import ReviewDeveloperThreats from './pages/DevSecOps/ReviewDeveloperThreats';
 import StartThreatModelling from './pages/StartThreatModelling';
-import DevSecOpsChooseTech from './pages/DevSecOps/ChooseTech';
-// import DevSecOpsListTech from './pages/DevSecOps/DevSecOpsListTech';
+import ChooseTech from './pages/DevSecOps/ChooseTech';
+import ChooseSecurity from './pages/DevSecOps/ChooseSecurity';
 
 
 export default function App() {
@@ -29,8 +29,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Loading />} />
           <Route path="/start-threat-modelling" element={<Protected><StartThreatModelling /></Protected>} />
-          {/* <Route path="/dev-sec-ops-list-tech" element={<Protected><DevSecOpsListTech /></Protected>} /> */}
-          <Route path="/choose-tech-dev-sec-ops" element={<Protected><DevSecOpsChooseTech /></Protected>} />
+          <Route path="/choose-tech" element={<Protected><ChooseTech /></Protected>} />
+          <Route path="/choose-security" element={<Protected><ChooseSecurity /></Protected>} />
           <Route path="/review-developer-threats" element={<Protected><ReviewDeveloperThreats /></Protected>} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/error' element={<Error />} />

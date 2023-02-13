@@ -142,7 +142,6 @@ export const DevSecOpsAddTech = (props) => {
           <Divider />
 
         </Box>
-        {/* <Typography sx={{ lineHeight: 3 }} textAlign={'center'} gutterBottom variant="h4" component="div">{"Current Tech Stack"}</Typography> */}
 
 
         <Grid container
