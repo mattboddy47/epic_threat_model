@@ -4,8 +4,6 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { collection, getDocs, deleteDoc, query, where, doc } from 'firebase/firestore'
-import { db } from '../firebase'
 import { removeTechFromDB } from '../Functions/TechStack';
 
 export default function ChosenTechCard(props) {
@@ -17,8 +15,6 @@ export default function ChosenTechCard(props) {
   const allTech = props.allTech;
   const setTech = props.setTech;
   
-
-
   return (
     <Card
       sx={{
