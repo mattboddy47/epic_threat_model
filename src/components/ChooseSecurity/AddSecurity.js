@@ -3,16 +3,16 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
 import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
 import Grid from '@mui/material/Grid';
-import AssetCard from "./AssetCard";
+import SecurityAssetCard from "./SecurityAssetCard";
 import CircularProgress from '@mui/material/CircularProgress';
 import { defineAssetSelected, countExistingTech } from '../../Functions/Assets'
 
-export default function AddTech(props) {
+export default function AddSecurity(props) {
   const storage = getStorage();
   const navigate = useNavigate();
-  const userTech = props.userTech;
-  const setUserTech = props.setUserTech;
-  const assetsJson = props.assetsJson;
+  const secTech = props.secTech;
+  const setSecTech = props.setSecTech;
+  const secAssetsJson = props.secAssetsJson;
   const [loading, setLoading] = useState(true);
   const user = props.user
   const handleCloseAddTech = props.handleCloseAddTech;
@@ -20,17 +20,17 @@ export default function AddTech(props) {
 
   useEffect(() => {
     var loadingProgressCount = 0;
-    const assetsCount = Object.keys(assetsJson).length;
+    const assetsCount = Object.keys(secAssetsJson).length;
 
-    assetsJson.forEach(asset => {
+    secAssetsJson.forEach(asset => {
       const imageRef = ref(storage, 'images/' + asset.image);
 
       // Count the amount of technology of this asset type already in the threat model
       // This is used to assign a number to any new assets created, i.e. "Database table 2" if table 1 already exists
-      countExistingTech(asset, userTech)
+      countExistingTech(asset, secTech)
 
       // define if the asset is selected or not 
-      defineAssetSelected(asset, userTech)
+      defineAssetSelected(asset, secTech)
       
 
       // asset.asset_containers.forEach(asset_container => {
@@ -66,7 +66,7 @@ export default function AddTech(props) {
     });
 
     // eslint-disable-next-line 
-  }, []);
+  }, [secTech]);
 
   if (!loading) {
     return (
@@ -78,17 +78,17 @@ export default function AddTech(props) {
           justifyContent="center"
           alignItems="center">
 
-          {Object.keys(assetsJson).map((key) => {
+          {Object.keys(secAssetsJson).map((key) => {
             return (
               <Grid item >
-                <AssetCard
-                  image={assetsJson[key].imageUrl}
-                  title={assetsJson[key].name}
-                  description={assetsJson[key].description}
-                  tech={assetsJson[key]}
-                  setUserTech={setUserTech}
-                  allTech={userTech}
-                  selected={assetsJson[key].selected}
+                <SecurityAssetCard
+                  image={secAssetsJson[key].imageUrl}
+                  title={secAssetsJson[key].name}
+                  description={secAssetsJson[key].description}
+                  tech={secAssetsJson[key]}
+                  setSecTech={setSecTech}
+                  allSecTech={secTech}
+                  selected={secAssetsJson[key].selected}
                   user={user}
                   handleCloseAddTech={handleCloseAddTech}
                 />

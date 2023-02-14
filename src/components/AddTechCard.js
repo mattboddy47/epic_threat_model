@@ -11,6 +11,9 @@ import Grid from '@mui/material/Grid';
 export default function AddTechCard(props) {
   const newTechnologyUrl = props.newTechnologyUrl;
   const handleClickOpen = props.handleClickOpen;
+  const title = props.title;
+  const description = props.description;
+  const buttonLabel = props.buttonLabel;
 
 
   return (
@@ -49,10 +52,10 @@ export default function AddTechCard(props) {
                   height: 150,
                 }}>
                 <Typography gutterBottom variant="h5" component="div">
-                  {"Add Tech"}
+                  {title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {"Your tech stack is currently empty, add new tech to your tech stack to start building a picture of your threat model."}
+                  {description}
                 </Typography>
               </CardContent>
               <Button sx={{
@@ -64,7 +67,7 @@ export default function AddTechCard(props) {
                 size='small'
                 color='primary'
               >
-                {"Add Tech"}
+                {buttonLabel}
               </Button>
             </CardActionArea>
           </Card>

@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react'
 import Grid from '@mui/material/Grid';
-import ChosenTechCard from "./ChosenTechCard";
+import ChosenTechCard from "../ChosenTechCard";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
 import { useNavigate } from 'react-router-dom';
 import { TitleWithButton } from "../TitleWithButton";
 import { FullScreenDialog } from "../FullScreenDialog";
 import CircularProgress from '@mui/material/CircularProgress';
-import AddTechCard from './AddTechCard';
+import AddTechCard from '../AddTechCard';
 import AddTech from './AddTech';
+import { removeTechFromDB } from '../../Functions/TechStack';
 
 
 
@@ -58,7 +59,7 @@ export const DevSecOpsAddTech = (props) => {
         );
     }
 
-    var loadingProgressCount = 0;
+    let loadingProgressCount = 0;
     // if the user hasn't added any tech yet, there will be no images to download, we are therefore done loading
     if (userTechCount === 0) {
       loadNewTechURL();
@@ -115,7 +116,11 @@ export const DevSecOpsAddTech = (props) => {
           justifyContent="center"
           alignItems="center">
 
-          {userTechCount === 0 && <AddTechCard newTechnologyUrl={newTechnologyUrl} handleClickOpen={handleClickOpen} />}
+          {userTechCount === 0 && <AddTechCard newTechnologyUrl={newTechnologyUrl} handleClickOpen={handleClickOpen}
+            title={"Add Tech"}
+            description={"Your tech stack is currently empty, add new tech to your tech stack to start building a picture of your threat model."}
+            buttonLabel={"Add Tech"}
+          />}
 
           {Object.keys(userTech).map((key) => {
             return (
@@ -128,6 +133,8 @@ export const DevSecOpsAddTech = (props) => {
                   user={user}
                   allTech={userTech}
                   setTech={setUserTech}
+                  removeTechFromDB={() => removeTechFromDB(user, userTech[key].asset, userTech[key].name, userTech, setUserTech)}
+
                 />
 
               </Grid>
@@ -136,9 +143,9 @@ export const DevSecOpsAddTech = (props) => {
         </Grid>
 
         <FullScreenDialog
-          title = {"Add Tech to Stack"}
-          handleClose = {handleClose}
-          open = {open}
+          title={"Add Tech to Stack"}
+          handleClose={handleClose}
+          open={open}
         >
 
           <AddTech

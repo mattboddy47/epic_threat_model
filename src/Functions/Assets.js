@@ -11,7 +11,6 @@ export function defineAssetSelected(asset, userTech) {
 
 export function countExistingTech(asset, userTech) {
     const existingTech = userTech.filter(tech => tech.name === asset.name);
-    console.log(existingTech)
     const existingTechCount = Object.keys(existingTech).length;
     asset.existingTechCount = existingTechCount
     return existingTechCount;

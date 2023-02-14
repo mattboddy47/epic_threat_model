@@ -32,7 +32,7 @@ export default function ThreatModelStepper(props) {
           onClick={() => navigate("/choose-tech")}
           key="Select Tech Stack"
         >
-          <StepLabel>Select tech stack</StepLabel>
+          <StepLabel>Select Tech Stack</StepLabel>
         </Step>
 
         <Step
