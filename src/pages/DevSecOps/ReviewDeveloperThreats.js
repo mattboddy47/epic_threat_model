@@ -13,10 +13,12 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import axios from 'axios';
 import { applyCWEsToTech } from "../../Functions/CWEAssessment";
 import { applyRulesToTech } from "../../Functions/Rules";
-
+import { getTechStack } from '../../Functions/TechStack';
+import { getSecTechStack } from '../../Functions/SecurityTechStack';
 
 export default function ReviewThreats() {
-  const [tech, setTech] = useState()
+  const [tech, setTech] = useState();
+  const [securityStack, setSecurityStack] = useState();
   const { user } = UserAuth();
   const navigate = useNavigate();
   const [rules, setRules] = useState()
@@ -35,30 +37,37 @@ export default function ReviewThreats() {
       return;
     }
 
-    const getTech = async () => {
-      try {
-        const data = await getDocs(
-          query(
-            collection(db, "dev_sec_ops_tech"),
-            where("owner", "==", user.uid)
-          ));
+    getTechStack(user)
+    .then((techStack) => {
+      setTech(techStack)
 
-        setTech(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-
-      } catch (err) {
-        console.log(err)
-        switch (err.message) {
-          case "Quota exceeded.":
-            navigate('/error', { state: { speech: out_of_cloud_hosting_credit } })
+    })
+    .catch(
+      (error) => {
+        switch (error) {
+          case ('user_error'):
             break;
           default:
             navigate('/error')
-            break;
         }
       }
+    )
 
-    }
-    getTech();
+    getSecTechStack(user)
+    .then((secTechStack) => {
+      setSecurityStack(secTechStack)
+
+    })
+    .catch(
+      (error) => {
+        switch (error) {
+          case ('user_error'):
+            break;
+          default:
+            navigate('/error')
+        }
+      }
+    )
 
     getDownloadURL(rulesJsonPath)
       .then((url) => {
@@ -109,7 +118,7 @@ export default function ReviewThreats() {
 
 
   if (tech && rules && !matchedRules) {
-    const rulesThatMatch = applyRulesToTech(rules, tech)
+    const rulesThatMatch = applyRulesToTech(rules, tech, securityStack)
     setMatchedRules(rulesThatMatch);
   }
 

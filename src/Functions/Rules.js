@@ -27,7 +27,7 @@ export function check_is_condition(is_is_not_condition, rule_is_is_not, technolo
     }
 }
 
-export function check_tech_stack_does_not_contain_assets(asset_to_find, tech) {
+export function check_security_stack_does_not_contain_assets(asset_to_find, tech) {
     // eslint-disable-next-line 
     if (asset_to_find == undefined) {
         return true
@@ -41,7 +41,7 @@ export function check_tech_stack_does_not_contain_assets(asset_to_find, tech) {
 
 }
 
-export function check_tech_stack_contains_assets(asset_to_find, tech) {
+export function check_security_stack_contains_assets(asset_to_find, tech) {
     // eslint-disable-next-line 
     if (asset_to_find == undefined) {
         return true
@@ -55,7 +55,7 @@ export function check_tech_stack_contains_assets(asset_to_find, tech) {
 
 }
 
-export function applyRulesToTech(rules, allTech) {
+export function applyRulesToTech(rules, allTech, securityStack) {
     const result = [];
 
     allTech.forEach(technology => {
@@ -72,8 +72,8 @@ export function applyRulesToTech(rules, allTech) {
 
             const is_not_condition_met = check_condition(rule.is_not_condition, rule.is_not, technology, rule.data_type.toLowerCase(), false);
 
-            const tech_stack_does_not_contain_asset = check_tech_stack_does_not_contain_assets(rule.tech_stack_does_not_contain, allTech)
-            const tech_stack_contains_required_asset = check_tech_stack_contains_assets(rule.tech_stack_contains, allTech)
+            const tech_stack_does_not_contain_asset = check_security_stack_does_not_contain_assets(rule.tech_stack_does_not_contain, securityStack)
+            const tech_stack_contains_required_asset = check_security_stack_contains_assets(rule.tech_stack_contains, securityStack)
 
             if (is_condition_met && is_not_condition_met && tech_stack_does_not_contain_asset && tech_stack_contains_required_asset) {
                 const new_rule = Object.create(rule);
