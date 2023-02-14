@@ -2,9 +2,7 @@ import { React, useRef, useState, useEffect } from 'react'
 import DevSecOpsStepper from "../../components/DevSecOpsStepper";
 import CircularProgress from '@mui/material/CircularProgress';
 import { UserAuth } from '../../context/AuthContext';
-import { collection, getDocs, query, where } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../firebase'
 import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
 import TechReview from '../../components/TechReview';
 import ProgrammingLanguageReview from '../../components/ProgrammingLanguageReview'

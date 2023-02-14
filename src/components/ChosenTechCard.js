@@ -4,16 +4,12 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { removeTechFromDB } from '../Functions/TechStack';
 
 export default function ChosenTechCard(props) {
   const image = props.image;
   const techName = props.name;
   const description = props.description;
-  const user = props.user
   const assetName = props.assetName;
-  const allTech = props.allTech;
-  const setTech = props.setTech;
   const removeTechFromDB = props.removeTechFromDB;
   return (
     <Card

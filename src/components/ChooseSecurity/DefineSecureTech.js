@@ -1,15 +1,9 @@
 import * as React from 'react';
-import { useState } from 'react'
 import PropTypes from 'prop-types';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-import Chip from '@mui/material/Chip';
-import { toast } from 'react-toastify';
 import { LargeInfoCard } from '../LargeInfoCard';
-import { getAssetName } from '../../Functions/Assets'
 import { addSecTechToDB, removeAllSecTechFromDB } from '../../Functions/SecurityTechStack'
-import Stack from '@mui/material/Stack';
-import DoneIcon from '@mui/icons-material/Done';
 import TechContainerButtons from '../TechContainerButtons';
 import DialogContent from '@mui/material/DialogContent';
 

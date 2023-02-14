@@ -5,15 +5,7 @@ import { UserAuth } from '../../context/AuthContext';
 import PageNavigationFAB from '../../components/PageNavigationFAB'
 import { getAssets } from '../../Functions/Assets'
 import { useNavigate } from 'react-router-dom';
-import { TitleWithButton } from "../../components/TitleWithButton";
-import { FullScreenDialog } from "../../components/FullScreenDialog";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { out_of_cloud_hosting_credit } from '../../Text/ErrorTexts';
-import AddTechCard from '../../components/AddTechCard';
-import AddSecurity from '../../components/ChooseSecurity/AddSecurity';
-import { getSecTechStack, removeSecTechFromDB } from '../../Functions/SecurityTechStack';
-import Grid from '@mui/material/Grid';
-import ChosenTechCard from "../../components/ChosenTechCard";
+import { getSecTechStack } from '../../Functions/SecurityTechStack';
 import CurrentSecurityStack from '../../components/ChooseSecurity/CurrentSecurityStack';
 
 
@@ -23,17 +15,6 @@ export default function ChooseSecurity() {
     const [secAssetsJson, setSecAssetsJson] = useState(null)
     const [securityTech, setSecurityTech] = useState(null);
     const navigate = useNavigate();
-    const [open, setOpen] = useState(false);
-    const [newSecurityTechUrl, setnewSecurityTechUrl] = useState()
-    const storage = getStorage();
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     useEffect(() => {
         getAssets(user)
