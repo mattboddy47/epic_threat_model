@@ -84,13 +84,14 @@ function addTechToStack(techStack, setTechStack, tech, assetName, user) {
     return newTechStack;
 }
 
-export function addSecTechToDB(tech, user, onClose, 
+export function addSecTechToDB(tech, protectedTech, user, onClose, 
     secTechStack, setSecTechStack
     ) {
     const techCollectionRef = collection(db, "dev_sec_ops_sec_tech")
 
         addDoc(techCollectionRef, {
             name: tech.name,
+            protectedTech: protectedTech,
             asset: tech.name,
             description: tech.description,
             image: tech.image,

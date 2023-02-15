@@ -37,7 +37,7 @@ export function check_security_stack_does_not_contain_assets(asset_to_find, tech
         return true;
     }
 
-    return !tech.some(t => asset_to_find.some(tech => tech === t.name))
+    return !tech.some(t => asset_to_find.every(tech => tech === t.name))
 }
 
 export function check_security_stack_contains_assets(asset_to_find, tech) {
@@ -50,11 +50,11 @@ export function check_security_stack_contains_assets(asset_to_find, tech) {
         return true;
     }
 
-    return tech.some(t => asset_to_find.some(tech => tech === t.name))
+    return tech.some(t => asset_to_find.every(tech => tech === t.name))
 
 }
 
-export function checkThreatMitigated(security_mitigations, securityTech) {
+export function checkThreatMitigated(security_mitigations, securityTech, tech) {
     // eslint-disable-next-line 
     if (security_mitigations == undefined) {
         return false
@@ -63,7 +63,16 @@ export function checkThreatMitigated(security_mitigations, securityTech) {
     if (security_mitigations.length === 0) {
         return false;
     }
-    return securityTech.some(tech => security_mitigations.every(mitigation => mitigation === tech.name))
+
+    const applicableSecurityTech = check_security_stack_protects_tech(tech, securityTech);
+
+    return applicableSecurityTech.some(tech => security_mitigations.every(mitigation => mitigation === tech.name))
+}
+
+export function check_security_stack_protects_tech(tech, securityTech) {
+    // finds if the asset name is in the protectedTech field of the security technology
+    return securityTech.filter(secTech => secTech.protectedTech.some(protectedTech => protectedTech === tech.asset))
+
 }
 
 export function applyRulesToTech(rules, allTech, securityStack) {
@@ -75,8 +84,9 @@ export function applyRulesToTech(rules, allTech, securityStack) {
             if (technology[rule.data_type.toLowerCase()] == undefined) {
                 return;
             };
-            const threatMitigated = checkThreatMitigated(rule.security_mitigations, securityStack) 
-            if (threatMitigated){
+
+            const threatMitigated = checkThreatMitigated(rule.security_mitigations, securityStack, technology)
+            if (threatMitigated) {
                 return;
             }
 
@@ -84,26 +94,36 @@ export function applyRulesToTech(rules, allTech, securityStack) {
             // check whether the is_condition is met, and set this variable accordingly.
 
             const is_condition_met = check_condition(rule.is_condition, rule.is, technology, rule.data_type.toLowerCase(), true);
+            if (!is_condition_met) {
+                return;
+            }
 
             const is_not_condition_met = check_condition(rule.is_not_condition, rule.is_not, technology, rule.data_type.toLowerCase(), false);
+            if (!is_not_condition_met) {
+                return;
+            }
 
             const tech_stack_does_not_contain_asset = check_security_stack_does_not_contain_assets(rule.tech_stack_does_not_contain, allTech)
-            const tech_stack_contains_required_asset = check_security_stack_contains_assets(rule.tech_stack_contains, allTech)
-
-     
-            if (is_condition_met && is_not_condition_met && tech_stack_does_not_contain_asset && tech_stack_contains_required_asset ) {
-                const new_rule = Object.create(rule);
-
-                new_rule.matched_technology_name = technology.asset;
-                new_rule.matched_technology_id = technology.id;
-                new_rule.matched_technology_description = technology.description;
-                new_rule.matched_technology_what = technology.what;
-                new_rule.matched_technology_who = technology.who;
-                new_rule.matched_technology_how = technology.how;
-                new_rule.matched_technology_why = technology.why;
-                new_rule.matched_technology_stores_data = technology.storesData;
-                result.push(new_rule)
+            if (!tech_stack_does_not_contain_asset) {
+                return;
             }
+
+            const tech_stack_contains_required_asset = check_security_stack_contains_assets(rule.tech_stack_contains, allTech)
+            if (!tech_stack_contains_required_asset) {
+                return;
+            }
+
+            const new_rule = Object.create(rule);
+
+            new_rule.matched_technology_name = technology.asset;
+            new_rule.matched_technology_id = technology.id;
+            new_rule.matched_technology_description = technology.description;
+            new_rule.matched_technology_what = technology.what;
+            new_rule.matched_technology_who = technology.who;
+            new_rule.matched_technology_how = technology.how;
+            new_rule.matched_technology_why = technology.why;
+            new_rule.matched_technology_stores_data = technology.storesData;
+            result.push(new_rule);
 
 
         })
