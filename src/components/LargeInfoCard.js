@@ -1,6 +1,7 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { BoxOfStuff } from '../components/BoxOfStuff';
+import CardMedia from '@mui/material/CardMedia';
 
 export const LargeInfoCard = ({ children, imageUrl, title, description }) => {
     return (
@@ -13,9 +14,20 @@ export const LargeInfoCard = ({ children, imageUrl, title, description }) => {
             justifyContent="center"
             alignItems="center">
             <Grid item >
-                <img src={imageUrl} height={300} width={300} alt="asset container type"
+            <CardMedia
+        component="img"
+        image={imageUrl}
+        alt={title}
+        sx={{
+          boxShadow: 1,
+          borderRadius: 7,
+          width: 300,
+          height: 299,
+        }}
+      />
+                {/* <img src={imageUrl} height={299} width={300} alt="asset container type"
                     style={{ borderRadius: 50 }}
-                />
+                /> */}
             </Grid>
             <Grid item>
                 <Grid item>
