@@ -36,7 +36,6 @@ export function check_security_stack_does_not_contain_assets(asset_to_find, tech
     if (asset_to_find.length === 0) {
         return true;
     }
-
     return !tech.some(t => asset_to_find.every(tech => tech === t.name))
 }
 

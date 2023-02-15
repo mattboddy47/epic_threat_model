@@ -8,10 +8,12 @@ import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import CircularProgress from '@mui/material/CircularProgress';
 import Link from '@mui/material/Link';
+import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
+import Divider from '@mui/material/Divider'
 
 export default function ProgrammingLanguageReview(props) {
     const matchedCWEs = props.matchedCWEs; 
-    const programmingLanguageRef = props.programmingLanguageRef;
     const hasCWEs = matchedCWEs.length > 0;
     
     if (matchedCWEs) {
@@ -20,7 +22,22 @@ export default function ProgrammingLanguageReview(props) {
             <>
                {hasCWEs &&
                <>
-                <Typography  ref={programmingLanguageRef} margin={4} textAlign={'center'} variant="h4" component="div" >Potential Vulnerabilities</Typography>
+               <Box
+                    m={4}
+                    sx={{
+                        flexGrow: 1
+                    }}>
+                    <Stack
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                        marginBottom={2}
+                        spacing={2}>
+                        <Typography sx={{ ml: 2, flex: 1 }} variant="h5" component="div">Potential Vulnerabilities</Typography>
+                    </Stack>
+                    <Divider />
+
+                </Box>
                 <Typography variant="body2" color="text.secondary" margin={2}>
                     The following vulnerabilities are applicable to your chosen programming language. These have been extracted from the<Link href='https://cwe.mitre.org/top25/archive/2022/2022_cwe_top25.html#cwe_top_25'> top 25 most dangerous vulnerabilities for 2022</Link>. learn more about these vulnerabilties and how to ensure that you don't introduce them into the code that you are writing. 
                 </Typography>

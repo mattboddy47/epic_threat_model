@@ -6,18 +6,34 @@ import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import CircularProgress from '@mui/material/CircularProgress';
 import Color from 'color';
+import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
+import Divider from '@mui/material/Divider';
 
 export default function TechReview(props) {
-    const matchedRules = props.matchedRules; 
-    const recommendationsRef = props.recommendationsRef
-    
+    const matchedRules = props.matchedRules;
+
     if (matchedRules) {
         return (
             <>
-               
-                <Typography  ref={recommendationsRef} margin={4} textAlign={'center'} variant="h4" component="div" >Recommendations</Typography>
+                <Box
+                    m={4}
+                    sx={{
+                        flexGrow: 1
+                    }}>
+                    <Stack
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                        marginBottom={2}
+                        spacing={2}>
+                        <Typography sx={{ ml: 2, flex: 1 }} variant="h5" component="div">Recommendations</Typography>
+                    </Stack>
+                    <Divider />
+
+                </Box>
                 <Grid container
-                marginBottom={2}
+                    marginBottom={2}
                     direction="row"
                     spacing={2}
                     justifyContent="center"
@@ -102,11 +118,11 @@ export default function TechReview(props) {
                                                         return (
                                                             // deepcode ignore ReactMissingArrayKeys: The suggested change by Snyk is to change nothing, Please suggest if 
                                                             <Chip
-                                                            color={
-                                                                matchedRules[key].data_type.toLowerCase() === "why" ? "primary_transparent_30" : "default"
-                                                            } 
-                                                            label={matchedRules[key].matched_technology_why[whyKey]} 
-                                                            size="small" />
+                                                                color={
+                                                                    matchedRules[key].data_type.toLowerCase() === "why" ? "primary_transparent_30" : "default"
+                                                                }
+                                                                label={matchedRules[key].matched_technology_why[whyKey]}
+                                                                size="small" />
 
                                                         )
                                                     })}
