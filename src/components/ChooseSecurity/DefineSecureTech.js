@@ -18,14 +18,16 @@ export function DefineSecureTech(props) {
     const title = "Define Technology"
     const allSecTech = props.allSecTech;
     const setSecTech = props.setSecTech;
-    const [techStack, setTechStack] = useState(null);
+    const [filteredTechStack, setFilteredTechStack] = useState(null);
     const [protectedTech, setProtectedTech] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         getTechStack(user)
             .then((t) => {
-                setTechStack(t)
+                const filteredTech = t.filter(te => te.storesData)
+
+                setFilteredTechStack(filteredTech)
 
             })
             .catch(
@@ -42,7 +44,7 @@ export function DefineSecureTech(props) {
         // eslint-disable-next-line
     }, []);
 
-    if (techStack && tech.protects_sensitive_data_tech) {
+    if (filteredTechStack && tech.protects_sensitive_data_tech) {
         return (
             <Dialog
                 onClose={onClose}
@@ -54,7 +56,7 @@ export function DefineSecureTech(props) {
                 <DialogContent>
 
                     <LargeInfoCard imageUrl={imageUrl} title={techName} description={"Please add " + techName.toLowerCase() + " to your model if it is a part of your tech stack."}>
-                       <MultipleSelectChip securityTechName={techName} allTech={techStack} selectedTech={protectedTech} setSelectedTech={setProtectedTech} />
+                       <MultipleSelectChip securityTechName={techName} allTech={filteredTechStack} selectedTech={protectedTech} setSelectedTech={setProtectedTech} />
                         <TechContainerButtons
                             removeButtonDisabled={!tech.selected}
                             addButtonDisabled={tech.selected}
@@ -87,7 +89,7 @@ export function DefineSecureTech(props) {
         );
     }
 
-    if (techStack) {
+    if (filteredTechStack) {
         return (
             <Dialog
                 onClose={onClose}

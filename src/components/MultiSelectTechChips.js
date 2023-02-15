@@ -33,11 +33,11 @@ function getStyles(tech, selectedTech, theme) {
 export default function MultipleSelectChip(props) {
     const theme = useTheme();
     const securityTechName = props.securityTechName;
-    const allTech = props.allTech;
+    const tech = props.allTech;
     const selectedTech = props.selectedTech;
     const setSelectedTech = props.setSelectedTech;
-    
-    console.log(allTech);
+
+
     const handleChange = (event) => {
         const {
             target: { value },
@@ -69,13 +69,13 @@ export default function MultipleSelectChip(props) {
                     )}
                     MenuProps={MenuProps}
                 >
-                    {Object.keys(allTech).map((key) => (
+                    {Object.keys(tech).map((key) => (
                         <MenuItem
-                            key={allTech[key].asset}
-                            value={allTech[key].asset}
-                            style={getStyles(allTech[key].asset, selectedTech, theme)}
+                            key={tech[key].asset}
+                            value={tech[key].asset}
+                            style={getStyles(tech[key].asset, selectedTech, theme)}
                         >
-                            {allTech[key].asset}
+                            {tech[key].asset}
                         </MenuItem>
                     ))}
                 </Select>
