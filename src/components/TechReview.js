@@ -131,6 +131,28 @@ export default function TechReview(props) {
                                             }
                                         </Grid>
 
+                                        <Typography marginTop={2} sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                            Threats
+                                        </Typography>
+
+{ matchedRules[key].threats.map((threat) => {
+    return(
+    <Card sx={{
+                                            boxShadow: 3,
+                                            borderRadius: 2,
+                                            padding: 0.25,
+                                            m:0.5,
+                                            backgroundColor: Color("#FF5733").alpha(0.05).string(),
+                                        }}>
+                                            <Typography padding={1} variant="body2">
+                                                {threat}
+                                            </Typography>
+                                        </Card>
+                                        )
+
+})}
+                                        {/* {Object.keys(matchedRules[key]).map((key) => { */}
+                                        
 
                                         <Typography marginTop={2} sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                             Recommendation
