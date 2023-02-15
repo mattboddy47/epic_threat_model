@@ -38,7 +38,6 @@ export function check_security_stack_does_not_contain_assets(asset_to_find, tech
     }
 
     return !tech.some(t => asset_to_find.some(tech => tech === t.name))
-
 }
 
 export function check_security_stack_contains_assets(asset_to_find, tech) {
@@ -55,6 +54,18 @@ export function check_security_stack_contains_assets(asset_to_find, tech) {
 
 }
 
+export function checkThreatMitigated(security_mitigations, securityTech) {
+    // eslint-disable-next-line 
+    if (security_mitigations == undefined) {
+        return false
+    }
+
+    if (security_mitigations.length === 0) {
+        return false;
+    }
+    return securityTech.some(tech => security_mitigations.every(mitigation => mitigation === tech.name))
+}
+
 export function applyRulesToTech(rules, allTech, securityStack) {
     const result = [];
 
@@ -64,6 +75,10 @@ export function applyRulesToTech(rules, allTech, securityStack) {
             if (technology[rule.data_type.toLowerCase()] == undefined) {
                 return;
             };
+            const threatMitigated = checkThreatMitigated(rule.security_mitigations, securityStack) 
+            if (threatMitigated){
+                return;
+            }
 
 
             // check whether the is_condition is met, and set this variable accordingly.
@@ -72,10 +87,11 @@ export function applyRulesToTech(rules, allTech, securityStack) {
 
             const is_not_condition_met = check_condition(rule.is_not_condition, rule.is_not, technology, rule.data_type.toLowerCase(), false);
 
-            const tech_stack_does_not_contain_asset = check_security_stack_does_not_contain_assets(rule.tech_stack_does_not_contain, securityStack)
-            const tech_stack_contains_required_asset = check_security_stack_contains_assets(rule.tech_stack_contains, securityStack)
+            const tech_stack_does_not_contain_asset = check_security_stack_does_not_contain_assets(rule.tech_stack_does_not_contain, allTech)
+            const tech_stack_contains_required_asset = check_security_stack_contains_assets(rule.tech_stack_contains, allTech)
 
-            if (is_condition_met && is_not_condition_met && tech_stack_does_not_contain_asset && tech_stack_contains_required_asset) {
+     
+            if (is_condition_met && is_not_condition_met && tech_stack_does_not_contain_asset && tech_stack_contains_required_asset ) {
                 const new_rule = Object.create(rule);
 
                 new_rule.matched_technology_name = technology.asset;
