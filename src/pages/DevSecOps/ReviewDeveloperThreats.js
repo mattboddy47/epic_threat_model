@@ -76,7 +76,6 @@ export default function ReviewThreats() {
 
           })
       }).catch(error => {
-        console.log(error)
         switch (error.code) {
           case 'storage/quota-exceeded':
             navigate('/error', { state: { speech: out_of_cloud_hosting_credit } })
@@ -99,7 +98,6 @@ export default function ReviewThreats() {
 
           })
       }).catch(error => {
-        console.log(error)
         switch (error.code) {
           case 'storage/quota-exceeded':
             navigate('/error', { state: { speech: out_of_cloud_hosting_credit } })

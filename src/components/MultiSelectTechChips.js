@@ -7,7 +7,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
-import Typography from '@mui/material/Typography'
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -24,7 +23,7 @@ const MenuProps = {
 function getStyles(tech, selectedTech, theme) {
     return {
         fontWeight:
-        selectedTech.indexOf(tech.asset) === -1
+        selectedTech.indexOf(tech) === -1
                 ? theme.typography.fontWeightRegular
                 : theme.typography.fontWeightMedium,
     };
@@ -32,10 +31,10 @@ function getStyles(tech, selectedTech, theme) {
 
 export default function MultipleSelectChip(props) {
     const theme = useTheme();
-    const securityTechName = props.securityTechName;
     const tech = props.allTech;
     const selectedTech = props.selectedTech;
     const setSelectedTech = props.setSelectedTech;
+    const title = props.title;
 
 
     const handleChange = (event) => {
@@ -50,9 +49,8 @@ export default function MultipleSelectChip(props) {
 
     return (
         <div>
-            <Typography marginBottom={1} >Select the technology that is protected by {securityTechName} from the list below</Typography>
             <FormControl sx={{ m: 3, width: 300 }}>
-                <InputLabel id="multiple-chip-label">Protected Tech</InputLabel>
+                <InputLabel id="multiple-chip-label">{title}</InputLabel>
                 <Select
                     labelId="multiple-chip-label"
                     id="multiple-chip"
@@ -71,11 +69,11 @@ export default function MultipleSelectChip(props) {
                 >
                     {Object.keys(tech).map((key) => (
                         <MenuItem
-                            key={tech[key].asset}
-                            value={tech[key].asset}
-                            style={getStyles(tech[key].asset, selectedTech, theme)}
+                            key={tech[key]}
+                            value={tech[key]}
+                            style={getStyles(tech[key], selectedTech, theme)}
                         >
-                            {tech[key].asset}
+                            {tech[key]}
                         </MenuItem>
                     ))}
                 </Select>

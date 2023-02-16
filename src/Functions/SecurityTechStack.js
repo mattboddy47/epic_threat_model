@@ -85,7 +85,7 @@ function addTechToStack(techStack, setTechStack, tech, assetName, user) {
 }
 
 export function addSecTechToDB(tech, protectedTech, user, onClose, 
-    secTechStack, setSecTechStack
+    secTechStack, setSecTechStack, settings
     ) {
     const techCollectionRef = collection(db, "dev_sec_ops_sec_tech")
 
@@ -96,7 +96,8 @@ export function addSecTechToDB(tech, protectedTech, user, onClose,
             description: tech.description,
             image: tech.image,
             protectsData: tech.protects_sensitive_data_tech,
-            owner: user.uid
+            owner: user.uid,
+            settings:settings
         })
             .then(
                 addTechToStack(secTechStack, setSecTechStack, tech, tech.name, user)

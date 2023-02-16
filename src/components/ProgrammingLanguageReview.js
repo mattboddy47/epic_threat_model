@@ -17,7 +17,6 @@ export default function ProgrammingLanguageReview(props) {
     const hasCWEs = matchedCWEs.length > 0;
     
     if (matchedCWEs) {
-        console.log(matchedCWEs)
         return (
             <>
                {hasCWEs &&

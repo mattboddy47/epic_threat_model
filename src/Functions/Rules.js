@@ -4,7 +4,6 @@ const and_condition = "and"
 // This function takes in either a is_condition or an is_not condition and then returns whether that is met.
 export function check_condition(is_is_not_condition, rule_is_is_not, technology, data_type, is_condition) {
     if (rule_is_is_not === "") {
-        console.log(is_condition + " rule blank")
         return true;
     }
     if (is_condition) {
@@ -64,9 +63,32 @@ export function checkThreatMitigated(security_mitigations, securityTech, tech) {
     }
 
     const applicableSecurityTech = check_security_stack_protects_tech(tech, securityTech);
-
-    return applicableSecurityTech.some(tech => security_mitigations.every(mitigation => mitigation === tech.name))
+    const threatMitigated = checkSecurityMitigationsForTech(applicableSecurityTech, security_mitigations)
+     
+    return threatMitigated;
 }
+
+function checkSecurityMitigationsForTech(tech, security_mitigations){
+    // this checks whether there is a mitigation in place via a setting or a security tech
+    const threatMitigated = tech.some(
+        t => 
+        security_mitigations.every(
+            mitigation => {
+                const mitigatedTech = mitigation === t.name
+
+                if (t.settings){
+                const mitigatedSetting = t.settings.some(
+                    setting => setting === mitigation
+                )
+                return mitigatedTech || mitigatedSetting;
+                }
+                return mitigatedTech;
+            }
+            ))
+
+            return threatMitigated;
+}
+
 
 export function check_security_stack_protects_tech(tech, securityTech) {
     // finds if the asset name is in the protectedTech field of the security technology

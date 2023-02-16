@@ -11,6 +11,7 @@ import { getTechStack } from '../../Functions/TechStack'
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import MultipleSelectChip from '../MultiSelectTechChips';
+import Typography from '@mui/material/Typography'
 
 export function DefineSecureTech(props) {
     const { onClose, tech, open, imageUrl, user } = props;
@@ -20,14 +21,26 @@ export function DefineSecureTech(props) {
     const setSecTech = props.setSecTech;
     const [filteredTechStack, setFilteredTechStack] = useState(null);
     const [protectedTech, setProtectedTech] = useState([]);
+    const [settings, setSettings] = useState([]);
     const navigate = useNavigate();
+    let settingsTitle = null;
+    let settingsChips = null;
 
+    if (tech.settings.length > 0){
+    settingsTitle =  <Typography marginBottom={1} >Select any features of the {techName.toLowerCase()} from the list below</Typography> 
+    settingsChips = <MultipleSelectChip title= {techName + " features"} allTech={tech.settings} selectedTech={settings} setSelectedTech={setSettings} />
+    }
+    
+    
     useEffect(() => {
+        
         getTechStack(user)
             .then((t) => {
                 const filteredTech = t.filter(te => te.storesData)
-
-                setFilteredTechStack(filteredTech)
+                const assets = filteredTech.map(function(t) {
+                    return t['asset'];
+                  });
+                setFilteredTechStack(assets)
 
             })
             .catch(
@@ -56,7 +69,13 @@ export function DefineSecureTech(props) {
                 <DialogContent>
 
                     <LargeInfoCard imageUrl={imageUrl} title={techName} description={"Please add " + techName.toLowerCase() + " to your model if it is a part of your tech stack."}>
-                       <MultipleSelectChip securityTechName={techName} allTech={filteredTechStack} selectedTech={protectedTech} setSelectedTech={setProtectedTech} />
+                    <Typography marginBottom={1} >Select the technology that is protected by {techName.toLowerCase()} from the list below</Typography>
+                       <MultipleSelectChip title={"Protected Tech"} allTech={filteredTechStack} selectedTech={protectedTech} setSelectedTech={setProtectedTech} />
+
+                       {settingsTitle}
+                       {settingsChips}           
+                
+            
                         <TechContainerButtons
                             removeButtonDisabled={!tech.selected}
                             addButtonDisabled={tech.selected}
@@ -68,7 +87,8 @@ export function DefineSecureTech(props) {
                                         user,
                                         onClose,
                                         allSecTech,
-                                        setSecTech
+                                        setSecTech,
+                                        settings
                                     )
                                 }
                             }
@@ -108,10 +128,12 @@ export function DefineSecureTech(props) {
                                 () => {
                                     addSecTechToDB(
                                         tech,
+                                        protectedTech,
                                         user,
                                         onClose,
                                         allSecTech,
-                                        setSecTech
+                                        setSecTech,
+                                        settings
                                     )
                                 }
                             }
@@ -143,6 +165,5 @@ export function DefineSecureTech(props) {
 DefineSecureTech.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
-    assetContainer: PropTypes.string.isRequired,
     imageUrl: PropTypes.string.isRequired,
 };

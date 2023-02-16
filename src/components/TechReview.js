@@ -78,7 +78,12 @@ export default function TechReview(props) {
                                                     <Typography marginRight={1} variant="body2">What:</Typography>
                                                     {Object.keys(matchedRules[key].matched_technology_what).map((whatKey) => {
                                                         return (
-                                                            <Chip color={matchedRules[key].data_type.toLowerCase() === "what" ? "primary_transparent_30" : "default"} label={matchedRules[key].matched_technology_what[whatKey]} size="small" />
+                                                            <Chip
+                                                                color={
+                                                                    matchedRules[key].data_type.toLowerCase() === "what" ? "primary_transparent_30" : "default"
+                                                                }
+                                                                label={matchedRules[key].matched_technology_what[whatKey]}
+                                                                size="small" />
 
                                                         )
                                                     })}
@@ -90,7 +95,13 @@ export default function TechReview(props) {
                                                     <Typography marginRight={1} variant="body2">Who:</Typography>
                                                     {Object.keys(matchedRules[key].matched_technology_who).map((whoKey) => {
                                                         return (
-                                                            <Chip color={matchedRules[key].data_type.toLowerCase() === "who" ? "primary_transparent_30" : "default"} label={matchedRules[key].matched_technology_who[whoKey]} size="small" />
+                                                            <Chip
+                                                                color={
+                                                                    matchedRules[key].data_type.toLowerCase() === "who" ? "primary_transparent_30" : "default"
+                                                                }
+                                                                label={matchedRules[key].matched_technology_who[whoKey]}
+                                                                size="small"
+                                                            />
 
                                                         )
                                                     })}
@@ -103,7 +114,13 @@ export default function TechReview(props) {
                                                     <Typography marginRight={1} variant="body2">How:</Typography>
                                                     {Object.keys(matchedRules[key].matched_technology_how).map((howKey) => {
                                                         return (
-                                                            <Chip color={matchedRules[key].data_type.toLowerCase() === "how" ? "primary_transparent_30" : "default"} label={matchedRules[key].matched_technology_how[howKey]} size="small" />
+                                                            <Chip
+                                                                color={
+                                                                    matchedRules[key].data_type.toLowerCase() === "how" ? "primary_transparent_30" : "default"
+                                                                }
+                                                                label={matchedRules[key].matched_technology_how[howKey]}
+                                                                size="small"
+                                                            />
 
                                                         )
                                                     })}
@@ -135,24 +152,23 @@ export default function TechReview(props) {
                                             Threats
                                         </Typography>
 
-{ matchedRules[key].threats.map((threat) => {
-    return(
-    <Card sx={{
-                                            boxShadow: 3,
-                                            borderRadius: 2,
-                                            padding: 0.25,
-                                            m:0.5,
-                                            backgroundColor: Color("#FF5733").alpha(0.05).string(),
-                                        }}>
-                                            <Typography padding={1} variant="body2">
-                                                {threat}
-                                            </Typography>
-                                        </Card>
-                                        )
+                                        {matchedRules[key].threats.map((threat) => {
+                                            return (
+                                                <Card sx={{
+                                                    boxShadow: 3,
+                                                    borderRadius: 2,
+                                                    padding: 0.25,
+                                                    m: 0.5,
+                                                    backgroundColor: Color("#FF5733").alpha(0.05).string(),
+                                                }}>
+                                                    <Typography padding={1} variant="body2">
+                                                        {threat}
+                                                    </Typography>
+                                                </Card>
+                                            )
 
-})}
-                                        {/* {Object.keys(matchedRules[key]).map((key) => { */}
-                                        
+                                        })}
+
 
                                         <Typography marginTop={2} sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                             Recommendation
