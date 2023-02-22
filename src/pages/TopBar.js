@@ -51,7 +51,7 @@ const TopBar = () => {
         fontFamily={'Creepster'} 
         color="primary" 
         fontSize={'100px'}>
-          Simple Threat Model
+          Epic Threat Model
         </Typography>
         </Grid>
         <Grid item>

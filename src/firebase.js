@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from '@firebase/firestore'
 
-// Simple Threat Model's Firebase configuration
+// Epic Threat Model's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC1ygKpFN3XDPfhW3JRinUvLuMV_gn_qyo",
   authDomain: "simple-threat-model.firebaseapp.com",

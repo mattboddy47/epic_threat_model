@@ -63,10 +63,10 @@ const Signin = () => {
             </div>
 
             <Typography padding={2} align="center" >
-                The Simple Threat Modelling Tool is in pre-alpha.
+                The Epic Threat Modelling Tool is in pre-alpha.
                 <br/>
                 <br/>
-                If you have been invited to do so, sign in to the Simple Threat Modelling tool below.
+                If you have been invited to do so, sign in to the Epic Threat Modelling tool below.
             </Typography>
             <div class="centered padded">
             <ButtonGroup aria-label="sign in button group">

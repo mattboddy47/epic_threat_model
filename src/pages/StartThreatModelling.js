@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react'
 import '../index.css';
 import Card from '@mui/material/Card';
 import { CardActionArea } from '@mui/material';
@@ -9,108 +8,40 @@ import { useNavigate } from 'react-router-dom'
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { out_of_cloud_hosting_credit } from '../Text/ErrorTexts';
+import add from '../images/add.png'
+import { TitleWithButton } from "../components/TitleWithButton";
+import CreateEpic from './DevSecOps/CreateEpic';
+import { UserAuth } from '../context/AuthContext';
 import CircularProgress from '@mui/material/CircularProgress';
-import { toast } from 'react-toastify';
 
 
 export default function StartThreatModelling() {
     const navigate = useNavigate();
-    const storage = getStorage();
-    const [devSecOpsImage, setDevSecOpsImage] = useState()
-    const [secOpsImage, setSecOpsImage] = useState()
+    const [open, setOpen] = React.useState(false);
+    const { user } = UserAuth();
 
-
-    useEffect(() => {
-        const devSecOpsimageRef = ref(storage, 'images/devsecops2.png');
-        const secOpsimageRef = ref(storage, 'images/secops1.png');
-
-        getDownloadURL(devSecOpsimageRef)
-            .then((imageUrl) => {
-                setDevSecOpsImage(imageUrl);
-            }).catch(error => {
-                console.log(error)
-                switch (error.code) {
-                    case 'storage/quota-exceeded':
-                        navigate('/error', { state: { speech: out_of_cloud_hosting_credit } })
-                        break;
-                    default:
-                        navigate('/error')
-                        break;
-                }
-            })
-
-
-        getDownloadURL(secOpsimageRef)
-            .then((imageUrl) => {
-                setSecOpsImage(imageUrl);
-            }).catch(error => {
-                console.log(error)
-                switch (error.code) {
-                    case 'storage/quota-exceeded':
-                        navigate('/error', { state: { speech: out_of_cloud_hosting_credit } })
-                        break;
-                    default:
-                        navigate('/error')
-                        break;
-                }
-            })
-           // eslint-disable-next-line  
-    }, []);
-
-    if (secOpsImage && devSecOpsImage) {
-
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
+    
+if (user){
         return (
             <>
-                <Typography textAlign={'center'}  margin={2} gutterBottom component="div">
- Please select the pathway that you are wanting to model... </Typography>
+ <TitleWithButton
+          title={"Epic Threat Models"}
+          buttonLabel={"Add Epic"}
+          onClick={handleClickOpen}
+        />
                 <Grid container
                     direction="row"
                     spacing={2}
+                    marginBottom={5}
                     justifyContent="center"
                     alignItems="center">
-                    {/* SECOPS */}
-                    <Grid item>
-                        <Card
-                            sx={{
-                                boxShadow: 1,
-                                borderRadius: 7,
-                                marginTop: 4,
-                                marginBottom: 5
-                            }}>
-                            <CardActionArea
-                                onClick={event => {
-toast.info("SecOps Threat Modelling is coming soon")
-                                    // navigate('/choose-assets')
-                                }}
-                            >
-                                <CardMedia
-                                    component="img"
-                                    image={secOpsImage}
-                                    alt="Security Operations Centre"
-                                    sx={{
-                                        boxShadow: 1,
-                                        borderRadius: 7,
-                                        width: 350,
-                                    }}
-                                />
-                                {/* USE https://www.midjourney.com/home/ FOR IMAGES */}
-                                <CardContent
-                                    sx={{
-                                        width: 350,
-                                        height: 150,
-                                    }}>
-                                    <Typography gutterBottom variant="h5" component="div">
-                                        SecOps
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        Start threat modelling your hardware
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
-                    </Grid>
 
                     {/* DEVSECOPS */}
                     <Grid item>
@@ -118,53 +49,59 @@ toast.info("SecOps Threat Modelling is coming soon")
                             sx={{
                                 boxShadow: 1,
                                 borderRadius: 7,
-                                marginTop: 4,
-                                marginBottom: 5
+                                padding: 0.25,
+                                width: '90vw',
+                                display: "flex"
                             }}>
+                               
                             <CardActionArea
-                                onClick={event => {
-                                    navigate('/choose-tech')
-                                }}
+                                onClick={handleClickOpen}
                             >
+                          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                                 <CardMedia
                                     component="img"
-                                    image={devSecOpsImage}
+                                    image={add}
                                     alt="Developer performing security tasks"
                                     sx={{
                                         boxShadow: 1,
                                         borderRadius: 7,
-                                        width: 350,
+                                        width: 100,
+                                        height: 100
                                     }}
                                 />
                                 {/* USE https://www.midjourney.com/home/ FOR IMAGES */}
                                 <CardContent
-                                    sx={{
-                                        width: 350,
-                                        height: 150,
-                                    }}>
-                                    <Typography gutterBottom variant="h5" component="div">
-                                        DevSecOps
+                                sx={{ flexDirection: 'column', display:'flex', flex: '1 0 auto' }}
+                                >
+                                    <Typography variant="h6">
+                                        Add new Epic
                                     </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        Start threat modelling for the software you are creating
+                                    <Typography >
+                                        Add the Epic that you are about to start work on to understand the Threats it could face
                                     </Typography>
                                 </CardContent>
+                                </Box>
+
                             </CardActionArea>
                         </Card>
                     </Grid>
                 </Grid>
+
+                <CreateEpic
+                onClose={handleClose}
+                open={open}
+                user={user}
+                />
             </>
         )
-    }
+                                }
 
-    return (
-        <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            minHeight="70vh"
-        >
-            <CircularProgress />
-        </Box>
-    )
+                                return (
+
+                                    <div class="centered">
+                                      <CircularProgress />
+                                    </div>
+
+                                )
+    
 }

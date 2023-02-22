@@ -6,7 +6,7 @@ const Footer = () => {
     
     return (
         <div class="footer">
-            © {yearTxt} Simple Threat Model - Developed by Matthew Boddy
+            © {yearTxt} Epic Threat Model - Developed by Matthew Boddy
         </div>
     )
 }
