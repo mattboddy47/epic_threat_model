@@ -27,8 +27,7 @@ export default function StartThreatModelling() {
     const { user } = UserAuth();
 
     const handleClickOpenEpic = (epic) => {
-        console.log("CLICK!")
-        console.log(epic)
+        navigate("/choose-tech", {state:{id : epic.id }})
     }
 
     const handleClickOpenAddEpicDialog = () => {

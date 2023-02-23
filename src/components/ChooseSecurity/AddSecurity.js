@@ -14,6 +14,7 @@ export default function AddSecurity(props) {
   const setSecTech = props.setSecTech;
   const secAssetsJson = props.secAssetsJson;
   const [loading, setLoading] = useState(true);
+  const epicId = props.epicId;
   const user = props.user
   const handleCloseAddTech = props.handleCloseAddTech;
 
@@ -87,6 +88,7 @@ export default function AddSecurity(props) {
                   description={secAssetsJson[key].description}
                   tech={secAssetsJson[key]}
                   setSecTech={setSecTech}
+                  epicId={epicId}
                   allSecTech={secTech}
                   selected={secAssetsJson[key].selected}
                   user={user}

@@ -7,6 +7,8 @@ import { getAssets } from '../../Functions/Assets'
 import { useNavigate } from 'react-router-dom';
 import { getSecTechStack } from '../../Functions/SecurityTechStack';
 import CurrentSecurityStack from '../../components/ChooseSecurity/CurrentSecurityStack';
+import {useLocation} from 'react-router-dom';
+import { validateEpicId } from '../../Functions/Validations'
 
 
 export default function ChooseSecurity() {
@@ -15,6 +17,13 @@ export default function ChooseSecurity() {
     const [secAssetsJson, setSecAssetsJson] = useState(null)
     const [securityTech, setSecurityTech] = useState(null);
     const navigate = useNavigate();
+
+    const location = useLocation();
+    const epicId = validateEpicId(location);
+
+    if (!epicId){
+      navigate('/error')
+    }
 
     useEffect(() => {
         getAssets(user)
@@ -35,7 +44,7 @@ export default function ChooseSecurity() {
 
 
 
-        getSecTechStack(user)
+        getSecTechStack(user, epicId)
             .then((secTechStack) => {
                 setSecurityTech(secTechStack)
 
@@ -57,14 +66,17 @@ export default function ChooseSecurity() {
     if (securityTech && secAssetsJson) {
         return (
             <div>
-                <DevSecOpsStepper step={1} />
+                <DevSecOpsStepper step={1} epicId={epicId} />
                 <CurrentSecurityStack
                     user={user}
                     securityTech={securityTech}
                     secAssetsJson={secAssetsJson}
                     setSecurityTech={setSecurityTech}
+                    epicId={epicId}
                 />
-                <PageNavigationFAB buttonText='Review Threats' nextPageURL='/review-developer-threats' />
+                <PageNavigationFAB buttonText='Review Threats' 
+                click={() => navigate('/review-developer-threats' , {state:{id : epicId }})} 
+                />
             </div>
         )
     }

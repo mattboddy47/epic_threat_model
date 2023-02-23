@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function ThreatModelStepper(props) {
-  const currentStep = props.step
+  const currentStep = props.step;
+  const epicId = props.epicId;
   const navigate = useNavigate();
 
   return (
@@ -29,21 +30,22 @@ export default function ThreatModelStepper(props) {
           }
         }}>
         <Step
-          onClick={() => navigate("/choose-tech")}
+          onClick={() => navigate("/choose-tech", {state:{id : epicId }})
+        }
           key="Select Tech Stack"
         >
           <StepLabel>Select Tech Stack</StepLabel>
         </Step>
 
         <Step
-          onClick={() => navigate("/choose-security")}
+          onClick={() => navigate("/choose-security", {state:{id : epicId }})}
           key="Select Security Stack"
         >
           <StepLabel>Select Security Stack</StepLabel>
         </Step>
 
         <Step
-          onClick={() => navigate("/review-developer-threats")}
+          onClick={() => navigate("/review-developer-threats", {state:{id : epicId }})}
           key="Review Threats"
         >
           <StepLabel>Review Threats</StepLabel>

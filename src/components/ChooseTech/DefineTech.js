@@ -16,7 +16,7 @@ import DialogContent from '@mui/material/DialogContent';
 
 
 export function DefineTech(props) {
-    const { onClose, tech, open, imageUrl, user } = props;
+    const { onClose, tech, open, imageUrl, user, epicId } = props;
     const [chips, setChips] = useState(tech.asset_containers);
     const techName = tech.name
     const title = "Define Technology"
@@ -50,6 +50,7 @@ export function DefineTech(props) {
                         onClose={onClose}
                         tech={tech}
                         allTech={userTech}
+                        epicId = {epicId}
                         setTech={setUserTech} />
                 </LargeInfoCard>
             </Dialog>
@@ -93,12 +94,13 @@ export function DefineTech(props) {
                                     onClose,
                                     toast,
                                     userTech,
-                                    setUserTech
+                                    setUserTech,
+                                    epicId
                                 )
                             }
                         }
                         onClose={onClose}
-                        removeAssetOnClick={() => { removeAllTechFromDB(user, techName, onClose, userTech, setUserTech) }} />
+                        removeAssetOnClick={() => { removeAllTechFromDB(user, techName, onClose, userTech, setUserTech, epicId) }} />
                 </LargeInfoCard>
             </DialogContent>
         </Dialog>

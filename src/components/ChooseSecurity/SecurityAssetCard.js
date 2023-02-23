@@ -10,6 +10,7 @@ export default function SecurityAssetCard(props) {
     const image = props.image;
     const title = props.title;
     const description = props.description;
+    const epicId = props.epicId
     const tech = props.tech;
     const allSecTech = props.allSecTech;
     const setSecTech = props.setSecTech;
@@ -39,6 +40,7 @@ export default function SecurityAssetCard(props) {
         imageUrl={image}
         user={user}
         handleCloseAddTech={handleCloseAddTech}
+        epicId = {epicId}
       />
         <Card
         sx={{ 

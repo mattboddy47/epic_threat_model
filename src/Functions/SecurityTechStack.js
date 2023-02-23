@@ -1,12 +1,13 @@
 import { db } from '../firebase'
 import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'firebase/firestore'
 
-export function removeSecTechFromDB(user, assetName, techName, allTech, setTech) {
+export function removeSecTechFromDB(user, assetName, techName, allTech, setTech, epicId) {
     getDocs(query(
       collection(db, "dev_sec_ops_sec_tech"),
       where("owner", "==", user.uid),
       where("asset", "==", assetName),
-      where("name", "==", techName)
+      where("name", "==", techName),
+      where("epicId", "==", epicId)
     )).then(data => {
       const tech = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
      
@@ -36,12 +37,13 @@ function removeSecTechFromStack(techStack, setTech, assetName) {
 }
 
 export function removeAllSecTechFromDB(user, techName, onClose, 
-    allSecTech, setSecTech
+    allSecTech, setSecTech, epicId
     ) {
     getDocs(query(
         collection(db, "dev_sec_ops_sec_tech"),
         where("owner", "==", user.uid),
-        where("name", "==", techName)
+        where("name", "==", techName),
+        where("epicID", "==", epicId)
     )).then(data => {
         const tech = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         try {
@@ -70,7 +72,7 @@ function removeAllTechFromStack(techStack, setTech, techName) {
     return newTechStack;
 }
 
-function addTechToStack(techStack, setTechStack, tech, assetName, user) {
+function addTechToStack(techStack, setTechStack, tech, assetName, user, epicId) {
     const newTechStack = JSON.parse(JSON.stringify(techStack));
     newTechStack.push({
         name: tech.name,
@@ -78,14 +80,15 @@ function addTechToStack(techStack, setTechStack, tech, assetName, user) {
         description: tech.description,
         image: tech.image,
         storesData: tech.holds_sensitive_data,
-        owner: user.uid
+        owner: user.uid,
+        epicId: epicId
     })
     setTechStack(newTechStack);
     return newTechStack;
 }
 
 export function addSecTechToDB(tech, protectedTech, user, onClose, 
-    secTechStack, setSecTechStack, settings
+    secTechStack, setSecTechStack, settings, epicId
     ) {
     const techCollectionRef = collection(db, "dev_sec_ops_sec_tech")
 
@@ -97,10 +100,11 @@ export function addSecTechToDB(tech, protectedTech, user, onClose,
             image: tech.image,
             protectsData: tech.protects_sensitive_data_tech,
             owner: user.uid,
-            settings:settings
+            settings:settings,
+            epicId: epicId
         })
             .then(
-                addTechToStack(secTechStack, setSecTechStack, tech, tech.name, user)
+                addTechToStack(secTechStack, setSecTechStack, tech, tech.name, user, epicId)
             )
             .then(
                 onClose(true)
@@ -110,17 +114,18 @@ export function addSecTechToDB(tech, protectedTech, user, onClose,
 
 
 
-export function getSecTechStack(user) {
+export function getSecTechStack(user, epicId) {
     return new Promise((resolve, reject) => {
         // eslint-disable-next-line 
-        if (user.uid == undefined) {
+        if (user.uid == undefined || epicId == undefined) {
             reject('user_error');
         }
         try {
             getDocs(
                 query(
                     collection(db, "dev_sec_ops_sec_tech"),
-                    where("owner", "==", user.uid)
+                    where("owner", "==", user.uid),
+                    where("epicId", "==", epicId)
                 )).then((data => {
                     resolve(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
                 }))

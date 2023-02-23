@@ -10,6 +10,7 @@ export default function AssetCard(props) {
     const image = props.image;
     const title = props.title;
     const description = props.description;
+    const epicId = props.epicId;
     const tech = props.tech;
     const allTech = props.allTech;
     const setUserTech = props.setUserTech;
@@ -37,6 +38,7 @@ export default function AssetCard(props) {
         setUserTech={setUserTech}
         onClose={handleClose}
         imageUrl={image}
+        epicId={epicId}
         user={user}
         handleCloseAddTech={handleCloseAddTech}
       />

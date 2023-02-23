@@ -15,7 +15,8 @@ import Typography from '@mui/material/Typography'
 
 export function DefineSecureTech(props) {
     const { onClose, tech, open, imageUrl, user } = props;
-    const techName = tech.name
+    const techName = tech.name;
+    const epicId = props.epicId;
     const title = "Define Technology"
     const allSecTech = props.allSecTech;
     const setSecTech = props.setSecTech;
@@ -34,7 +35,7 @@ export function DefineSecureTech(props) {
     
     useEffect(() => {
         
-        getTechStack(user)
+        getTechStack(user, epicId)
             .then((t) => {
                 const filteredTech = t.filter(te => te.storesData)
                 const assets = filteredTech.map(function(t) {
@@ -88,7 +89,8 @@ export function DefineSecureTech(props) {
                                         onClose,
                                         allSecTech,
                                         setSecTech,
-                                        settings
+                                        settings,
+                                        epicId
                                     )
                                 }
                             }
@@ -99,7 +101,8 @@ export function DefineSecureTech(props) {
                                     techName,
                                     onClose,
                                     allSecTech,
-                                    setSecTech
+                                    setSecTech,
+                                    epicId
                                 )
                             }}
                         />
@@ -133,7 +136,8 @@ export function DefineSecureTech(props) {
                                         onClose,
                                         allSecTech,
                                         setSecTech,
-                                        settings
+                                        settings,
+                                        epicId
                                     )
                                 }
                             }
@@ -144,7 +148,8 @@ export function DefineSecureTech(props) {
                                     techName,
                                     onClose,
                                     allSecTech,
-                                    setSecTech
+                                    setSecTech,
+                                    epicId
                                 )
                             }}
                         />

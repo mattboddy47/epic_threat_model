@@ -12,6 +12,7 @@ export const WhatWhoHowWhyChips = (props) => {
     const tech = props.tech;
     const allTech = props.allTech;
     const onClose = props.onClose;
+    const epicId = props.epicId
     const { user } = UserAuth();
     const assetName = getAssetName(tech.name, tech.existingTechCount);
     const setTech = props.setTech;
@@ -156,7 +157,8 @@ export const WhatWhoHowWhyChips = (props) => {
                     assetName, 
                     onClose,
                     setTech,
-                    allTech
+                    allTech,
+                    epicId
                     )}}
                 onClose={onClose}
                 removeAssetOnClick={() => {removeAllTechFromDB(
@@ -164,7 +166,8 @@ export const WhatWhoHowWhyChips = (props) => {
                     tech.name, 
                     onClose,
                     allTech,
-                    setTech
+                    setTech,
+                    epicId
                 )}} />
 
         </>

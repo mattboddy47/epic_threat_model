@@ -13,6 +13,8 @@ import { applyCWEsToTech } from "../../Functions/CWEAssessment";
 import { applyRulesToTech } from "../../Functions/Rules";
 import { getTechStack } from '../../Functions/TechStack';
 import { getSecTechStack } from '../../Functions/SecurityTechStack';
+import {useLocation} from 'react-router-dom';
+import { validateEpicId } from '../../Functions/Validations'
 
 export default function ReviewThreats() {
   const [tech, setTech] = useState();
@@ -28,6 +30,12 @@ export default function ReviewThreats() {
   const cweJsonPath = ref(storage, 'CWEs.json');
   const programmingLanguageRef = useRef(null);
   const recommendationsRef = useRef(null);
+  const location = useLocation();
+  const epicId = validateEpicId(location);
+
+  if (!epicId){
+    navigate('/error')
+  }
 
   useEffect(() => {
     // eslint-disable-next-line 
@@ -35,7 +43,7 @@ export default function ReviewThreats() {
       return;
     }
 
-    getTechStack(user)
+    getTechStack(user, epicId)
     .then((techStack) => {
       setTech(techStack)
 
@@ -51,7 +59,7 @@ export default function ReviewThreats() {
       }
     )
 
-    getSecTechStack(user)
+    getSecTechStack(user, epicId)
     .then((secTechStack) => {
       setSecurityStack(secTechStack)
 
@@ -127,7 +135,7 @@ export default function ReviewThreats() {
   if (matchedRules && matchedCWEs) {
     return (
       <div>
-        <DevSecOpsStepper step={2} />
+        <DevSecOpsStepper step={2} epicId={epicId} />
         <ThreatsSummary
           matchedRules={matchedRules}
           matchedCWEs={matchedCWEs}

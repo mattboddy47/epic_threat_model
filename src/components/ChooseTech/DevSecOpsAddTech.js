@@ -22,6 +22,7 @@ export const DevSecOpsAddTech = (props) => {
   const userTech = props.userTech;
   const setUserTech = props.setUserTech;
   const userTechCount = Object.keys(userTech).length;
+  const epicId = props.epicId;
   const storage = getStorage();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
@@ -133,7 +134,7 @@ export const DevSecOpsAddTech = (props) => {
                   user={user}
                   allTech={userTech}
                   setTech={setUserTech}
-                  removeTechFromDB={() => removeTechFromDB(user, userTech[key].asset, userTech[key].name, userTech, setUserTech)}
+                  removeTechFromDB={() => removeTechFromDB(user, userTech[key].asset, userTech[key].name, userTech, setUserTech, epicId)}
 
                 />
 
@@ -152,6 +153,7 @@ export const DevSecOpsAddTech = (props) => {
             user={user}
             userTech={userTech}
             setUserTech={setUserTech}
+            epicId={epicId}
             assetsJson={assetsJson}
             handleCloseAddTech={handleClose}
           />

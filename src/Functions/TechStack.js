@@ -2,12 +2,13 @@ import { db } from '../firebase'
 import { collection, getDocs, addDoc, deleteDoc, query, where, doc } from 'firebase/firestore'
 
 
-export function removeTechFromDB(user, assetName, techName, allTech, setTech) {
+export function removeTechFromDB(user, assetName, techName, allTech, setTech, epicId) {
     getDocs(query(
       collection(db, "dev_sec_ops_tech"),
       where("owner", "==", user.uid),
       where("asset", "==", assetName),
-      where("name", "==", techName)
+      where("name", "==", techName),
+      where("epicId", "==", epicId)
     )).then(data => {
       const tech = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
      
@@ -27,11 +28,12 @@ export function removeTechFromDB(user, assetName, techName, allTech, setTech) {
 
   }
 
-export function removeAllTechFromDB(user, techName, onClose, allTech, setTech) {
+export function removeAllTechFromDB(user, techName, onClose, allTech, setTech, epicId) {
     getDocs(query(
         collection(db, "dev_sec_ops_tech"),
         where("owner", "==", user.uid),
-        where("name", "==", techName)
+        where("name", "==", techName),
+        where("epicId", "==", epicId)
     )).then(data => {
         const tech = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
         try {
@@ -68,7 +70,7 @@ function removeAllTechFromStack(techStack, setTech, techName) {
     return newTechStack;
 }
 
-function addTechToStack(techStack, setTechStack, tech, assetName, user) {
+function addTechToStack(techStack, setTechStack, tech, assetName, user, epicId) {
     const newTechStack = JSON.parse(JSON.stringify(techStack));
     newTechStack.push({
         name: tech.name,
@@ -76,13 +78,14 @@ function addTechToStack(techStack, setTechStack, tech, assetName, user) {
         description: tech.description,
         image: tech.image,
         storesData: tech.holds_sensitive_data,
-        owner: user.uid
+        owner: user.uid,
+        epic: epicId
     })
     setTechStack(newTechStack);
     return newTechStack;
 }
 
-export function addSensitiveDataTechToDB(whatChips, whoChips, howChips, whyChips, tech, user, assetName, onClose, setTech, allTech) {
+export function addSensitiveDataTechToDB(whatChips, whoChips, howChips, whyChips, tech, user, assetName, onClose, setTech, allTech, epicId) {
     const techCollectionRef = collection(db, "dev_sec_ops_tech")
 
     // Filter to the selected chips
@@ -102,11 +105,12 @@ export function addSensitiveDataTechToDB(whatChips, whoChips, howChips, whyChips
         description: tech.description,
         asset: assetName,
         image: tech.image,
-        storesData: tech.holds_sensitive_data
+        storesData: tech.holds_sensitive_data,
+        epicId: epicId
     }).then(
         response => {
             // console.log(response)
-            addTechToStack(allTech, setTech, tech, assetName, user) 
+            addTechToStack(allTech, setTech, tech, assetName, user, epicId) 
             onClose(true)
         }
     ).catch(err => {
@@ -125,7 +129,7 @@ function getSelectedChips(chips) {
 }
 
 
-export function addTechToDB(chips, tech, user, onClose, toast, techStack, setTechStack) {
+export function addTechToDB(chips, tech, user, onClose, toast, techStack, setTechStack, epicId) {
     const techCollectionRef = collection(db, "dev_sec_ops_tech")
     // if there are no chips, then this is a tech such as authentication or WAF where it has no extra parameters. 
     if (chips.length === 0) {
@@ -135,10 +139,11 @@ export function addTechToDB(chips, tech, user, onClose, toast, techStack, setTec
             description: tech.description,
             image: tech.image,
             storesData: tech.holds_sensitive_data,
-            owner: user.uid
+            owner: user.uid,
+            epicId
         })
             .then(
-                addTechToStack(techStack, setTechStack, tech, tech.name, user)
+                addTechToStack(techStack, setTechStack, tech, tech.name, user, epicId)
             )
             .then(
                 onClose(true)
@@ -163,16 +168,17 @@ export function addTechToDB(chips, tech, user, onClose, toast, techStack, setTec
             asset: asset.name,
             storesData: tech.holds_sensitive_data,
             description: tech.description,
-            owner: user.uid
+            owner: user.uid,
+            epicId: epicId
         }).then(
-            newTechStack = addTechToStack(newTechStack, setTechStack, tech, asset.name, user)
+            newTechStack = addTechToStack(newTechStack, setTechStack, tech, asset.name, user, epicId)
         )
     });
     onClose(true)
 }
 
 
-export function getTechStack(user) {
+export function getTechStack(user, epicId) {
     return new Promise((resolve, reject) => {
         // eslint-disable-next-line 
         if (user.uid == undefined) {
@@ -182,7 +188,8 @@ export function getTechStack(user) {
             getDocs(
                 query(
                     collection(db, "dev_sec_ops_tech"),
-                    where("owner", "==", user.uid)
+                    where("owner", "==", user.uid),
+                    where("epicId", "==", epicId)
                 )).then((data => {
                     resolve(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
                 }))

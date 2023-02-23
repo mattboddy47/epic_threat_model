@@ -15,6 +15,7 @@ export default function AddTech(props) {
   const assetsJson = props.assetsJson;
   const [loading, setLoading] = useState(true);
   const user = props.user
+  const epicId = props.epicId
   const handleCloseAddTech = props.handleCloseAddTech;
 
 
@@ -88,6 +89,7 @@ export default function AddTech(props) {
                   tech={assetsJson[key]}
                   setUserTech={setUserTech}
                   allTech={userTech}
+                  epicId={epicId}
                   selected={assetsJson[key].selected}
                   user={user}
                   handleCloseAddTech={handleCloseAddTech}

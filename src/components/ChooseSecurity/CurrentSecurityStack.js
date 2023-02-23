@@ -15,6 +15,7 @@ import { TitleWithButton } from "../TitleWithButton";
 export default function CurrentSecurityStack(props) {
     const navigate = useNavigate();
     const user = props.user;
+    const epicId = props.epicId;
     const securityTech = props.securityTech;
     const secAssetsJson = props.secAssetsJson;
     const setSecurityTech = props.setSecurityTech;
@@ -134,7 +135,7 @@ export default function CurrentSecurityStack(props) {
                                     user={user}
                                     allTech={securityTech}
                                     setTech={setSecurityTech}
-                                    removeTechFromDB={() => removeSecTechFromDB(user, securityTech[key].asset, securityTech[key].name, securityTech, setSecurityTech)}
+                                    removeTechFromDB={() => removeSecTechFromDB(user, securityTech[key].asset, securityTech[key].name, securityTech, setSecurityTech, epicId)}
                                 />
 
                             </Grid>
@@ -151,6 +152,7 @@ export default function CurrentSecurityStack(props) {
 
                     <AddSecurity
                         secAssetsJson={secAssetsJson}
+                        epicId={epicId}
                         user={user}
                         handleCloseAddTech={handleClose}
                         setSecTech={setSecurityTech}
