@@ -2,7 +2,7 @@ import * as React from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import TextField from '@mui/material/TextField'
-import { BoxOfStuff } from '../../components/BoxOfStuff';
+import { BoxOfStuff } from '../BoxOfStuff';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -46,6 +46,8 @@ export default function CreateEpic(props) {
     const onClose = props.onClose;
     const user = props.user;
     const open = props.open;
+    const epics = props.epics;
+    const setEpics = props.setEpics;
     const [securityFocus, setSecurityFocus] = React.useState([]);
     const theme = useTheme();
     const [epicName, setEpicName] = React.useState()
@@ -131,11 +133,11 @@ export default function CreateEpic(props) {
                                 </FormControl>
                             </Grid>
                             {/* TODO Link the epic with any other existing epics  */}
-
+                            
                             {/* create button */}
                             <Grid item>
                                 <Button
-                                    onClick={() => addEpicToDB(epicName, securityFocus, onClose, user)}
+                                    onClick={() => addEpicToDB(epicName, securityFocus, onClose, user, setEpics, epics)}
                                     color="primary"
                                     variant="contained">
                                     Create
