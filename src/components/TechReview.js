@@ -1,5 +1,5 @@
 import Card from '@mui/material/Card';
-import { React } from 'react'
+import { React, useState, useEffect } from 'react'
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
@@ -9,11 +9,36 @@ import Color from 'color';
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Divider from '@mui/material/Divider';
+import { getEpic } from '../Functions/Epics'
+import { useNavigate } from 'react-router-dom'
 
 export default function TechReview(props) {
     const matchedRules = props.matchedRules;
+    const [epic, setEpic] = useState();
+    const epicId = props.epicId;
+    const user = props.user;
+    const navigate = useNavigate();
 
-    if (matchedRules) {
+    useEffect(() => {
+        getEpic(user, epicId)
+            .then((allEpics) => {
+                setEpic(allEpics[0])
+            })
+            .catch(
+                (error) => {
+                    switch (error) {
+                        case ('user_error'):
+                            break;
+                        default:
+                            navigate('/error')
+                    }
+                }
+            )
+
+
+    }, [])
+
+    if (epic) {
         return (
             <>
                 <Box
@@ -67,7 +92,6 @@ export default function TechReview(props) {
                                         <Typography marginBottom={2} variant="body2">
                                             {matchedRules[key].matched_technology_description}
                                         </Typography>
-
 
 
                                         <Grid container
@@ -168,6 +192,34 @@ export default function TechReview(props) {
                                             )
 
                                         })}
+
+<Typography marginTop={2} sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                            Potential Data Impact (highlighted chips are the focus of the epic)
+                                        </Typography>
+                                        <Grid container
+                                            spacing={1}>
+                                            {matchedRules[key].impacts.map((impact) => {
+                                                const epicFocusIndex = epic.securityFocus.findIndex( secFocus =>{
+                                                    return secFocus.toLowerCase() === impact.toLowerCase();
+                                                })
+                                                const securityFocusOfEpic = epicFocusIndex !== -1
+                                                console.log(securityFocusOfEpic)
+                                                console.log(impact.toLowerCase())
+                                                console.log(epic.securityFocus)
+                                                return (
+                                                    <Grid item>
+                                                        <Chip
+                                                            color={securityFocusOfEpic ? "primary_transparent_30" : "default"}
+                                                            
+                                                            label={impact}
+                                                            size="small" />
+                                                    </Grid>
+                                                )
+                                            })}
+
+                                        </Grid>
+
+
 
 
                                         <Typography marginTop={2} sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>

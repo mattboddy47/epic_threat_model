@@ -21,10 +21,10 @@ export default function ReviewThreats() {
   const [securityStack, setSecurityStack] = useState();
   const { user } = UserAuth();
   const navigate = useNavigate();
-  const [rules, setRules] = useState()
-  const [CWEs, setCWEs] = useState()
-  const [matchedCWEs, setMatchedCWEs] = useState()
-  const [matchedRules, setMatchedRules] = useState()
+  const [rules, setRules] = useState();
+  const [CWEs, setCWEs] = useState();
+  const [matchedCWEs, setMatchedCWEs] = useState();
+  const [matchedRules, setMatchedRules] = useState();
   const storage = getStorage();
   const rulesJsonPath = ref(storage, 'dev_sec_ops_rules.json');
   const cweJsonPath = ref(storage, 'CWEs.json');
@@ -140,9 +140,15 @@ export default function ReviewThreats() {
           matchedRules={matchedRules}
           matchedCWEs={matchedCWEs}
           recommendationsRef={recommendationsRef}
-          programmingLanguageRef={programmingLanguageRef} />
+          programmingLanguageRef={programmingLanguageRef}
+          />
 
-        <TechReview matchedRules={matchedRules} recommendationsRef={recommendationsRef} />
+        <TechReview 
+        matchedRules={matchedRules} 
+        recommendationsRef={recommendationsRef}
+        epicId={epicId}
+        user={user}
+         />
         <ProgrammingLanguageReview matchedCWEs={matchedCWEs} programmingLanguageRef={programmingLanguageRef} />
       </div>
     )

@@ -27,7 +27,11 @@ export default function StartThreatModelling() {
     const { user } = UserAuth();
 
     const handleClickOpenEpic = (epic) => {
-        navigate("/choose-tech", {state:{id : epic.id }})
+        navigate("/choose-tech", { state: { id: epic.id } })
+    }
+
+    const handleDeleteEpic = (epic) => {
+
     }
 
     const handleClickOpenAddEpicDialog = () => {
@@ -56,7 +60,7 @@ export default function StartThreatModelling() {
                 }
             )
 
-    }, [user]
+    }, [user, epics]
     )
 
     if (epics) {
@@ -150,36 +154,38 @@ export default function StartThreatModelling() {
                                             <CardContent
                                                 sx={{ flexDirection: 'column', display: 'flex', flex: '1 0 auto' }}
                                             >
-                                                <Typography sx={{marginBottom:'5px'}} variant="h6">
+                                                <Typography sx={{ marginBottom: '5px' }} variant="h6">
                                                     {epics[key].name}
                                                 </Typography>
 
                                                 <Grid container
-                    direction="row"
-                    spacing={1}
-                    justifyContent="flex-start"
-                    alignItems="center">
-                        <Grid item>
-                                                <Typography variant='body2' color={"text.secondary"}>
-                                                    Created {creationDate.getDate()}/{creationDate.getMonth()}/{creationDate.getFullYear()}
-                                                </Typography>
-                                   </Grid>            
-                                   <Divider orientation='vertical' sx={{marginLeft:'8px', marginTop:'5px'}}/>
-                        <Grid item>
-                        <Typography variant='body2' color={"text.secondary"}>Security Priorities: </Typography>
-                                   </Grid>
-                                            {Object.keys(epics[key].securityFocus).map((securityFocusKey) => {
-                                                return (
+                                                    direction="row"
+                                                    spacing={1}
+                                                    justifyContent="flex-start"
+                                                    alignItems="center">
                                                     <Grid item>
-                                                    <Chip
-                                                        color={"primary_transparent_30"}
-                                                        label={epics[key].securityFocus[securityFocusKey]}
-                                                        size="small" />
-                                                        </Grid>
-                                                )
-                                            })}
-                                            </Grid>
-                                                                                        </CardContent>
+                                                        <Typography variant='body2' color={"text.secondary"}>
+                                                            Created {creationDate.getDate()}/{creationDate.getMonth()}/{creationDate.getFullYear()}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Divider orientation='vertical' sx={{ marginLeft: '8px', marginTop: '5px' }} />
+                                                    <Grid item>
+                                                        <Typography variant='body2' color={"text.secondary"}>Security Priorities: </Typography>
+                                                    </Grid>
+                                                    {Object.keys(epics[key].securityFocus).map((securityFocusKey) => {
+                                                        return (
+                                                            <Grid item>
+                                                                <Chip
+                                                                    color={"primary_transparent_30"}
+                                                                    label={epics[key].securityFocus[securityFocusKey]}
+                                                                    size="small" />
+                                                            </Grid>
+                                                        )
+                                                    })}
+                                                    
+                                                </Grid>
+
+                                            </CardContent>
 
                                         </Box>
 

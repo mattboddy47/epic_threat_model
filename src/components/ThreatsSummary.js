@@ -6,6 +6,7 @@ export default function ThreatsSummary(props) {
     const matchedCWEs = props.matchedCWEs;
     const recommendationsRef = props.recommendationsRef;
     const programmingLanguageRef= props.programmingLanguageRef;
+
     const learnMoreRecommendationsClick = () => {
         recommendationsRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
@@ -13,7 +14,6 @@ export default function ThreatsSummary(props) {
     const learnMoreProgrammingLanguageClick = () => {
         programmingLanguageRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
-
     return (
         <Grid container
             direction="row"
@@ -23,7 +23,7 @@ export default function ThreatsSummary(props) {
             <Grid item>
                 <NumberCard title="Reccomendations count"
                     count={matchedRules.length}
-                    subtitle="based on discovered security concerns"
+                    subtitle="Based on discovered security concerns"
                     buttonText="Learn More"
                     buttonAction={learnMoreRecommendationsClick} />
             </Grid>
