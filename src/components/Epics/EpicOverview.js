@@ -72,18 +72,21 @@ export function EpicOverviewBox(props) {
                         mt: 2,
                         mb: 2,
                         width: '75vw',
-                        //   backgroundColor: 'rgba(66,66,66,0.15)',
+                          backgroundColor: 'rgba(66,66,66,0.15)',
                         borderRadius: 2,
-                        //   boxShadow: 1,
+                          boxShadow: 1,
                         p: 2,
                     }}
                     validate
                     autoComplete="off"
                 >
-                    <Typography sx={{ marginBottom: '5px' }} variant="h5">
-                        {epic.name}
+                    <Typography>
+                        Epic Details
                     </Typography>
-                    <Divider />
+                    <Typography  variant='body2' color={"text.secondary"} marginBottom={1} marginTop={1}>
+                        Epic Name: "{epic.name}"
+                    </Typography>
+                    {/* <Divider /> */}
 
 
                     <Typography variant='body2' color={"text.secondary"} marginBottom={1} marginTop={1}>

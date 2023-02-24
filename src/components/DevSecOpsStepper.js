@@ -33,7 +33,7 @@ export default function ThreatModelStepper(props) {
       <Typography sx={{ ml: 2, flex: 1 }} variant="h7" component="div">
     Step
   </Typography>
-  <Divider />
+  {/* <Divider /> */}
       </Box>
       </div>
       <Stepper activeStep={currentStep} alternativeLabel
