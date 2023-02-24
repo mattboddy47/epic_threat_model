@@ -2,7 +2,6 @@ import { React, useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
-import Divider from '@mui/material/Divider'
 import Chip from '@mui/material/Chip'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useNavigate } from 'react-router-dom';
@@ -86,7 +85,6 @@ export function EpicOverviewBox(props) {
                     <Typography  variant='body2' color={"text.secondary"} marginBottom={1} marginTop={1}>
                         Epic Name: "{epic.name}"
                     </Typography>
-                    {/* <Divider /> */}
 
 
                     <Typography variant='body2' color={"text.secondary"} marginBottom={1} marginTop={1}>

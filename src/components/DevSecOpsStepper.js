@@ -5,7 +5,6 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
-import Divider from '@mui/material/Divider'
 
 
 export default function ThreatModelStepper(props) {
@@ -33,7 +32,6 @@ export default function ThreatModelStepper(props) {
       <Typography sx={{ ml: 2, flex: 1 }} variant="h7" component="div">
     Step
   </Typography>
-  {/* <Divider /> */}
       </Box>
       </div>
       <Stepper activeStep={currentStep} alternativeLabel
