@@ -53,6 +53,7 @@ export function EpicOverviewBox(props) {
                     }
                 }
             )
+                    // eslint-disable-next-line
     }, [user])
     if (epic) {
         const creationDate = new Date(epic.creationDate)

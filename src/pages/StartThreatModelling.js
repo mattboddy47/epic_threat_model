@@ -30,10 +30,6 @@ export default function StartThreatModelling() {
         navigate("/choose-tech", { state: { id: epic.id } })
     }
 
-    const handleDeleteEpic = (epic) => {
-
-    }
-
     const handleClickOpenAddEpicDialog = () => {
         setOpen(true);
     };
@@ -59,7 +55,7 @@ export default function StartThreatModelling() {
                     }
                 }
             )
-
+        // eslint-disable-next-line
     }, [user]
     )
 

@@ -5,7 +5,6 @@ import {
     addDoc,
     deleteDoc, 
     query,
-    FieldPath,
     where,
     doc
 } from 'firebase/firestore'

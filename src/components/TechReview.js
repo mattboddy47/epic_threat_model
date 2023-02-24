@@ -36,7 +36,7 @@ export default function TechReview(props) {
                 }
             )
 
-
+        // eslint-disable-next-line
     }, [])
 
     if (epic) {

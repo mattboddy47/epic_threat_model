@@ -3,7 +3,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import TextField from '@mui/material/TextField'
 import { BoxOfStuff } from '../BoxOfStuff';
-import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -34,14 +33,6 @@ const securityFocusChips = [
     'Availability'
 ];
 
-// function getStyles(securityFocusChip, securityFocus, theme) {
-//     return {
-//         fontWeight:
-//         securityFocus.indexOf(securityFocusChip) === -1
-//                 ? theme.Typography.fontWeightRegular
-//                 : theme.Typography.fontWeightMedium,
-//     };
-// }
 
 
 export default function CreateEpic(props) {
@@ -51,7 +42,6 @@ export default function CreateEpic(props) {
     const epics = props.epics;
     const setEpics = props.setEpics;
     const [securityFocus, setSecurityFocus] = React.useState([]);
-    const theme = useTheme();
     const [epicName, setEpicName] = React.useState()
 
     React.useEffect(() =>{
@@ -130,7 +120,6 @@ export default function CreateEpic(props) {
                                             <MenuItem
                                                 key={CIAChip}
                                                 value={CIAChip}
-                                                // style={getStyles(CIAChip, securityFocus, theme)}
                                             >
                                                 {CIAChip}
                                             </MenuItem>
