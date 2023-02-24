@@ -60,7 +60,7 @@ export default function StartThreatModelling() {
                 }
             )
 
-    }, [user, epics]
+    }, [user]
     )
 
     if (epics) {

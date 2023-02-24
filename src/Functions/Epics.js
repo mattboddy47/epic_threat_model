@@ -9,11 +9,17 @@ import {
     where,
     // doc
 } from 'firebase/firestore'
+import {
+    validateStringIsText
+} from './Validations'
 
 
-export function addEpicToDB(name, securityFocus, onCloseDialog, user, setEpics, epics) {
+export function addEpicToDB(name, securityFocus, onCloseDialog, user, setEpics, epics, toast) {
     const epicsCollectionRef = collection(db, "Epics");
     const dateTime = Date.now();
+    if (!validateStringIsText){
+        toast.error("Epic names can be made of text only")
+    }
     addDoc(epicsCollectionRef, {
         name: name,
         securityFocus: securityFocus,
@@ -37,7 +43,7 @@ function addEpicToStack(epics, setEpics, name, user, securityFocus, creationDate
         securityFocus: securityFocus,
         owner: user.uid,
         creationDate: creationDate,
-        epicId: epicId
+        id: epicId
     })
     setEpics(newEpicStack);
     return newEpicStack;

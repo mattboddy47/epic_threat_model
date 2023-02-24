@@ -14,6 +14,7 @@ import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import { addEpicToDB } from '../../Functions/Epics';
+import { toast } from 'react-toastify';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -51,6 +52,10 @@ export default function CreateEpic(props) {
     const [securityFocus, setSecurityFocus] = React.useState([]);
     const theme = useTheme();
     const [epicName, setEpicName] = React.useState()
+
+    React.useEffect(() =>{
+
+    },[epics])
 
     const handleChange = (event) => {
         const {
@@ -137,7 +142,7 @@ export default function CreateEpic(props) {
                             {/* create button */}
                             <Grid item>
                                 <Button
-                                    onClick={() => addEpicToDB(epicName, securityFocus, onClose, user, setEpics, epics)}
+                                    onClick={() => addEpicToDB(epicName, securityFocus, onClose, user, setEpics, epics, toast)}
                                     color="primary"
                                     variant="contained">
                                     Create
