@@ -15,6 +15,7 @@ import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import { addEpicToDB } from '../../Functions/Epics';
 import { toast } from 'react-toastify';
+import Typography from '@mui/material/Typography'
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -33,14 +34,14 @@ const securityFocusChips = [
     'Availability'
 ];
 
-function getStyles(securityFocusChip, securityFocus, theme) {
-    return {
-        fontWeight:
-        securityFocus.indexOf(securityFocusChip) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-    };
-}
+// function getStyles(securityFocusChip, securityFocus, theme) {
+//     return {
+//         fontWeight:
+//         securityFocus.indexOf(securityFocusChip) === -1
+//                 ? theme.Typography.fontWeightRegular
+//                 : theme.Typography.fontWeightMedium,
+//     };
+// }
 
 
 export default function CreateEpic(props) {
@@ -86,9 +87,9 @@ export default function CreateEpic(props) {
                     >
                         {/* get the name of the epic */}
                         <Grid item>
-                            <typography>
+                            <Typography>
                                 Give this Epic a name:
-                            </typography>
+                            </Typography>
                             </Grid>
                             <Grid item>
                             <TextField fullWidth
@@ -102,9 +103,9 @@ export default function CreateEpic(props) {
 
                             {/* get the CIA rating of the epic */}
                             <Grid item>
-                                <typography>
+                                <Typography>
                                     Select the most important security factor(s) of this Epic:
-                                </typography>
+                                </Typography>
                             </Grid>
                             <Grid item>
                                 <FormControl sx={{ width: 400 }}>
@@ -129,7 +130,7 @@ export default function CreateEpic(props) {
                                             <MenuItem
                                                 key={CIAChip}
                                                 value={CIAChip}
-                                                style={getStyles(CIAChip, securityFocus, theme)}
+                                                // style={getStyles(CIAChip, securityFocus, theme)}
                                             >
                                                 {CIAChip}
                                             </MenuItem>

@@ -15,6 +15,7 @@ import { getTechStack } from '../../Functions/TechStack';
 import { getSecTechStack } from '../../Functions/SecurityTechStack';
 import {useLocation} from 'react-router-dom';
 import { validateEpicId } from '../../Functions/Validations'
+import { EpicOverviewBox } from '../../components/Epics/EpicOverview';
 
 export default function ReviewThreats() {
   const [tech, setTech] = useState();
@@ -135,6 +136,8 @@ export default function ReviewThreats() {
   if (matchedRules && matchedCWEs) {
     return (
       <div>
+                        <EpicOverviewBox epicId={epicId} user={user} />
+
         <DevSecOpsStepper step={2} epicId={epicId} />
         <ThreatsSummary
           matchedRules={matchedRules}

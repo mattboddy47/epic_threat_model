@@ -15,28 +15,38 @@ import Divider from '@mui/material/Divider'
 export default function ProgrammingLanguageReview(props) {
     const matchedCWEs = props.matchedCWEs; 
     const hasCWEs = matchedCWEs.length > 0;
+    const programmingLanguageRef = props.programmingLanguageRef;
     
     if (matchedCWEs) {
         return (
             <>
                {hasCWEs &&
                <>
-               <Box
-                    m={4}
-                    sx={{
-                        flexGrow: 1
-                    }}>
-                    <Stack
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="center"
-                        marginBottom={2}
-                        spacing={2}>
-                        <Typography sx={{ ml: 2, flex: 1 }} variant="h5" component="div">Potential Vulnerabilities</Typography>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                    <Box
+                        m={4}
+                        sx={{
+                            width: '75vw',
+                            // flexGrow: 1
+                        }}>
+                        <Stack
+                            direction="row"
+                            justifyContent="center"
+                            alignItems="center"
+                            marginBottom={2}
+                            spacing={2}>
+                            <Typography ref={programmingLanguageRef} sx={{ ml: 2, flex: 1 }} variant="h7" component="div">
+                            Potential Vulnerabilities
+                            </Typography>
                     </Stack>
                     <Divider />
 
                 </Box>
+                </div>
                 <Typography variant="body2" color="text.secondary" margin={2}>
                     The following vulnerabilities are applicable to your chosen programming language. These have been extracted from the<Link href='https://cwe.mitre.org/top25/archive/2022/2022_cwe_top25.html#cwe_top_25'> top 25 most dangerous vulnerabilities for 2022</Link>. learn more about these vulnerabilties and how to ensure that you don't introduce them into the code that you are writing. 
                 </Typography>

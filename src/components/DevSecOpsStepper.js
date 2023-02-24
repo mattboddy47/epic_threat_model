@@ -3,7 +3,9 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
+import Typography from '@mui/material/Typography'
 import { useNavigate } from 'react-router-dom'
+import Divider from '@mui/material/Divider'
 
 
 export default function ThreatModelStepper(props) {
@@ -12,11 +14,28 @@ export default function ThreatModelStepper(props) {
   const navigate = useNavigate();
 
   return (
+    
     <Box sx={{
       marginBottom: '50px',
       marginTop: '30px',
       width: '100%'
     }}>
+          <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+            <Box 
+      mb={4}
+      sx={{
+        width: '75vw',
+      }}>
+      <Typography sx={{ ml: 2, flex: 1 }} variant="h7" component="div">
+    Step
+  </Typography>
+  <Divider />
+      </Box>
+      </div>
       <Stepper activeStep={currentStep} alternativeLabel
         sx={{
           '& .MuiStepLabel-root .Mui-completed': {

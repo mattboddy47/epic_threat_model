@@ -3,11 +3,11 @@ import {
     collection,
     getDocs,
     addDoc,
-    // deleteDoc, 
+    deleteDoc, 
     query,
     FieldPath,
     where,
-    // doc
+    doc
 } from 'firebase/firestore'
 import {
     validateStringIsText
@@ -17,8 +17,9 @@ import {
 export function addEpicToDB(name, securityFocus, onCloseDialog, user, setEpics, epics, toast) {
     const epicsCollectionRef = collection(db, "Epics");
     const dateTime = Date.now();
-    if (!validateStringIsText){
+    if (!validateStringIsText(name)){
         toast.error("Epic names can be made of text only")
+        return;
     }
     addDoc(epicsCollectionRef, {
         name: name,
@@ -35,6 +36,41 @@ export function addEpicToDB(name, securityFocus, onCloseDialog, user, setEpics, 
             onCloseDialog(true)
         )
 }
+
+export function deleteEpicFromDB(epicId, user, toast, navigate) {
+    getDocs(query(
+      collection(db, "Epics"),
+      where("owner", "==", user.uid),
+      where('__name__', '==', epicId)
+    )).then(data => {
+      const tech = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+     
+      const runDel = async res => {
+          const assetDoc = doc(db, "Epics", tech[0].id)
+          await deleteDoc(assetDoc)
+          .catch((e) =>{
+            toast.error("Something went wrong whilst trying to delete the Epic")
+          })
+          }
+          runDel()
+          .then(
+            navigate('/start-threat-modelling')
+          )
+          .catch(
+            (e) => {
+                toast("Something went wrong whilst deleting the Epic")
+            }
+          )
+
+    }).catch(
+        (e) => {
+            toast.error("Something went wrong whilst trying to delete the Epic")
+
+        }
+    )
+
+  }
+
 
 function addEpicToStack(epics, setEpics, name, user, securityFocus, creationDate, epicId) {
     const newEpicStack = JSON.parse(JSON.stringify(epics));

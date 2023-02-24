@@ -11,11 +11,16 @@ export const TitleWithButton = (props) => {
   const onClick = props.onClick;
 
     return (
-       
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
       <Box 
       m={4}
       sx={{
-        flexGrow: 1
+        width: '75vw',
+        // flexGrow: 1
       }}>
         <Stack
           direction="row"
@@ -23,7 +28,7 @@ export const TitleWithButton = (props) => {
           alignItems="center"
           marginBottom={2}
           spacing={2}>
-          <Typography sx={{ ml: 2, flex: 1 }} variant="h5" component="div">
+          <Typography sx={{ ml: 2, flex: 1 }} variant="h7" component="div">
             {title}
           </Typography>
           <Button
@@ -37,6 +42,6 @@ export const TitleWithButton = (props) => {
         <Divider />
 
       </Box>
-
+</div>
             )
 }

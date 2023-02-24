@@ -17,6 +17,7 @@ export default function TechReview(props) {
     const [epic, setEpic] = useState();
     const epicId = props.epicId;
     const user = props.user;
+    const recommendationsRef = props.recommendationsRef;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -41,22 +42,31 @@ export default function TechReview(props) {
     if (epic) {
         return (
             <>
-                <Box
-                    m={4}
-                    sx={{
-                        flexGrow: 1
-                    }}>
-                    <Stack
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="center"
-                        marginBottom={2}
-                        spacing={2}>
-                        <Typography sx={{ ml: 2, flex: 1 }} variant="h5" component="div">Recommendations</Typography>
-                    </Stack>
-                    <Divider />
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}>
+                    <Box
+                        m={4}
+                        sx={{
+                            width: '75vw',
+                            // flexGrow: 1
+                        }}>
+                        <Stack
+                            direction="row"
+                            justifyContent="center"
+                            alignItems="center"
+                            marginBottom={2}
+                            spacing={2}>
+                            <Typography ref={recommendationsRef} sx={{ ml: 2, flex: 1 }} variant="h7" component="div">
+                                Recommendations
+                            </Typography>
+                        </Stack>
+                        <Divider />
 
-                </Box>
+                    </Box>
+                </div>
                 <Grid container
                     marginBottom={2}
                     direction="row"
@@ -193,13 +203,13 @@ export default function TechReview(props) {
 
                                         })}
 
-<Typography marginTop={2} sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                        <Typography marginTop={2} sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                             Potential Data Impact (highlighted chips are the focus of the epic)
                                         </Typography>
                                         <Grid container
                                             spacing={1}>
                                             {matchedRules[key].impacts.map((impact) => {
-                                                const epicFocusIndex = epic.securityFocus.findIndex( secFocus =>{
+                                                const epicFocusIndex = epic.securityFocus.findIndex(secFocus => {
                                                     return secFocus.toLowerCase() === impact.toLowerCase();
                                                 })
                                                 const securityFocusOfEpic = epicFocusIndex !== -1
@@ -210,7 +220,7 @@ export default function TechReview(props) {
                                                     <Grid item>
                                                         <Chip
                                                             color={securityFocusOfEpic ? "primary_transparent_30" : "default"}
-                                                            
+
                                                             label={impact}
                                                             size="small" />
                                                     </Grid>

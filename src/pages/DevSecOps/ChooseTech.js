@@ -7,8 +7,9 @@ import { getTechStack } from '../../Functions/TechStack'
 import { DevSecOpsAddTech } from '../../components/ChooseTech/DevSecOpsAddTech';
 import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../../context/AuthContext';
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { validateEpicId } from '../../Functions/Validations'
+import { EpicOverviewBox } from '../../components/Epics/EpicOverview'
 
 
 export default function ChooseTech() {
@@ -19,7 +20,7 @@ export default function ChooseTech() {
   const [tech, setTech] = useState(null);
   const epicId = validateEpicId(location);
 
-  if (!epicId){
+  if (!epicId) {
     navigate('/error')
   }
 
@@ -65,17 +66,18 @@ export default function ChooseTech() {
   if (assetsJson && tech) {
     return (
       <div>
+        <EpicOverviewBox epicId={epicId} user={user} />
         <DevSecOpsStepper step={0} epicId={epicId} />
-        <DevSecOpsAddTech 
-        user={user} 
-        userTech={tech}
-        epicId = {epicId}
-        assetsJson={assetsJson}
-        setUserTech={setTech} 
+        <DevSecOpsAddTech
+          user={user}
+          userTech={tech}
+          epicId={epicId}
+          assetsJson={assetsJson}
+          setUserTech={setTech}
         />
-        <PageNavigationFAB 
-        buttonText='Select Security Tech' 
-        click={() => navigate('/choose-security', {state:{id : epicId }})} 
+        <PageNavigationFAB
+          buttonText='Select Security Tech'
+          click={() => navigate('/choose-security', { state: { id: epicId } })}
         />
       </div>
     )
