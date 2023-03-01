@@ -51,7 +51,7 @@ export default function ThreatsSummary(props) {
                 justifyContent="center"
                 alignItems="center">
                 <Grid item>
-                    <NumberCard title="Reccomendations count"
+                    <NumberCard title="Recommendations count"
                         count={matchedRules.length}
                         subtitle="Based on discovered security concerns"
                         buttonText="Learn More"
