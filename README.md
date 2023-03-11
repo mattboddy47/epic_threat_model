@@ -2,6 +2,8 @@
 <!-- ![Fred the Ghost](src/images/ghost_logo.png) -->
 <img alt="Fred the ghost" src="src/images/ghost_logo.png" width=15% height=15%>
 
+This tool is in pre-alpha. There is no guarentee that the architecture of the Epic Threat Model is not itself vulnerable. There is also no guarentee that it will find all of the threats in the Threat Modelled environment. The only guarentee is that the tool (along with Fred the ghost) will do its very best to help wherever it can.  
+
 ## Intro
 The Epic Threat Model is designed for Developers and Security Engineers to quickly identify security flaws in their cloud application implementation plans. It is designed to be quick to use so that the Threat Modeller can keep up with an Agile process releasing many times every day. It achieves this by doing away with data-flow-diagrams as well as some other aspects of Threat Modelling to keep the platform simple.
 
